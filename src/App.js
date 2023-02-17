@@ -1,5 +1,7 @@
+import Router from "./routes/Router";
+
 function App() {
-  return <div className="text-3xl font-bold underline">Welcome to Bonfire</div>;
+  return <Router />;
 }
 
 export default App;
