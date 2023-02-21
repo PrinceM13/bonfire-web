@@ -24,7 +24,8 @@ export default function RegisterForm() {
     e.preventDefault();
     // might need data validation
     await authApi.register(input);
-    // setInput(initialInput);
+    // clean up
+    setInput(initialInput);
   };
 
   return (
