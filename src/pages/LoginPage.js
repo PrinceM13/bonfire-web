@@ -1,9 +1,60 @@
+import { useGoogleLogin } from "@react-oauth/google";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Logo from "../assets/icons/bonfireLogo.svg";
 import GoogleIcon from "../assets/icons/GoogleIcon";
+import Modal from "../components/Modal";
 
 import LoginForm from "../features/auth/LoginForm";
+import MoreInfoForm from "../features/auth/MoreInfoForm";
+import { loginWithGoogle } from "../redux/auth-slice";
 
 export default function LoginPage() {
+  const [googleToken, setGoogleToken] = useState(null);
+  const [googleData, setGoogleData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const needMoreInfo = useSelector((state) => state.auth.needMoreInfo);
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => setGoogleToken(tokenResponse.access_token)
+  });
+
+  useEffect(() => {
+    const fetchGoogleInfo = async () => {
+      try {
+        const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${googleToken}`
+          }
+        });
+        const data = await res.json();
+        setGoogleData(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    googleToken && fetchGoogleInfo();
+  }, [googleToken]);
+
+  useEffect(() => {
+    googleData &&
+      dispatch(
+        loginWithGoogle(
+          googleData.email,
+          googleData.sub,
+          googleData.given_name,
+          googleData.family_name
+        )
+      );
+  }, [googleData]);
+
+  useEffect(() => {
+    needMoreInfo && setIsOpen(true);
+  }, [needMoreInfo]);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center mt-[13vh] gap-4">
@@ -16,11 +67,26 @@ export default function LoginPage() {
         <h2 className="text-black text-center">Log in to continue</h2>
 
         <LoginForm />
-        <div className="bg-white mt-2 px-4 py-1.5 w-[90vw] shadow-md rounded-full flex justify-between ">
+
+        {/* Modal to get more info for 1st time google login */}
+
+        <Modal
+          title="Please enter to continue"
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          alwaysOpen={true}
+        >
+          <MoreInfoForm />
+        </Modal>
+
+        <div
+          onClick={googleLogin}
+          className="bg-white mt-2 px-4 py-1.5 w-[90vw] shadow-md rounded-full flex justify-between cursor-pointer"
+        >
           <div>
             <GoogleIcon />
           </div>
-          <button className=" text-sm  text-black ">Sign Up with Google</button>
+          <div className="flex items-center text-sm text-black">Login with Google</div>
           <div className="invisible">
             <GoogleIcon />
           </div>
