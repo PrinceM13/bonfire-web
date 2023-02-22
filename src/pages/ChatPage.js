@@ -31,7 +31,11 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <div>CHAT</div>
+      <div>
+        <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white">
+          Yes, I will go
+        </button>
+      </div>
       <div>
         {messages.map((msg, idx) => (
           <div key={idx}>{msg}</div>
