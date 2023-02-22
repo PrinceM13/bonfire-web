@@ -1,7 +1,7 @@
 import AvatarDefault from "../assets/icons/avatarDefault";
 import Post from "../features/post/Post";
 
-export default function ProfilePage() {
+export default function ShowProfilePage() {
   return (
     <>
       <div className="flex">
@@ -9,7 +9,6 @@ export default function ProfilePage() {
         <div className="flex flex-col">
           <h1>Name, 30</h1>
           <h2>@username</h2>
-          <button className="bg-white  shadow-md rounded-full ">Edit profile</button>
         </div>
       </div>
       <div>

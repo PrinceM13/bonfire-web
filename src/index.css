@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Hind", sans-serif;
+    font-family: "Kanit", sans-serif;
+    /* font-family: "Noto Sans Thai", sans-serif; */
+  }
+}
