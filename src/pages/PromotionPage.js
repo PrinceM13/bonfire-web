@@ -7,6 +7,7 @@ export default function PromotionsPage() {
         <h1>Promotions</h1>
       </div>
       <Post />
+      <Post />
     </>
   );
 }

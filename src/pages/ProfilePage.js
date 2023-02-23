@@ -1,5 +1,6 @@
 import AvatarDefault from "../assets/icons/avatarDefault";
 import Post from "../features/post/Post";
+import { Link } from "react-router-dom";
 
 export default function ProfilePage() {
   return (
@@ -9,7 +10,9 @@ export default function ProfilePage() {
         <div className="flex flex-col">
           <h1>Name, 30</h1>
           <h2>@username</h2>
-          <button className="bg-white  shadow-md rounded-full ">Edit profile</button>
+          <Link to="/profile/:userId/edit">
+            <button className="bg-white  shadow-md rounded-full ">Edit profile</button>
+          </Link>
         </div>
       </div>
       <div>

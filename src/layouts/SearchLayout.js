@@ -13,6 +13,7 @@ export default function SearchLayout() {
     case "chatroom":
       needFilter = false;
       break;
+
     default:
       break;
   }

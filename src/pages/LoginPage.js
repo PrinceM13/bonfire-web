@@ -20,7 +20,7 @@ export default function LoginPage() {
           <div>
             <GoogleIcon />
           </div>
-          <button className=" text-sm  text-black ">Sign Up with Google</button>
+          <button className=" text-sm  text-black ">Login with Google</button>
           <div className="invisible">
             <GoogleIcon />
           </div>
