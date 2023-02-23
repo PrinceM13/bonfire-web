@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RedirectIfAuthenticate from "../features/auth/RedirectIfAuthenticate";
 import MainLayout from "../layouts/MainLayout";
 import ChatPage from "../pages/ChatPage";
 import HomePage from "../pages/HomePage";
@@ -18,8 +19,12 @@ import PostDetailPage from "../pages/PostDetailPage";
 
 const router = createBrowserRouter([
   {
-    path: "login",
-    element: <LoginPage />
+    path: "/login",
+    element: (
+      <RedirectIfAuthenticate>
+        <LoginPage />
+      </RedirectIfAuthenticate>
+    )
   },
   {
     path: "/",
