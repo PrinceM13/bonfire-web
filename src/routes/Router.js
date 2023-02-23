@@ -16,6 +16,7 @@ import SettingPage from "../pages/SettingPage";
 import EditProfilePage from "../pages/EditProfilePage";
 import LinksPage from "../pages/LinksPage";
 import PostDetailPage from "../pages/PostDetailPage";
+import ProtectRoute from "../features/auth/ProtectRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <SearchLayout />,
+    element: (
+      <ProtectRoute>
+        <SearchLayout />
+      </ProtectRoute>
+    ),
     children: [
       { path: "", element: <HomePage /> },
       { path: "chatroom", element: <ChatRoomPage /> },
@@ -38,7 +43,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <ProtectRoute>
+        <MainLayout />
+      </ProtectRoute>
+    ),
     children: [
       { path: "register", element: <RegisterPage /> },
       { path: "chat", element: <ChatPage /> },
