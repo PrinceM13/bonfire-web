@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ChatIcon from "../assets/icons/ChatIcon";
 import CreateEventIcon from "../assets/icons/CreateEventIcon";
 import HomeIcon from "../assets/icons/HomeIcon";
@@ -10,21 +11,19 @@ export default function Footer({ content = "" }) {
     <div className="flex justify-between items-center bg-white h-[8vh] px-4 bottom-0 right-0 fixed w-full shadow-lg">
       {content === "" && (
         <>
-          <div>
+          <Link to="/">
             <HomeIcon />
-          </div>
-          <div>
+          </Link>
+          <Link to="/promotions">
             <PromotionIcon />
-          </div>
-          <div>
-            <CreateEventIcon />
-          </div>
-          <div>
+          </Link>
+          <CreateEventIcon />
+          <Link to="/notifications">
             <NotificationIcon />
-          </div>
-          <div>
+          </Link>
+          <Link to="/chatroom">
             <ChatIcon />
-          </div>
+          </Link>
         </>
       )}
 
@@ -47,7 +46,11 @@ export default function Footer({ content = "" }) {
       {content === "joinUs" && (
         <>
           <div className="flex grow justify-center">
-            <button className="bg-white">JOIN US</button>
+            <div>
+              <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-12 rounded-full font-bold text-white">
+                JOIN US
+              </button>
+            </div>
           </div>
         </>
       )}
