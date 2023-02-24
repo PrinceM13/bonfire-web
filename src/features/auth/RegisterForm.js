@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import * as authApi from "../../api/auth-api";
 import Input from "../../components/Input";
+import validateRegister from "../../validators/register-validator";
 
 const initialInput = {
   firstName: "",
@@ -12,20 +13,58 @@ const initialInput = {
   password: "",
   confirmPassword: ""
 };
-
 export default function RegisterForm() {
   const [input, setInput] = useState(initialInput);
+  const [error, setError] = useState({});
+  const [checkEmailArray, setCheckEmailArray] = useState([]);
+  useEffect(() => {
+    const fetchEmail = async () => {
+      const res = await authApi.checkEmail();
+      // console.log(res.data.records);
+      setCheckEmailArray(res.data.records);
+    };
+    fetchEmail();
+  }, []);
+
+  useEffect(() => {
+    // setTimeout(() => {
+    const existEmail = checkEmailArray.filter((el) => el.email === input.email);
+    if (existEmail.length !== 0) {
+      setError({ ...error, email: "Email is already in use" });
+    }
+    if (existEmail.length === 0) {
+      const newError = { ...error };
+      delete newError.email;
+      setError(newError);
+    }
+    // }, 100);
+  }, [input.email]);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    // might need data validation
-    await authApi.register(input);
-    // clean up
-    setInput(initialInput);
+    try {
+      e.preventDefault();
+      // might need data validation
+      const result = validateRegister(input);
+      // input emai check
+      const existEmail = checkEmailArray.filter((el) => el.email === input.email);
+      if (existEmail.length !== 0) {
+        result.email = "Email is already in use";
+      }
+      if (result) {
+        setError(result);
+      } else {
+        setError({});
+        await authApi.register(input);
+        // clean up
+        setInput(initialInput);
+      }
+    } catch (err) {
+      console.log("error", err?.response?.data?.message);
+    }
   };
 
   return (
@@ -33,10 +72,11 @@ export default function RegisterForm() {
       <div className="flex flex-col">
         <div>
           <Input
-            placeholder="Firstname"
+            placeholder="FirstName"
             name={"firstName"}
             value={input.firstName}
             onChange={handleChangeInput}
+            error={error.firstName}
           />
         </div>
         <div>
@@ -45,6 +85,7 @@ export default function RegisterForm() {
             name={"lastName"}
             value={input.lastName}
             onChange={handleChangeInput}
+            error={error.lastName}
           />
         </div>
         <div>
@@ -54,6 +95,7 @@ export default function RegisterForm() {
             name={"email"}
             value={input.email}
             onChange={handleChangeInput}
+            error={error.email}
           />
         </div>
         <div>
@@ -62,6 +104,7 @@ export default function RegisterForm() {
             name={"phone"}
             value={input.phone}
             onChange={handleChangeInput}
+            error={error.phone}
           />
         </div>
         <div>
@@ -71,6 +114,7 @@ export default function RegisterForm() {
             name={"birthDate"}
             value={input.birthDate}
             onChange={handleChangeInput}
+            error={error.birthDate}
           />
         </div>
         <div>
@@ -80,6 +124,7 @@ export default function RegisterForm() {
             name={"password"}
             value={input.password}
             onChange={handleChangeInput}
+            error={error.password}
           />
         </div>
         <div>
@@ -89,6 +134,7 @@ export default function RegisterForm() {
             name={"confirmPassword"}
             value={input.confirmPassword}
             onChange={handleChangeInput}
+            error={error.confirmPassword}
           />
         </div>
         <div className="flex justify-center">
