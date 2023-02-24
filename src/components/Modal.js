@@ -19,10 +19,11 @@ export default function Modal({
       >
         {/* card */}
         <div
-          className="relative rounded-lg p-4 w-3/4 top-10 mx-auto bg-[#94C1E8]"
+          className="relative rounded-lg p-2 w-3/4 top-10 mx-auto bg-[#FFFFFF]"
           onMouseDown={(e) => (!alwaysOpen ? e.stopPropagation() : {})}
         >
-          <div className="flex flex-col items-center p-6 space-y-4 md:space-y-6 sm:p-8">
+          <div className="border-[3px] p-4 border-black rounded-lg">
+            <div className="flex flex-col items-center  space-y-4 md:space-y-6 sm:p-8"></div>
             <div className={`${titleSize} font-bold text-center`}>{title}</div>
             <VerticalSpace />
             {children}

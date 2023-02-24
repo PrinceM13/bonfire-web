@@ -1,4 +1,5 @@
 import Post from "../features/post/Post";
+import PostPromotion from "../features/post/PostPromotion";
 
 export default function PromotionsPage() {
   return (
@@ -6,8 +7,9 @@ export default function PromotionsPage() {
       <div>
         <h1>Promotions</h1>
       </div>
-      <Post />
-      <Post />
+      <Post>
+        <PostPromotion />
+      </Post>
     </>
   );
 }
