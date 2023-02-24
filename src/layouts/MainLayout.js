@@ -51,7 +51,7 @@ export default function MainLayout() {
 
     case "post-detail":
       title = "Event Name";
-      needSubTitle = "detail";
+      needSubTitle = "";
       footerContent = "joinUs";
       break;
 

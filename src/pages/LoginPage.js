@@ -72,7 +72,8 @@ export default function LoginPage() {
 
         <Modal
           title="Please enter to continue"
-          isOpen={isOpen}
+          // isOpen={isOpen}
+          isOpen={true}
           onClose={() => setIsOpen(false)}
           alwaysOpen={true}
         >
