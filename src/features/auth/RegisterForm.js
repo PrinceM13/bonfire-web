@@ -72,7 +72,7 @@ export default function RegisterForm() {
       <div className="flex flex-col">
         <div>
           <Input
-            placeholder="FirstName"
+            placeholder="First Name"
             name={"firstName"}
             value={input.firstName}
             onChange={handleChangeInput}
@@ -81,7 +81,7 @@ export default function RegisterForm() {
         </div>
         <div>
           <Input
-            placeholder="Lastname"
+            placeholder="Last Name"
             name={"lastName"}
             value={input.lastName}
             onChange={handleChangeInput}
@@ -110,7 +110,7 @@ export default function RegisterForm() {
         <div>
           <Input
             type="date"
-            placeholder="Birth date"
+            placeholder="Birth Date"
             name={"birthDate"}
             value={input.birthDate}
             onChange={handleChangeInput}
@@ -130,7 +130,7 @@ export default function RegisterForm() {
         <div>
           <Input
             type="password"
-            placeholder="Confirm password"
+            placeholder="Confirm Password"
             name={"confirmPassword"}
             value={input.confirmPassword}
             onChange={handleChangeInput}
