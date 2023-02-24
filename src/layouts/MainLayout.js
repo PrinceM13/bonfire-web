@@ -87,7 +87,7 @@ export default function MainLayout() {
       <ContentLayout>
         <Outlet />
       </ContentLayout>
-      {needFooter && <Footer content={footerContent} />}
+      {needFooter && footerContent !== "chat" && <Footer content={footerContent} />}
     </>
   );
 }
