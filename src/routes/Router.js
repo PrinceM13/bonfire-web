@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "register", element: <RegisterPage /> },
-      { path: "chat", element: <ChatPage /> },
+      { path: "chat/:eventId", element: <ChatPage /> },
       { path: "profile/:userId/edit", element: <EditProfilePage /> },
       { path: "link", element: <LinksPage /> },
       { path: "profile/:userId", element: <ProfilePage /> },

@@ -27,7 +27,7 @@ export default function Footer({ content = "" }) {
         </>
       )}
 
-      {content === "chat" && (
+      {/* {content === "chat" && (
         <>
           <div className="flex gap-4 w-full ">
             <div className="flex items-center">
@@ -41,7 +41,7 @@ export default function Footer({ content = "" }) {
             </div>
           </div>
         </>
-      )}
+      )} */}
 
       {content === "joinUs" && (
         <>
