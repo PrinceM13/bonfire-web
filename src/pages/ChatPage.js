@@ -18,9 +18,8 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    socket.connect();
     socket.emit("joinRoom", room);
-    return () => socket.disconnect(); // disconnect connection when leave chat room
+    return () => socket.emit("leaveRoom", room);
   }, []);
 
   // get client id from socket
@@ -51,7 +50,6 @@ export default function ChatPage() {
       </button>
       <button
         onClick={() => {
-          socket.emit("leaveRoom", room);
           navigate("/chatroom");
         }}
         className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white"
