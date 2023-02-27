@@ -5,7 +5,7 @@ import PlusIcon from "../../assets/icons/PlusIcon";
 import UserGroupIcon from "../../assets/icons/UserGroupIcon";
 import UserIcon from "../../assets/icons/UserIcon";
 
-export default function PostInfo({ size }) {
+export default function PostDetail({ size }) {
   // const users = [{username: 'mew', status: 'interested'},{username: 'nat', status: 'ongoing'}]
   const User = () => (
     <div className="flex flex-col justify-center items-center p-2">
