@@ -17,7 +17,9 @@ export default function Footer({ content = "" }) {
           <Link to="/promotions">
             <PromotionIcon />
           </Link>
-          <CreateEventIcon />
+          <Link to="/select-categories">
+            <CreateEventIcon />
+          </Link>
           <Link to="/notifications">
             <NotificationIcon />
           </Link>

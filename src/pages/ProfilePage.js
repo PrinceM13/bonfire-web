@@ -1,7 +1,7 @@
 import AvatarDefault from "../assets/icons/avatarDefault";
-// import Post from "../features/post/Post";
+import Post from "../features/post/Post";
 import { Link } from "react-router-dom";
-// import PostEventHome from "../features/post/PostEventHome";
+import PostNoti from "../features/post/PostNoti";
 
 export default function ProfilePage() {
   return (
@@ -29,9 +29,9 @@ export default function ProfilePage() {
           <button>History</button>
         </div>
       </div>
-      {/* <Post>
-        <PostEventHome />
-      </Post> */}
+      <Post>
+        <PostNoti />
+      </Post>
     </>
   );
 }

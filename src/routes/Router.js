@@ -15,10 +15,12 @@ import CreateEventPage from "../pages/CreateEventPage";
 import SettingPage from "../pages/SettingPage";
 import EditProfilePage from "../pages/EditProfilePage";
 import LinksPage from "../pages/LinksPage";
-import PostDetailPage from "../pages/PostDetailPage";
 import ProtectRoute from "../features/auth/ProtectRoute";
+import EventDetailPage from "../pages/EventDetailPage";
+import Background from "../components/background/Background";
 
 const router = createBrowserRouter([
+  { path: "/background", element: <Background /> },
   {
     path: "/login",
     element: (
@@ -38,7 +40,8 @@ const router = createBrowserRouter([
       { path: "", element: <HomePage /> },
       { path: "chatroom", element: <ChatRoomPage /> },
       { path: "notifications", element: <NotificationsPage /> },
-      { path: "promotions", element: <PromotionsPage /> }
+      { path: "promotions", element: <PromotionsPage /> },
+      { path: "select-categories", element: <SelectCategoriesPage /> }
     ]
   },
   {
@@ -55,7 +58,7 @@ const router = createBrowserRouter([
       { path: "link", element: <LinksPage /> },
       { path: "profile/:userId", element: <ProfilePage /> },
       { path: "setting", element: <SettingPage /> },
-      { path: "post-detail", element: <PostDetailPage /> },
+      { path: "event-detail", element: <EventDetailPage /> },
 
       { path: "create-event/categories", element: <SelectCategoriesPage /> }, // /create-event ?
       // { path: "select-categories", element: <SelectCategoriesPage /> }, // /create-event ?

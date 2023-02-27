@@ -1,7 +1,12 @@
+import SelectCategories from "../components/categories/SelectCategories";
+import Post from "../features/post/Post";
+
 export default function SelectCategoriesPage() {
   return (
-    <div>
-      <h1>Select Categories</h1>
-    </div>
+    <>
+      <Post>
+        <SelectCategories />
+      </Post>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import BackIcon from "../assets/icons/BackIcon";
 import SettingBtn from "../assets/icons/SettingBtn";
+import Background from "../components/background/Background";
 import ContentLayout from "./ContentLayout";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -14,6 +15,8 @@ export default function MainLayout() {
   let rightBtn = "";
   let leftLink = "";
   let rightLink = "";
+  let needPadding = false;
+  let haveFilter = true;
 
   const navigate = useNavigate();
 
@@ -29,6 +32,10 @@ export default function MainLayout() {
       title = "Create new account";
       needFooter = false;
       break;
+    case "link":
+      title = "Links";
+      haveFilter = true;
+      break;
     case "chat":
       title = "Group chat";
       footerContent = "chat";
@@ -36,6 +43,7 @@ export default function MainLayout() {
     case "profile":
       title = "Profile";
       isAuthProfile = param.userId === "1" ? true : false;
+      needPadding = true;
       rightBtn = isAuthProfile ? (
         <Link to="/setting">
           <SettingBtn />
@@ -60,6 +68,7 @@ export default function MainLayout() {
   }
   return (
     <>
+      <Background />
       <Header
         content=""
         title={title}
@@ -84,7 +93,7 @@ export default function MainLayout() {
           rightBtn={rightBtn}
         />
       )}
-      <ContentLayout>
+      <ContentLayout needPadding={needPadding} haveFilter={haveFilter}>
         <Outlet />
       </ContentLayout>
       {needFooter && footerContent !== "chat" && <Footer content={footerContent} />}
