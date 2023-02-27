@@ -1,3 +1,9 @@
-export default function ContentLayout({ children }) {
-  return <div className="p-6 mt-[16vh] mb-[8vh]">{children}</div>;
+export default function ContentLayout({ children, needPadding = true, haveFilter = false }) {
+  return (
+    <div
+      className={`${needPadding ? "p-6" : ""} ${haveFilter ? "mt-[13vh]" : "mt-[16vh]"} mb-[8vh]`}
+    >
+      {children}
+    </div>
+  );
 }

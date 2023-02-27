@@ -1,7 +1,12 @@
+import EditProfileForm from "../components/form/EditProfileForm";
+import Post from "../features/post/Post";
+
 export default function EditProfilePage() {
   return (
-    <div>
-      <h1>EditProfilePage</h1>
-    </div>
+    <>
+      <Post>
+        <EditProfileForm />
+      </Post>
+    </>
   );
 }

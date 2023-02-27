@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Logo from "../assets/icons/bonfireLogo.svg";
 import GoogleIcon from "../assets/icons/GoogleIcon";
+import Background from "../components/background/Background";
 import Modal from "../components/Modal";
 
 import LoginForm from "../features/auth/LoginForm";
@@ -57,6 +58,7 @@ export default function LoginPage() {
 
   return (
     <>
+      <Background bgColor="bg-[#F4EEE0]" />
       <div className="flex flex-col justify-center items-center mt-[13vh] gap-4">
         <div className="flex items-center">
           <img src={Logo} className="mx-auto" alt="logo" />
@@ -72,8 +74,7 @@ export default function LoginPage() {
 
         <Modal
           title="Please enter to continue"
-          // isOpen={isOpen}
-          isOpen={true}
+          isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           alwaysOpen={true}
         >

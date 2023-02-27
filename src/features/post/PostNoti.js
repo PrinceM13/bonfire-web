@@ -9,20 +9,22 @@ export default function PostNoti() {
   return (
     <div>
       <div className="flex justify-items-start">
-        <h1 className="font-bold text-4xl">เหงาจังอยากกินหมาล่า @Mint Tower</h1>
+        <h1 className="font-bold text-xl">เหงาจังอยากกินหมาล่า @Mint Tower</h1>
       </div>
-      <div className="flex gap-4 pt-4 mb-2">
+      <div className="flex gap-2 pt-4 mb-2">
         <PinMapIcon />
         <span className="text-[15px]">Mint Tower</span>
       </div>
-      <div className="flex gap-4 pb-4">
+      <div className="flex gap-2 pb-4">
         <div className="grid items-center">
           <TagIcon />
         </div>
         <div className="flex gap-1">{tag("#หม่าล่า")}</div>
       </div>
-      <div className="grid justify-center content-center bg-[#D4D4D4] h-[156px]">
-        <PictureIcon />
+      <div className="flex justify-center items-center bg-[#D4D4D4] py-10">
+        <div className="w-[25%] ">
+          <PictureIcon size="100%" />
+        </div>
       </div>
     </div>
   );
