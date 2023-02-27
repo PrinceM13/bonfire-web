@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import io from "socket.io-client";
+import socket from "../config/socket";
 import InsertPhotoIcon from "../assets/icons/InsertPhotoIcon";
 
 export default function ChatPage() {
   const [input, setInput] = useState("");
-  const [socket, setSocket] = useState(null);
   const [clientId, setClientId] = useState();
   const [messages, setMessages] = useState([
     { eventId: 999, user: 1, content: "dummy_msg_1" },
@@ -19,14 +18,12 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_ENDPOINT_URL);
-    newSocket.emit("joinRoom", room);
-    setSocket(newSocket);
-    return () => newSocket.disconnect();
+    socket.emit("joinRoom", room);
+    return () => socket.emit("leaveRoom", room);
   }, []);
 
   // get client id from socket
-  socket?.on("connect", () => setClientId(socket?.id));
+  socket.on("connect", () => setClientId(socket?.id));
 
   useEffect(() => {
     if (!socket) return;
@@ -47,12 +44,12 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col items-center gap-4">
+      <div>{socket?.id}</div>
       <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white">
         Yes, I will go
       </button>
       <button
         onClick={() => {
-          socket.emit("leaveRoom", room);
           navigate("/chatroom");
         }}
         className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white"
