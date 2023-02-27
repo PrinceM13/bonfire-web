@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import ChatIcon from "../assets/icons/ChatIcon";
 import CreateEventIcon from "../assets/icons/CreateEventIcon";
 import HomeIcon from "../assets/icons/HomeIcon";
-import InsertPhotoIcon from "../assets/icons/InsertPhotoIcon";
 import NotificationIcon from "../assets/icons/NotificationIcon";
 import PromotionIcon from "../assets/icons/PromotionIcon";
 
