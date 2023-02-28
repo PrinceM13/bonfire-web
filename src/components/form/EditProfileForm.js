@@ -52,7 +52,7 @@ export default function EditProfileForm() {
             <InputEditProfile inputName="bio" inputValue={authenticatedUser.bio} />
             <InputEditProfile inputName="links" inputValue={authenticatedUser.links} />
             <InputEditProfile inputName="interest" inputValue={authenticatedUser.interest} />
-            <InputEditProfile inputName="birth" inputValue={authenticatedUser.birthDate} />
+            <InputEditProfile inputName="birthDate" inputValue={authenticatedUser.birthDate} />
             <InputEditProfile inputName="education" inputValue={authenticatedUser.education} />
             <InputEditProfile inputName="company" inputValue={authenticatedUser.company} />
           </div>
