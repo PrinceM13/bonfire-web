@@ -1,11 +1,28 @@
 import UserIcon from "../../assets/icons/UserIcon";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 export default function EditProfileForm() {
-  const InputEditProfile = () => (
-    <input className="w-full border-b-2 bg-transparent focus:outline-none border-[#6A6A6A] h-8 pl-2" />
+  const [input, setInput] = useState({
+    username: "",
+    bio: "",
+    links: "",
+    interest: "",
+    birthDay: "",
+    education: "",
+    company: ""
+  });
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const InputEditProfile = ({ inputName, inputValue }) => (
+    <input
+      className="w-full border-b-2 bg-transparent focus:outline-none border-[#6A6A6A] h-8 pl-2"
+      name={inputName}
+      value={inputValue}
+      onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+    />
   );
-  const TitleEditProfile = (Tiltle) => (
-    <div className="font-bold h-8 flex items-center">{Tiltle}</div>
+  const TitleEditProfile = (Title) => (
+    <div className="font-bold h-8 flex items-center">{Title}</div>
   );
 
   return (
@@ -31,13 +48,13 @@ export default function EditProfileForm() {
         </div>
         <div className=" w-[75%]">
           <div className="flex flex-col gap-8">
-            {InputEditProfile()}
-            {InputEditProfile()}
-            {InputEditProfile()}
-            {InputEditProfile()}
-            {InputEditProfile()}
-            {InputEditProfile()}
-            {InputEditProfile()}
+            <InputEditProfile inputName="username" inputValue={authenticatedUser.username} />
+            <InputEditProfile inputName="bio" inputValue={authenticatedUser.bio} />
+            <InputEditProfile inputName="links" inputValue={authenticatedUser.links} />
+            <InputEditProfile inputName="interest" inputValue={authenticatedUser.interest} />
+            <InputEditProfile inputName="birth" inputValue={authenticatedUser.birthDate} />
+            <InputEditProfile inputName="education" inputValue={authenticatedUser.education} />
+            <InputEditProfile inputName="company" inputValue={authenticatedUser.company} />
           </div>
         </div>
       </div>
