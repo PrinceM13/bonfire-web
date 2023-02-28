@@ -16,7 +16,7 @@ export default function Footer({ content = "" }) {
           <Link to="/promotions">
             <PromotionIcon />
           </Link>
-          <Link to="/select-categories">
+          <Link to="/create-event">
             <CreateEventIcon />
           </Link>
           <Link to="/notifications">
@@ -27,22 +27,6 @@ export default function Footer({ content = "" }) {
           </Link>
         </>
       )}
-
-      {/* {content === "chat" && (
-        <>
-          <div className="flex gap-4 w-full ">
-            <div className="flex items-center">
-              <InsertPhotoIcon />
-            </div>
-            <div className="flex border-[2px] items-center grow py-2 px-4 relative bg-white  border-gray-500 rounded-full">
-              <input className="w-full" />
-              <div className=" right-2 top-2">
-                <button className="font-bold">Send</button>
-              </div>
-            </div>
-          </div>
-        </>
-      )} */}
 
       {content === "joinUs" && (
         <>
