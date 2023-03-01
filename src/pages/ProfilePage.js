@@ -27,8 +27,8 @@ export default function ProfilePage() {
       <div className="flex">
         <AvatarDefault />
         <div className="flex flex-col">
-          <h1>{authenticatedUser.firstName},24</h1>
-          <h2>{authenticatedUser.lastName}</h2>
+          <h1>{authenticatedUser?.firstName},24</h1>
+          <h2>{authenticatedUser?.username}</h2>
           <Link to="/profile/:userId/edit">
             <button className="bg-white  shadow-md rounded-full ">Edit profile</button>
           </Link>
