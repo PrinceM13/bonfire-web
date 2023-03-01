@@ -18,7 +18,6 @@ export default function EditProfileForm() {
     company: authenticatedUser.company
   };
   const [input, setInput] = useState(initialInput);
-  // const [editProfile, setEditProfile] = useState({});
 
   const InputEditProfile = (inputName, inputValue) => (
     <input
@@ -28,10 +27,8 @@ export default function EditProfileForm() {
       onChange={(e) => setInput({ ...input, [inputName]: e.target.value })}
     />
   );
-  // console.log(inputName);
   const handleEditForm = async (e) => {
     e.preventDefault();
-    // console.log(input);
     try {
       await userApi.editMyProfile(input);
       dispatch(setUser(input));
@@ -74,13 +71,6 @@ export default function EditProfileForm() {
               {InputEditProfile("birthDate", input.birthDate)}
               {InputEditProfile("education", input.education)}
               {InputEditProfile("company", input.company)}
-              {/* <InputEditProfile inputName="username" inputValue={authenticatedUser.username} />
-              <InputEditProfile inputName="bio" inputValue={authenticatedUser.bio} />
-              <InputEditProfile inputName="links" inputValue={authenticatedUser.links} />
-              <InputEditProfile inputName="interest" inputValue={authenticatedUser.interest} />
-              <InputEditProfile inputName="birthDate" inputValue={authenticatedUser.birthDate} />
-              <InputEditProfile inputName="education" inputValue={authenticatedUser.education} />
-              <InputEditProfile inputName="company" inputValue={authenticatedUser.company} /> */}
             </div>
           </div>
         </div>
