@@ -31,7 +31,7 @@ export default function PostEventHome({ size }) {
     <>
       {showEvents?.map((el) => {
         return (
-          <Post>
+          <Post key={el.id}>
             <div className="bg-[#ffffffaa]">
               <div className="flex justify-items-start">
                 <h1 className="font-bold text-2xl">{el.title}</h1>

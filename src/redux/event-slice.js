@@ -20,7 +20,6 @@ export const getAllEvents = () => async (dispatch) => {
   try {
     const res = await eventApi.getAllEvents();
     const allEvents = res.data.events;
-    console.log(allEvents);
     dispatch(setEvents(allEvents));
   } catch (err) {
     console.log(err);

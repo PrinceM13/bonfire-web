@@ -14,12 +14,12 @@ export default function Modal({
       <div
         className={`${
           isOpen ? "" : "hidden"
-        } fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto bg-[#232323aa]`}
+        } fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto bg-[#232323aa] z-10`}
         onMouseDown={!alwaysOpen ? onClose : () => {}}
       >
         {/* card */}
         <div
-          className="relative rounded-lg p-2 w-3/4 top-10 mx-auto bg-[#FFFFFF]"
+          className="relative rounded-lg p-2 w-3/4 top-10 mx-auto bg-[#FFFFFF] mb-[15vh]"
           onMouseDown={(e) => (!alwaysOpen ? e.stopPropagation() : {})}
         >
           <div className="border-[3px] p-4 border-black rounded-lg">

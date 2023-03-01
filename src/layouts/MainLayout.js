@@ -26,10 +26,8 @@ export default function MainLayout() {
   const path = useLocation().pathname.split("/")[1];
   const fullPath = useLocation().pathname.split("/");
   const isEditPath = useLocation().pathname.split("/")[fullPath.length - 1];
-  console.log("path -----> ", path);
 
   if (isEditPath === "edit") {
-    console.log("isEdit ---->", isEditPath);
     needHeader = false;
   }
 
@@ -55,7 +53,6 @@ export default function MainLayout() {
     case "profile":
       title = "Profile";
       isAuthProfile = param.userId === "1" ? true : false;
-      // needPadding = true;
       rightBtn = isAuthProfile ? (
         <Link to="/setting">
           <SettingBtn />
