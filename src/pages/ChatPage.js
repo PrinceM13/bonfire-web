@@ -71,7 +71,7 @@ export default function ChatPage() {
         ))}
       </div>
       <form onSubmit={handleSend}>
-        <div className="flex justify-between items-center bg-white h-[8vh] px-4 bottom-0 right-0 fixed w-full shadow-lg">
+        <div className="flex justify-between items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
           <div className="flex gap-4 w-full ">
             <div className="flex items-center">
               <InsertPhotoIcon />

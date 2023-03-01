@@ -1,11 +1,12 @@
-import AvatarDefault from "../assets/icons/avatarDefault";
+// import AvatarDefault from "../assets/icons/avatarDefault";
+import Avatar from "../components/Avatar";
 import Post from "../features/post/Post";
 
 export default function ShowProfilePage() {
   return (
     <>
       <div className="flex">
-        <AvatarDefault />
+        <Avatar />
         <div className="flex flex-col">
           <h1>Name, 30</h1>
           <h2>@username</h2>

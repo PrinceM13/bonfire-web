@@ -8,8 +8,9 @@ import Header from "./Header";
 
 export default function MainLayout() {
   let title;
+  let needHeader = true;
   let needFooter = true;
-  let needSubTitle = "";
+  let subTitle = "";
   let footerContent = "";
   let isAuthProfile = false;
   let rightBtn = "";
@@ -23,6 +24,12 @@ export default function MainLayout() {
   const param = useParams();
 
   const path = useLocation().pathname.split("/")[1];
+  const fullPath = useLocation().pathname.split("/");
+  const isEditPath = useLocation().pathname.split("/")[fullPath.length - 1];
+
+  if (isEditPath === "edit") {
+    needHeader = false;
+  }
 
   switch (path) {
     case "create-event":
@@ -30,20 +37,22 @@ export default function MainLayout() {
       break;
     case "register":
       title = "Create new account";
+
       needFooter = false;
       break;
     case "link":
       title = "Links";
       haveFilter = true;
+      needPadding = false;
       break;
     case "chat":
-      title = "Group chat";
+      title = "Group chat name";
+      subTitle = "Tap here for event info";
       footerContent = "chat";
       break;
     case "profile":
       title = "Profile";
       isAuthProfile = param.userId === "1" ? true : false;
-      needPadding = true;
       rightBtn = isAuthProfile ? (
         <Link to="/setting">
           <SettingBtn />
@@ -55,12 +64,13 @@ export default function MainLayout() {
 
     case "setting":
       title = "Settings";
+      needPadding = false;
       break;
 
-    case "post-detail":
+    case "event-detail":
       title = "Event Name";
-      needSubTitle = "";
-      footerContent = "joinUs";
+      needFooter = false;
+      needHeader = false;
       break;
 
     default:
@@ -69,28 +79,19 @@ export default function MainLayout() {
   return (
     <>
       <Background />
-      <Header
-        content=""
-        title={title}
-        leftBtn={
-          <button onClick={() => navigate(-1)}>
-            <BackIcon />
-          </button>
-        }
-        rightBtn={rightBtn}
-        leftLink={leftLink}
-        rightLink={rightLink}
-      />
-      {needSubTitle && (
+      {needHeader && (
         <Header
-          content="detail"
+          content=""
           title={title}
+          subTitle={subTitle}
           leftBtn={
             <button onClick={() => navigate(-1)}>
               <BackIcon />
             </button>
           }
           rightBtn={rightBtn}
+          leftLink={leftLink}
+          rightLink={rightLink}
         />
       )}
       <ContentLayout needPadding={needPadding} haveFilter={haveFilter}>
