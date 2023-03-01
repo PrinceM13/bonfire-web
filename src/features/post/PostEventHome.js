@@ -65,7 +65,7 @@ export default function PostEventHome({ size }) {
                 </div>
                 <div className="w-[25%]">
                   <div className="py-4">
-                    <UserIcon size="100%" />
+                    <Avatar size="100%" />
                   </div>
                 </div>
               </div>
