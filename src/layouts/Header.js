@@ -4,10 +4,11 @@ import MagnifyingGlassIcon from "../assets/icons/MagnifyingGlassIcon";
 export default function Header({
   content = "",
   title = "title",
+  subTitle = "",
   leftBtn = "",
-  rightBtn = "",
-  leftLink = "",
-  rightLink = ""
+  rightBtn = ""
+  // leftLink = "",
+  // rightLink = ""
 }) {
   return (
     <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full shadow-lg">
@@ -18,22 +19,7 @@ export default function Header({
           </div>
           <div className="flex-col w-full ">
             <div className="text-center text-xl">{title}</div>
-            {/* <div className="text-center text-xs">Sub Title</div> */}
-          </div>
-          <div className={`px-2 ${rightBtn === "" ? "invisible" : ""}`}>
-            {rightBtn === "" ? leftBtn : rightBtn}
-          </div>
-        </div>
-      )}
-
-      {content === "detail" && (
-        <div className="flex relative justify-between items-center gap-4">
-          <div className={`px-2 ${leftBtn === "" ? "invisible" : ""}`}>
-            {leftBtn === "" ? rightBtn : leftBtn}
-          </div>
-          <div className="flex-col w-full ">
-            <div className="text-center text-xl">{title}</div>
-            <div className="text-center text-xs">Tap here for event info</div>
+            {subTitle !== "" ? <div className="text-center text-xs">{subTitle}</div> : null}
           </div>
           <div className={`px-2 ${rightBtn === "" ? "invisible" : ""}`}>
             {rightBtn === "" ? leftBtn : rightBtn}
@@ -63,20 +49,6 @@ export default function Header({
             </div>
           </div>
         </>
-      )}
-
-      {content === "edit" && (
-        <div className="flex relative justify-between items-center gap-4">
-          <div className={`px-2 ${leftBtn === "" ? "invisible" : ""}`}>
-            {leftBtn === "Cancel" ? rightBtn : leftBtn}
-          </div>
-          <div className="flex-col w-full ">
-            <div className="text-center text-xl">Title</div>
-          </div>
-          <div className={`px-2 ${rightBtn === "" ? "invisible" : ""}`}>
-            {rightBtn === "Done" ? leftBtn : rightBtn}
-          </div>
-        </div>
       )}
     </div>
   );

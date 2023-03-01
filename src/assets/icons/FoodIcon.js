@@ -1,12 +1,6 @@
 export default function FoodIcon() {
   return (
-    <svg
-      width="100"
-      height="100"
-      viewBox="0 0 15 15"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="80" height="80" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M9.86617 1.03605L10.2307 0.9375L10.5203 1.17987L10.1024 1.52027L9.86617 1.03605Z"
         fill="#152B3C"
