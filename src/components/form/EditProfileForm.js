@@ -1,8 +1,10 @@
-import UserIcon from "../../assets/icons/UserIcon";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
+import UserIcon from "../../assets/icons/UserIcon";
+
 export default function EditProfileForm() {
+  const dispatch = useDispatch();
   const [input, setInput] = useState({
     username: "",
     bio: "",
@@ -12,6 +14,7 @@ export default function EditProfileForm() {
     education: "",
     company: ""
   });
+
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const InputEditProfile = ({ inputName, inputValue }) => (
     <input

@@ -1,16 +1,34 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import { setUser } from "../redux/auth-slice";
+import * as userApi from "../api/user-api";
 import AvatarDefault from "../assets/icons/avatarDefault";
 import Post from "../features/post/Post";
-import { Link } from "react-router-dom";
 import PostNoti from "../features/post/PostNoti";
 
 export default function ProfilePage() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await userApi.getMyProfile();
+        dispatch(setUser(res.data.myProfile));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProfile();
+  }, []);
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   return (
     <>
       <div className="flex">
         <AvatarDefault />
         <div className="flex flex-col">
-          <h1>Name, 30</h1>
-          <h2>@username</h2>
+          <h1>{authenticatedUser.firstName},24</h1>
+          <h2>{authenticatedUser.lastName}</h2>
           <Link to="/profile/:userId/edit">
             <button className="bg-white  shadow-md rounded-full ">Edit profile</button>
           </Link>
