@@ -1,14 +1,29 @@
-import Post from "../features/post/Post";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import { setUser } from "../redux/auth-slice";
+import * as userApi from "../api/user-api";
+import Avatar from "../components/Avatar";
+import Post from "../features/post/Post";
 import PostNoti from "../features/post/PostNoti";
 // import UserIcon from "../assets/icons/UserIcon";
-import Avatar from "../components/Avatar";
 // import FacebookIcon from "../assets/icons/FacebookIcon";
 
 export default function ProfilePage() {
-  // const tag = (tagTitle) => (
-  //   <div className="text-[10px] bg-[#FFFFFF] rounded-full px-2">{tagTitle}</div>
-  // );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await userApi.getMyProfile();
+        dispatch(setUser(res.data.myProfile));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchProfile();
+  }, []);
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   return (
     <>
       <div className="flex flex-col gap-4 p-2">
@@ -17,23 +32,16 @@ export default function ProfilePage() {
             <Avatar size="100%" />
           </div>
           <div className="p-4">
-            <div className="font-bold text-2xl">Name, 30</div>
-            <div className="text-[#333333]">@username</div>
+            <div className="font-bold text-2xl">{authenticatedUser?.firstName},24</div>
+            <div className="text-[#333333]">{authenticatedUser?.username}</div>
             <Link to="/profile/:userId/edit">
               <button className="mt-2 bg-gradient-to-b from-[#ffffff] to-[#D4D4D4] p-1 px-2 shadow-md rounded-full ">
                 Edit profile
               </button>
             </Link>
-
-            {/* <div className="w-[5vw] py-2">
-              <FacebookIcon size="100%" />
-            </div> */}
-            {/* <div className="flex flex-wrap gap-1">
-              {tag("#หม่าล่า")}
-              {tag("#แบดมินตัน")}
-            </div> */}
           </div>
         </div>
+
         <div className="flex flex-col gap-2">
           <div className="font-bold">Bio</div>
           <div className="font-bold">Links</div>
