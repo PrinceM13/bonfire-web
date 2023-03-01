@@ -8,8 +8,8 @@ export default function HomePage() {
   const userName = "Momo";
 
   useEffect(() => {
-    socket.connect();
-    socket.emit("login", { userName });
+    // socket.connect();
+    // socket.emit("login", { userName });
   }, []);
 
   return (
@@ -17,12 +17,9 @@ export default function HomePage() {
       <div>
         <h1>HomePage</h1>
       </div>
-      <Post>
+      <div className="flex flex-col gap-4">
         <PostEventHome />
-      </Post>
-      <Post>
-        <PostEventHome />
-      </Post>
+      </div>
     </>
   );
 }
