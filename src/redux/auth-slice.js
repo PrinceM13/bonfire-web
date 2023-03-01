@@ -20,11 +20,15 @@ const authSlice = createSlice({
     },
     setGoogleInfo: (state, action) => {
       state.googleInfo = action.payload;
+    },
+    setUser: (state, action) => {
+      state.authenticatedUser = action.payload;
     }
   }
 });
 
-export const { loginSuccess, setNeedMoreInfo, setGoogleInfo, addGoogleInfo } = authSlice.actions;
+export const { loginSuccess, setNeedMoreInfo, setGoogleInfo, addGoogleInfo, setUser } =
+  authSlice.actions;
 
 // thunk middleware
 export const login = (email, password) => async (dispatch) => {
