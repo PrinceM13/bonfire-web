@@ -15,7 +15,7 @@ export default function MainLayout() {
   let rightBtn = "";
   let leftLink = "";
   let rightLink = "";
-  let needPadding = false;
+  let needPadding = true;
   let haveFilter = true;
 
   const navigate = useNavigate();
