@@ -7,6 +7,7 @@ export default function CreateEventPage() {
       <div>
         <h1>Create Event</h1>
       </div>
+
       <Post>
         <CreateEventForm />
       </Post>

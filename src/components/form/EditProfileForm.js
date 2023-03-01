@@ -2,20 +2,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 import { setUser } from "../../redux/auth-slice";
-import UserIcon from "../../assets/icons/UserIcon";
 import * as userApi from "../../api/user-api.js";
+import Avatar from "../Avatar";
 
-export default function EditProfileForm() {
+export default function EditProfileForm({ profileImage }) {
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const dispatch = useDispatch();
   const initialInput = {
-    username: authenticatedUser.username,
-    bio: authenticatedUser.bio,
-    links: authenticatedUser.links,
-    interest: authenticatedUser.interest,
-    birthDate: authenticatedUser.birthDate,
-    education: authenticatedUser.education,
-    company: authenticatedUser.company
+    username: authenticatedUser?.username,
+    bio: authenticatedUser?.bio,
+    links: authenticatedUser?.links,
+    interest: authenticatedUser?.interest,
+    birthDate: authenticatedUser?.birthDate,
+    education: authenticatedUser?.education,
+    company: authenticatedUser?.company
   };
   const [input, setInput] = useState(initialInput);
 
@@ -44,9 +44,7 @@ export default function EditProfileForm() {
     <form onSubmit={handleEditForm}>
       <div className=" flex flex-col gap-4">
         <div className="flex flex-col items-center justify-center">
-          <div className="w-[25%]">
-            <UserIcon size="100%" />
-          </div>
+          <Avatar src={profileImage} size="100" />
           <div className="text-center p-2">
             <div className="font-bold text-[#6A6A6A] text-sm">Edit picture</div>
           </div>

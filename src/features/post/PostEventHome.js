@@ -8,7 +8,8 @@ import PinMapIcon from "../../assets/icons/PinMapIcon";
 import TagIcon from "../../assets/icons/TagIcon";
 import TimeIcon from "../../assets/icons/TimeIcon";
 import UserGroupIcon from "../../assets/icons/UserGroupIcon";
-import UserIcon from "../../assets/icons/UserIcon";
+// import UserIcon from "../../assets/icons/UserIcon";
+import Avatar from "../../components/Avatar";
 import { getAllEvents } from "../../redux/event-slice";
 import Post from "./Post";
 

@@ -2,7 +2,7 @@ import CafeIcon from "../../assets/icons/CafeIcon";
 import FoodIcon from "../../assets/icons/FoodIcon";
 import GameIcon from "../../assets/icons/GameIcon";
 import MusicIcon from "../../assets/icons/MusicIcon";
-import SportIcon from "../../assets/icons/SportIcon.png";
+import SportIconTennis from "../../assets/icons/SportIconTennis";
 import TravelIcon from "../../assets/icons/TravelIcon";
 
 export default function SelectCategories() {
@@ -18,16 +18,17 @@ export default function SelectCategories() {
     /** ที่ div แรก ใส่ shadow-md หลัง bg-[] */
     <>
       <div className="bg-[#ffffffaa] ">
+        <h1 className="flex justify-center font-bold text-xl">What do you want to do ?</h1>
         <div className="grid grid-cols-2 justify-center">
           {/* <div className="flex flex-col"> */}
           {CategoryTab(<FoodIcon />, "Food")}
+          {CategoryTab(<SportIconTennis />, "Sport")}
           {CategoryTab(<CafeIcon />, "Cafe")}
-          {CategoryTab(<TravelIcon />, "Travel")}
+          {CategoryTab(<MusicIcon />, "Party")}
           {/* </div> */}
           {/* <div className="flex flex-col"> */}
           {CategoryTab(<GameIcon />, "Game")}
-          {CategoryTab(<MusicIcon />, "Party")}
-          {CategoryTab(<img src={SportIcon} alt="SportIcon" />, "Sport")}
+          {CategoryTab(<TravelIcon />, "Travel")}
         </div>
         {/* {CategoryTab(<SportIcon />, "Sport")} */}
         {/* </div> */}
