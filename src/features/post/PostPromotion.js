@@ -3,7 +3,7 @@ import PromotionSmallIcon from "../../assets/icons/PromotionSmallIcon";
 import TimeIcon from "../../assets/icons/TimeIcon";
 import imageOne from "../../assets/icons/imageOne.jpg";
 import imageTwo from "../../assets/icons/imageTwo.jpg";
-import FoodSmallIcon from "../../assets/icons/FoodSmallIcon";
+import SportSmallIconTennis from "../../assets/icons/SportSmallIconTennis";
 
 export default function PostPromotion({ size }) {
   return (
@@ -15,11 +15,11 @@ export default function PostPromotion({ size }) {
             <div>
               <PinMapIcon />
             </div>
-            <div className="text-sm">Mint Tower</div>
+            <div className="text-sm">Winner sports avenue</div>
           </div>
           <div className="flex gap-2">
             <div>
-              <FoodSmallIcon size="15px" />
+              <SportSmallIconTennis size="15px" />
             </div>
             <div className="text-sm">Sport</div>
           </div>

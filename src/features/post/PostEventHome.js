@@ -6,7 +6,8 @@ import PinMapIcon from "../../assets/icons/PinMapIcon";
 import TagIcon from "../../assets/icons/TagIcon";
 import TimeIcon from "../../assets/icons/TimeIcon";
 import UserGroupIcon from "../../assets/icons/UserGroupIcon";
-import UserIcon from "../../assets/icons/UserIcon";
+// import UserIcon from "../../assets/icons/UserIcon";
+import Avatar from "../../components/Avatar";
 
 export default function PostEventHome({ size }) {
   const numberOfOnGoing = "3/5";
@@ -48,7 +49,7 @@ export default function PostEventHome({ size }) {
         </div>
         <div className="w-[25%]">
           <div className="py-4">
-            <UserIcon size="100%" />
+            <Avatar size="100%" />
           </div>
         </div>
       </div>

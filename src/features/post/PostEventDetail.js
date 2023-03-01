@@ -1,15 +1,16 @@
 import PictureIcon from "../../assets/icons/PictureIcon";
 import PinMapIcon from "../../assets/icons/PinMapIcon";
 import UserGroupIcon from "../../assets/icons/UserGroupIcon";
-import UserIcon from "../../assets/icons/UserIcon";
+// import UserIcon from "../../assets/icons/UserIcon";
 import MapMarkedIcon from "../../assets/icons/MapMarkedIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
+import Avatar from "../../components/Avatar";
 
 export default function PostEventDetail({ size }) {
   const User = () => (
     <div className="flex flex-col justify-center items-center p-2 w-[20%]">
       <div>
-        <UserIcon size="100%" />
+        <Avatar size="100%" />
       </div>
       <div className="font-bold text-sm text-[#000000]">
         <div>Purinut</div>
@@ -46,7 +47,7 @@ export default function PostEventDetail({ size }) {
       </div>
       <div className="flex gap-4 my-2">
         <div className="w-[20%]">
-          <UserIcon size="100%" />
+          <Avatar size="100%" />
         </div>
         <div className="flex flex-col justify-center font-bold">
           <div>Purinut S.</div>
