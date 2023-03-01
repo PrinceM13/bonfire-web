@@ -67,10 +67,12 @@ export default function CreateEventPage() {
         <VerticalSpace />
         <Input
           placeholder="latitude"
+          value={eventDetail.latitude}
           onChange={(e) => handleChange({ latitude: e.target.value })}
         />
         <Input
           placeholder="longitude"
+          value={eventDetail.longitude}
           onChange={(e) => handleChange({ longitude: e.target.value })}
         />
         <VerticalSpace />
@@ -87,11 +89,13 @@ export default function CreateEventPage() {
         <Input
           type="date"
           placeholder="Date"
+          value={eventDetail.date}
           onChange={(e) => handleChange({ date: e.target.value })}
         />
         <Input
           type="time"
           placeholder="Time"
+          value={eventDetail.time}
           onChange={(e) => handleChange({ time: e.target.value })}
         />
         <VerticalSpace />

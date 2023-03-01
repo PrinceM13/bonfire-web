@@ -26,8 +26,9 @@ export default function CreateEventForm({
     </div>
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const res = await eventApi.createEvent(eventDetail);
     onClear();
   };
 
