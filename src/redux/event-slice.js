@@ -26,4 +26,5 @@ export const getAllEvents = () => async (dispatch) => {
     console.log(err);
   }
 };
+
 export default eventSlice.reducer;

@@ -20,10 +20,11 @@ export default function PostEventHome({ size }) {
     <div className="text-[10px] bg-[#D4D4D4] rounded-full px-2">{tagTitle}</div>
   );
 
-  const showEvents = useSelector((state) => state.event.events);
   useEffect(() => {
     dispatch(getAllEvents());
   }, []);
+
+  const showEvents = useSelector((state) => state.event.events);
 
   return (
     <>
