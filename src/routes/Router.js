@@ -17,6 +17,7 @@ import LinksPage from "../pages/LinksPage";
 import ProtectRoute from "../features/auth/ProtectRoute";
 import EventDetailPage from "../pages/EventDetailPage";
 import Background from "../components/background/Background";
+import GoogleMap from "../components/GoogleMap";
 
 const router = createBrowserRouter([
   { path: "/background", element: <Background /> },
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       </RedirectIfAuthenticate>
     )
   },
+  { path: "/map", element: <GoogleMap /> },
   {
     path: "/",
     element: (
