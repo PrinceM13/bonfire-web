@@ -7,7 +7,9 @@ export default function MapMarkers({
   selected,
   setSelected,
   locationInfo,
-  setLocationInfo
+  setLocationInfo,
+  circle,
+  setCircle
 }) {
   const geocoder = new window.google.maps.Geocoder();
 
@@ -38,6 +40,7 @@ export default function MapMarkers({
         <Marker
           // key={`${marker.lat}-${marker.lng}`}
           position={{ lat: marker.lat, lng: marker.lng }}
+          zIndex={1}
           draggable={true}
           onDragEnd={event => {
             const index = markers.findIndex(m => m.lat === marker.lat && m.lng === marker.lng);
@@ -64,7 +67,8 @@ export default function MapMarkers({
                     //   .split(" ")
                     //   .slice(0, results[0].formatted_address.split(" ").length - 1)
                     //   .join(" ")})`,
-                    detail: `Lat: ${marker.lat}, Lng: ${marker.lng}`
+                    detail: `Lat: ${marker.lat}, Lng: ${marker.lng}`,
+                    googleMapsLink: `https://www.google.com/maps/search/?api=1&query=${marker.lat},${marker.lng}`
                   });
                 }
               }
@@ -82,12 +86,26 @@ export default function MapMarkers({
           <div>
             <h2>{locationInfo.name}</h2>
             <p className="font-bold">{locationInfo.detail}</p>
+            {locationInfo.googleMapsLink && (
+              <a
+                href={locationInfo.googleMapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-700 hover:underline"
+              >
+                View on Google Maps
+              </a>
+            )}
             <button
               className="text-red-500 hover:underline font-bold"
               onClick={() => {
                 setMarkers(markers.filter(marker => marker.time !== selected.time));
                 setSelected(null);
-                setLocationInfo({ name: "", detail: "" });
+                setLocationInfo({ name: "", detail: "", googleMapsLink: "" });
+                if (circle) {
+                  circle.setMap(null);
+                  setCircle(null);
+                }
               }}
             >
               Remove pin

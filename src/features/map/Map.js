@@ -43,12 +43,15 @@ export default function Map() {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
 
+  const [circle, setCircle] = useState(null);
+
   useEffect(() => {
     const storedMarkers = JSON.parse(localStorage.getItem("markers"));
 
     if (storedMarkers) {
       setMarkers(storedMarkers);
     }
+    console.log(storedMarkers);
   }, []);
 
   useEffect(() => {
@@ -93,7 +96,12 @@ export default function Map() {
         directions={directions}
         setDirections={setDirections}
       />
-      <CurrerntLocation panTo={panTo} />
+      <CurrerntLocation
+        panTo={panTo}
+        mapRef={mapRef}
+        setMarkers={setMarkers}
+        setCircle={setCircle}
+      />
       <GoogleMap
         id="map"
         zoom={15}
@@ -110,6 +118,8 @@ export default function Map() {
           setSelected={setSelected}
           locationInfo={locationInfo}
           setLocationInfo={setLocationInfo}
+          circle={circle}
+          setCircle={setCircle}
         />
         {directions && (
           <DirectionsRenderer
