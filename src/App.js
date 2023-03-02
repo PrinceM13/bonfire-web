@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import "../src/App.css";
 import socket from "./config/socket";
 import Router from "./routes/Router";
+// import { setAccessToken } from "./utils/local-storage";
 
 function App() {
   useEffect(() => {
