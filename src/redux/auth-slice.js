@@ -77,4 +77,9 @@ export const registerWithGoogle = (data) => async (dispatch) => {
   }
 };
 
+export const logout = () => (dispatch) => {
+  removeAccessToken();
+  dispatch(setUser(null));
+};
+
 export default authSlice.reducer;
