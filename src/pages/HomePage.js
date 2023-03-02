@@ -9,8 +9,8 @@ export default function HomePage() {
   const userName = "Momo";
 
   useEffect(() => {
-    // socket.connect();
-    // socket.emit("login", { userName });
+    socket.connect();
+    socket.emit("login", { userName });
   }, []);
 
   return (
