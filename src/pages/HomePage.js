@@ -9,18 +9,15 @@ export default function HomePage() {
   const userName = "Momo";
 
   useEffect(() => {
-    socket.connect();
-    socket.emit("login", { userName });
+    // socket.connect();
+    // socket.emit("login", { userName });
   }, []);
 
   return (
-    <>
-      <div>
-        <h1>HomePage</h1>
-      </div>
+    <div className="-z-20 relative">
       <div className="flex flex-col gap-4">
         <PostEventHome />
       </div>
-    </>
+    </div>
   );
 }

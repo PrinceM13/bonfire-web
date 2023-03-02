@@ -5,7 +5,7 @@ import PinIcon from "../../assets/icons/PinIcon";
 export default function FilterBar() {
   return (
     <>
-      <div className="flex items-start   w-full bg-white fixed top-[13vh] left-0 h-[5vh] shadow-lg">
+      <div className="flex items-start   w-full bg-white fixed top-[13vh] left-0 h-[5vh] shadow-lg -z-10">
         <button className="w-1/3">
           <div className="flex justify-center">
             <PinIcon />
