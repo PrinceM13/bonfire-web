@@ -44,7 +44,7 @@ export default function EditProfileForm({ profileImage }) {
     <form onSubmit={handleEditForm}>
       <div className=" flex flex-col gap-4">
         <div className="flex flex-col items-center justify-center">
-          <Avatar src={profileImage} size="100" />
+          <Avatar src={authenticatedUser.profileImage} size="150" />
           <div className="text-center p-2">
             <div className="font-bold text-[#6A6A6A] text-sm">Edit picture</div>
           </div>

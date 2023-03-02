@@ -29,7 +29,7 @@ export default function ProfilePage() {
       <div className="flex flex-col gap-4 p-2">
         <div className="flex justify-between">
           <div className="w-[30vw]">
-            <Avatar size="100%" />
+            <Avatar src={authenticatedUser.profileImage} size="100%" />
           </div>
           <div className="p-4">
             <div className="font-bold text-2xl">{authenticatedUser?.firstName},24</div>

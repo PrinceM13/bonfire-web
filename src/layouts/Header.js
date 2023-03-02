@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import MagnifyingGlassIcon from "../assets/icons/MagnifyingGlassIcon";
+import Avatar from "../components/Avatar";
 import axios from "../config/axios";
 
 export default function Header({
@@ -16,11 +18,12 @@ export default function Header({
   const [tagsData, setTagsData] = useState([]);
   const [tagsFilter, setTagsFilter] = useState("");
 
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+
   useEffect(() => {
     const fetchTags = async () => {
       const res = await axios.get(`/tag?tagName=${tagsFilter}`);
       const getAllTags = res.data.tags;
-      console.log(getAllTags);
       setTagsData(getAllTags);
     };
     const idTimeout = setTimeout(() => {
@@ -66,7 +69,7 @@ export default function Header({
 
                 <div className="w-[45px]">
                   <Link to="/profile/:userId/">
-                    <img src={"https://picsum.photos/200"} className="rounded-full" alt="" />
+                    <Avatar src={authenticatedUser.profileImage} size="100%" />
                   </Link>
                 </div>
               </div>
@@ -88,7 +91,7 @@ export default function Header({
                 </div>
                 <div className="w-[45px] invisible">
                   <Link to="/profile/:userId/">
-                    <img src={"https://picsum.photos/200"} className="rounded-full" alt="" />
+                    <Avatar src={authenticatedUser.profileImage} size="100%" />
                   </Link>
                 </div>
               </div>
