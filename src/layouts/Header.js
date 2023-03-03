@@ -38,7 +38,7 @@ export default function Header({
   return (
     <>
       {content === "" && (
-        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full shadow-lg">
+        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full shadow-lg z-40">
           <div className="flex relative justify-between items-center gap-4">
             <div className={`px-2 ${leftBtn === "" ? "invisible" : ""}`}>
               {leftBtn === "" ? rightBtn : leftBtn}
@@ -55,7 +55,7 @@ export default function Header({
       )}
 
       {content === "search" && (
-        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full">
+        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full z-40">
           <div className=""></div>
           <div className="px-8 pt-[5vh] bg-white h-[13vh] top-0 left-0 fixed w-full flex">
             <div className="w-full flex flex-col">
@@ -78,27 +78,29 @@ export default function Header({
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="px-4 w-full flex justify-between">
-                  <div className="invisible">
-                    <MagnifyingGlassIcon />
-                  </div>
-                  {tagsFilter !== "" && (
-                    <div className="w-full">
-                      {tagsData.map((tags) => (
-                        <div key={tags.id} className="bg-white border border-gray-100 p-1">
-                          {tags.titleTag}
-                        </div>
-                      ))}
+              {tagsFilter !== "" && tagsData.length !== 0 && (
+                <div className="flex items-center gap-4">
+                  <div className="px-4 w-full flex justify-between">
+                    <div className="invisible">
+                      <MagnifyingGlassIcon />
                     </div>
-                  )}
+                    {tagsFilter !== "" && (
+                      <div className="w-full">
+                        {tagsData.map((tags) => (
+                          <div key={tags.id} className="bg-white border border-gray-100 p-1">
+                            {tags.titleTag}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-[45px] invisible">
+                    <Link to="/profile/:userId/">
+                      <Avatar src={authenticatedUser.profileImage} size="100%" />
+                    </Link>
+                  </div>
                 </div>
-                <div className="w-[45px] invisible">
-                  <Link to="/profile/:userId/">
-                    <Avatar src={authenticatedUser.profileImage} size="100%" />
-                  </Link>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

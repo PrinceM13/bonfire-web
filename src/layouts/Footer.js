@@ -14,7 +14,7 @@ export default function Footer({ content = "" }) {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between items-center bg-white h-[8vh] px-5 bottom-[-1px] right-0 fixed w-full shadow-lg">
+    <div className="flex justify-between items-center bg-white h-[8vh] px-5 bottom-[-1px] right-0 fixed w-full shadow-lg z-40">
       {content === "" && (
         <>
           <Link to="/">{location.pathname === "/" ? <HomeIconCurrent /> : <HomeIcon />}</Link>
@@ -43,7 +43,7 @@ export default function Footer({ content = "" }) {
 
       {content === "joinUs" && (
         <>
-          <div className="flex grow justify-center">
+          <div className="flex grow justify-center relative z-40">
             <div>
               <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-12 rounded-full font-bold text-white">
                 JOIN US

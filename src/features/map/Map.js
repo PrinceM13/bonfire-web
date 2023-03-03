@@ -84,9 +84,9 @@ export default function Map() {
 
   return (
     <>
-      <div className="px-8 pt-[5vh] bg-white h-[13vh] top-0 left-0 fixed w-full shadow-lg flex z-10">
-        <div className="w-full">
-          <div className="border-[1px] border-gray-500 gap-2 bg-white px-3 py-1 w-full shadow-md rounded-full flex items-center">
+      <div className="px-8 pt-[5vh] bg-white h-[13vh] pb-[2.7vh] top-0 left-0 fixed w-full shadow-lg flex z-10">
+        <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-full">
+          <div className="flex w-full items-center justify-center bg-white rounded-full px-3 py-1 shadow-md gap-2">
             <div>
               <PinGoogleMapSmall />
             </div>
