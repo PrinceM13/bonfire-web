@@ -1,11 +1,21 @@
 import { useState } from "react";
 
-export default function CurrentLocation({ panTo, setMarkers, mapRef, setCircle }) {
+export default function CurrentLocation({ panTo, markers, setMarkers, mapRef, circle, setCircle }) {
   const onGetCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
         panTo({ lat: latitude, lng: longitude });
+
+        if (circle) {
+          circle.setMap(null);
+          setCircle(null);
+        }
+
+        // if (markers.length > 0) {
+        //   setMarkers([])
+        // }
+
         setMarkers(prevMarkers => [...prevMarkers, { lat: latitude, lng: longitude }]);
         const newCircle = new window.google.maps.Circle({
           center: { lat: latitude, lng: longitude },
@@ -18,7 +28,6 @@ export default function CurrentLocation({ panTo, setMarkers, mapRef, setCircle }
         });
         newCircle.setMap(mapRef.current);
         setCircle(newCircle);
-       
       },
       () => null
     );
@@ -30,23 +39,4 @@ export default function CurrentLocation({ panTo, setMarkers, mapRef, setCircle }
   );
 }
 
-// return (
-//   <button
-//     className=" bg-blue-400 rounded-lg"
-//     onClick={() => {
-//       navigator.geolocation.getCurrentPosition(
-//         position => {
-//           panTo({
-//             lat: position.coords.latitude,
-//             lng: position.coords.longitude
-//           });
 
-//           console.log(position);
-//         },
-//         () => null
-//       );
-//     }}
-//   >
-//     Current Location
-//   </button>
-// );

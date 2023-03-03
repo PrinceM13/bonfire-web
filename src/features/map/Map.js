@@ -9,6 +9,7 @@ import {
 import CurrerntLocation from "./CurrentLocation";
 import SearchLocation from "./SearchLocation";
 import MapMarkers from "./MapMarkers";
+// import MapMultiMarkers from "./MapMultiMarker";
 import MapDirection from "./MapDirection";
 import mapStyles from "./mapStyles";
 
@@ -35,7 +36,7 @@ export default function Map() {
     libraries
   });
 
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState({});
   const [selected, setSelected] = useState(null);
   const [locationInfo, setLocationInfo] = useState({ name: "", detail: "" });
 
@@ -59,15 +60,22 @@ export default function Map() {
   }, [markers]);
 
   const onMapClick = useCallback(e => {
-    setMarkers(current => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date()
-      }
-    ]);
+    setMarkers({
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng(),
+      time: new Date()
+    });
   }, []);
+  // const onMapClick = useCallback(e => {
+  //   setMarkers(current => [
+  //     ...current,
+  //     {
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //       time: new Date()
+  //     }
+  //   ]);
+  // }, []);
 
   const mapRef = useRef();
   const onMapLoad = useCallback(map => {
@@ -99,7 +107,9 @@ export default function Map() {
       <CurrerntLocation
         panTo={panTo}
         mapRef={mapRef}
+        markers={markers}
         setMarkers={setMarkers}
+        circle={circle}
         setCircle={setCircle}
       />
       <GoogleMap
@@ -121,6 +131,7 @@ export default function Map() {
           circle={circle}
           setCircle={setCircle}
         />
+
         {directions && (
           <DirectionsRenderer
             directions={directions}
