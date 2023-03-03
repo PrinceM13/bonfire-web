@@ -57,14 +57,18 @@ export default function Header({
       {content === "search" && (
         <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full">
           <div className=""></div>
-          <div className="px-6 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full flex">
-            <div className="py-1 w-full flex flex-col">
+          <div className="px-8 pt-[5vh] bg-white h-[13vh] top-0 left-0 fixed w-full flex">
+            <div className="w-full flex flex-col">
               <div className="flex items-center gap-4">
-                <div className="border-[2px] border-gray-500 bg-white px-4 py-1.5 w-full rounded-full flex justify-between">
+                <div className="border-[1px] border-gray-500 bg-white px-3 py-1.5 w-full rounded-full flex justify-between">
                   <div className="flex items-center">
                     <MagnifyingGlassIcon />
                   </div>
-                  <input className="w-full" onChange={handleChangeInput} />
+                  <input
+                    className="w-full outline-none px-2"
+                    placeholder="Search"
+                    onChange={handleChangeInput}
+                  />
                 </div>
 
                 <div className="w-[45px]">
