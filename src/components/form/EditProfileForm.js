@@ -36,8 +36,8 @@ export default function EditProfileForm() {
       formData.append("profileImage", file);
       formData.append("username", input.username);
       formData.append("links", input.links);
-      formData.append("education", input.education);
-      formData.append("company", input.company);
+      // formData.append("education", input.education);
+      // formData.append("company", input.company);
       formData.append("bio", input.bio);
       const responseUpdate = await userApi.editMyProfile(formData);
       // console.log(responseUpdate);
@@ -52,7 +52,7 @@ export default function EditProfileForm() {
 
   return (
     <form onSubmit={handleEditForm}>
-      <div className=" flex flex-col gap-4">
+      <div className=" flex flex-col gap-6">
         <div className="flex flex-col items-center justify-center">
           <Avatar
             src={file ? URL.createObjectURL(file) : authenticatedUser.profileImage}
@@ -77,30 +77,34 @@ export default function EditProfileForm() {
         </div>
 
         <div className="flex justify-between">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 text-sm">
             {TitleEditProfile("Username")}
             {TitleEditProfile("Links")}
-            {TitleEditProfile("Education")}
-            {TitleEditProfile("Company")}
+            {/* {TitleEditProfile("Education")} */}
+            {/* {TitleEditProfile("Company")} */}
             {/* {TitleEditProfile("Bio")} */}
           </div>
           <div className=" w-[75%]">
             <div className="flex flex-col gap-8">
               {InputEditProfile("username", input.username)}
               {InputEditProfile("links", input.links)}
-              {InputEditProfile("education", input.education)}
-              {InputEditProfile("company", input.company)}
+              {/* {InputEditProfile("education", input.education)} */}
+              {/* {InputEditProfile("company", input.company)} */}
               {/* {InputEditProfile("bio", input.bio)} */}
             </div>
           </div>
         </div>
-        <textarea
-          className="border-black border-2 "
-          placeholder="Bio...."
-          name="bio"
-          value={input.bio}
-          onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
-        />
+        <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-lg flex justify-between">
+          <div className="flex w-full h-full items-center justify-center bg-white rounded-lg">
+            <textarea
+              className="p-2 outline-none w-full rounded-lg"
+              placeholder="You can add a short bio to tell people more about yourself."
+              name="bio"
+              value={input.bio}
+              onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+            />
+          </div>
+        </div>
         <div className="flex justify-center w-full py-4">
           <button
             type="submit"

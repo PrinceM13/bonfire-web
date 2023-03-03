@@ -49,10 +49,10 @@ export default function ProfilePage() {
         </div>
         <div className="flex ">
           <div className="border-b-4 w-1/2 text-center p-2 font-bold border-black">
-            <button>Pending</button>
+            <button>Host</button>
           </div>
           <div className="text-[#B8B7B7] w-1/2 text-center p-2 font-bold">
-            <button>History</button>
+            <button>Joined</button>
           </div>
         </div>
       </div>
