@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import RedirectIfAuthenticate from "../features/auth/RedirectIfAuthenticate";
 import MainLayout from "../layouts/MainLayout";
 import ChatPage from "../pages/ChatPage";
@@ -21,6 +21,11 @@ import GoogleMap from "../components/GoogleMap";
 
 const router = createBrowserRouter([
   { path: "/background", element: <Background /> },
+  {
+    path: "/register",
+    element: <MainLayout />,
+    children: [{ path: "", element: <RegisterPage /> }]
+  },
   {
     path: "/login",
     element: (
@@ -52,17 +57,18 @@ const router = createBrowserRouter([
       </ProtectRoute>
     ),
     children: [
-      { path: "register", element: <RegisterPage /> },
       { path: "chat/:eventId", element: <ChatPage /> },
+      { path: "events/:eventId", element: <EventDetailPage /> },
       { path: "profile/:userId/edit", element: <EditProfilePage /> },
       { path: "link", element: <LinksPage /> },
       { path: "profile/:userId", element: <ProfilePage /> },
       { path: "setting", element: <SettingPage /> },
-      { path: "event-detail", element: <EventDetailPage /> },
       { path: "create-event", element: <CreateEventPage /> }
+      // { path: "event-detail", element: <EventDetailPage /> },
       // { path: "showprofile", element: <ShowProfilePage /> } // /profile/:userId
     ]
-  }
+  },
+  { path: "*", element: <Navigate to="/" /> } // wrong path --> redirect to root path
 ]);
 
 export default function Router() {

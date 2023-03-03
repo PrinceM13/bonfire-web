@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import MagnifyingGlassIcon from "../assets/icons/MagnifyingGlassIcon";
 import Avatar from "../components/Avatar";
 import axios from "../config/axios";
+import { setTagSearch } from "../redux/filter-slice";
 
 export default function Header({
   content = "",
@@ -18,6 +19,7 @@ export default function Header({
   const [tagsData, setTagsData] = useState([]);
   const [tagsFilter, setTagsFilter] = useState("");
 
+  const dispatch = useDispatch();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
 
   useEffect(() => {
@@ -26,8 +28,9 @@ export default function Header({
       const getAllTags = res.data.tags;
       setTagsData(getAllTags);
     };
+    dispatch(setTagSearch(tagsFilter));
     const idTimeout = setTimeout(() => {
-      fetchTags();
+      tagsFilter !== "" && fetchTags();
     }, 500);
     return () => clearTimeout(idTimeout);
   }, [tagsFilter]);
