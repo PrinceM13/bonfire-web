@@ -1,6 +1,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Logo from "../assets/icons/bonfireLogo.svg";
 import GoogleIcon from "../assets/icons/GoogleIcon";
@@ -94,11 +95,13 @@ export default function LoginPage() {
           </div>
         </div>
         <hr className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-[1.5px] rounded-full w-[90vw]  shadow-md" />
-        <div className="mt-2 flex justify-center">
-          <button className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-2 rounded-full w-[90vw] text-white font-bold shadow-md">
-            Sign Up
-          </button>
-        </div>
+        <Link to="/register">
+          <div className="mt-2 flex justify-center">
+            <button className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-2 rounded-full w-[90vw] text-white font-bold shadow-md">
+              Sign Up
+            </button>
+          </div>
+        </Link>
       </div>
     </>
   );

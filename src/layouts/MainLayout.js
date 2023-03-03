@@ -67,8 +67,7 @@ export default function MainLayout() {
       needPadding = false;
       break;
 
-    case "event-detail":
-      title = "Event Name";
+    case "events":
       needFooter = false;
       needHeader = false;
       break;
