@@ -1,24 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { setUser } from "../../redux/auth-slice";
 import * as userApi from "../../api/user-api.js";
 import Avatar from "../Avatar";
 
-export default function EditProfileForm({ profileImage }) {
+export default function EditProfileForm() {
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  // console.log(authenticatedUser);
   const dispatch = useDispatch();
+  const inputEl = useRef();
   const initialInput = {
     username: authenticatedUser?.username,
-    bio: authenticatedUser?.bio,
     links: authenticatedUser?.links,
-    interest: authenticatedUser?.interest,
-    birthDate: authenticatedUser?.birthDate,
     education: authenticatedUser?.education,
-    company: authenticatedUser?.company
+    company: authenticatedUser?.company,
+    bio: authenticatedUser?.bio
   };
   const [input, setInput] = useState(initialInput);
+  const [file, setFile] = useState(null);
 
+  // console.log(file);
   const InputEditProfile = (inputName, inputValue) => (
     <input
       className="w-full border-b-2 bg-transparent focus:outline-none border-[#6A6A6A] h-8 pl-2"
@@ -30,8 +32,16 @@ export default function EditProfileForm({ profileImage }) {
   const handleEditForm = async (e) => {
     e.preventDefault();
     try {
-      await userApi.editMyProfile(input);
-      dispatch(setUser(input));
+      const formData = new FormData();
+      formData.append("profileImage", file);
+      formData.append("username", input.username);
+      formData.append("links", input.links);
+      // formData.append("education", input.education);
+      // formData.append("company", input.company);
+      formData.append("bio", input.bio);
+      const responseUpdate = await userApi.editMyProfile(formData);
+      // console.log(responseUpdate);
+      dispatch(setUser(responseUpdate));
     } catch (err) {
       console.log(err);
     }
@@ -42,34 +52,57 @@ export default function EditProfileForm({ profileImage }) {
 
   return (
     <form onSubmit={handleEditForm}>
-      <div className=" flex flex-col gap-4">
+      <div className=" flex flex-col gap-6">
         <div className="flex flex-col items-center justify-center">
-          <Avatar src={authenticatedUser.profileImage} size="150" />
+          <Avatar
+            src={file ? URL.createObjectURL(file) : authenticatedUser.profileImage}
+            size="150"
+          />
           <div className="text-center p-2">
-            <div className="font-bold text-[#6A6A6A] text-sm">Edit picture</div>
+            <input
+              type="file"
+              ref={inputEl}
+              className="hidden"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+            />
+            <button
+              className="font-bold text-[#6A6A6A] text-sm"
+              onClick={() => inputEl.current.click()}
+            >
+              Edit picture
+            </button>
           </div>
         </div>
 
         <div className="flex justify-between">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 text-sm">
             {TitleEditProfile("Username")}
-            {TitleEditProfile("Bio")}
             {TitleEditProfile("Links")}
-            {TitleEditProfile("Interest")}
-            {TitleEditProfile("Birth date")}
-            {TitleEditProfile("Education")}
-            {TitleEditProfile("Company")}
+            {/* {TitleEditProfile("Education")} */}
+            {/* {TitleEditProfile("Company")} */}
+            {/* {TitleEditProfile("Bio")} */}
           </div>
           <div className=" w-[75%]">
             <div className="flex flex-col gap-8">
               {InputEditProfile("username", input.username)}
-              {InputEditProfile("bio", input.bio)}
               {InputEditProfile("links", input.links)}
-              {InputEditProfile("interest", input.interest)}
-              {InputEditProfile("birthDate", input.birthDate)}
-              {InputEditProfile("education", input.education)}
-              {InputEditProfile("company", input.company)}
+              {/* {InputEditProfile("education", input.education)} */}
+              {/* {InputEditProfile("company", input.company)} */}
+              {/* {InputEditProfile("bio", input.bio)} */}
             </div>
+          </div>
+        </div>
+        <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-lg flex justify-between">
+          <div className="flex w-full h-full items-center justify-center bg-white rounded-lg">
+            <textarea
+              className="p-2 outline-none w-full rounded-lg"
+              placeholder="You can add a short bio to tell people more about yourself."
+              name="bio"
+              value={input.bio}
+              onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+            />
           </div>
         </div>
         <div className="flex justify-center w-full py-4">

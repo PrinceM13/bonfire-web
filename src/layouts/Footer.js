@@ -7,7 +7,7 @@ import PromotionIcon from "../assets/icons/PromotionIcon";
 
 export default function Footer({ content = "" }) {
   return (
-    <div className="flex justify-between items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
+    <div className="flex justify-between items-center bg-white h-[8vh] px-5 bottom-[-1px] right-0 fixed w-full shadow-lg">
       {content === "" && (
         <>
           <Link to="/">
