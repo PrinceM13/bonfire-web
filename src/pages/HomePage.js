@@ -12,10 +12,8 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="-z-20 relative">
-      <div className="flex flex-col gap-4">
-        <PostEventHome />
-      </div>
+    <div className="flex flex-col gap-4">
+      <PostEventHome />
     </div>
   );
 }
