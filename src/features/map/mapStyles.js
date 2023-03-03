@@ -3,73 +3,42 @@ export default [
     featureType: "water",
     stylers: [
       {
-        saturation: 43
+        visibility: "on"
       },
       {
-        lightness: -11
-      },
-      {
-        hue: "#0088ff"
+        color: "#b5cbe4"
       }
     ]
   },
   {
-    featureType: "road",
-    elementType: "geometry.fill",
+    featureType: "landscape",
     stylers: [
       {
-        hue: "#ff0000"
-      },
-      {
-        saturation: -100
-      },
-      {
-        lightness: 99
+        color: "#efefef"
       }
     ]
   },
   {
-    featureType: "road",
-    elementType: "geometry.stroke",
+    featureType: "road.highway",
+    elementType: "geometry",
     stylers: [
       {
-        color: "#808080"
-      },
-      {
-        lightness: 54
+        color: "#83a5b0"
       }
     ]
   },
   {
-    featureType: "landscape.man_made",
-    elementType: "geometry.fill",
+    featureType: "road.arterial",
+    elementType: "geometry",
     stylers: [
       {
-        color: "#ece2d9"
+        color: "#bdcdd3"
       }
     ]
   },
   {
-    featureType: "poi.park",
-    elementType: "geometry.fill",
-    stylers: [
-      {
-        color: "#ccdca1"
-      }
-    ]
-  },
-  {
-    featureType: "road",
-    elementType: "labels.text.fill",
-    stylers: [
-      {
-        color: "#767676"
-      }
-    ]
-  },
-  {
-    featureType: "road",
-    elementType: "labels.text.stroke",
+    featureType: "road.local",
+    elementType: "geometry",
     stylers: [
       {
         color: "#ffffff"
@@ -77,54 +46,46 @@ export default [
     ]
   },
   {
-    featureType: "poi",
+    featureType: "poi.park",
+    elementType: "geometry",
     stylers: [
       {
-        visibility: "off"
+        color: "#e3eed3"
       }
     ]
   },
   {
-    featureType: "landscape.natural",
-    elementType: "geometry.fill",
+    featureType: "administrative",
     stylers: [
       {
         visibility: "on"
       },
       {
-        color: "#b8cb93"
+        lightness: 33
       }
     ]
+  },
+  {
+    featureType: "road"
   },
   {
     featureType: "poi.park",
+    elementType: "labels",
     stylers: [
       {
         visibility: "on"
+      },
+      {
+        lightness: 20
       }
     ]
   },
+  {},
   {
-    featureType: "poi.sports_complex",
+    featureType: "road",
     stylers: [
       {
-        visibility: "on"
-      }
-    ]
-  },
-  {
-    featureType: "poi.medical",
-    stylers: [
-      {
-        visibility: "on"
-      }
-    ]
-  },
-  {
-    featureType: "poi.business",
-    stylers: [
-      {
-        visibility: "simplified"
+        lightness: 20
       }
     ]
   }
