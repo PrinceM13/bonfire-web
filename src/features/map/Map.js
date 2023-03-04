@@ -9,7 +9,8 @@ import {
 import CurrerntLocation from "./CurrentLocation";
 import SearchLocation from "./SearchLocation";
 import MapMarkers from "./MapMarkers";
-// import MapDirection from "./MapDirection";
+// import MapMultiMarkers from "./MapMultiMarker";
+import MapDirection from "./MapDirection";
 import mapStyles from "./mapStyles";
 import PinGoogleMapSmall from "../../assets/icons/PinGoogleMapSmall";
 import CurrentPoint from "../../assets/icons/CurrentPoint";
@@ -32,13 +33,14 @@ const center = {
   lng: 100.5235765
 };
 
-export default function Map() {
+export default function Map({ isMultiMarker = true }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries
   });
 
   const [markers, setMarkers] = useState([]);
+  // const [markers, setMarkers] = useState({});
   const [selected, setSelected] = useState(null);
   const [locationInfo, setLocationInfo] = useState({ name: "", detail: "" });
 
@@ -46,28 +48,63 @@ export default function Map() {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
 
+  const [circle, setCircle] = useState(null);
+
   useEffect(() => {
     const storedMarkers = JSON.parse(localStorage.getItem("markers"));
 
     if (storedMarkers) {
       setMarkers(storedMarkers);
     }
+    console.log(storedMarkers);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("markers", JSON.stringify(markers));
   }, [markers]);
 
-  const onMapClick = useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date()
+  const onMapClick = useCallback(
+    e => {
+      if (!isMultiMarker) {
+        setMarkers([
+          {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng(),
+            time: new Date()
+          }
+        ]);
+      } else {
+        setMarkers(current => [
+          ...current,
+          {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng(),
+            time: new Date()
+          }
+        ]);
       }
-    ]);
-  }, []);
+    },
+    [markers]
+  );
+
+  // const onMapClick = useCallback(e => {
+  //   setMarkers([{
+  //     lat: e.latLng.lat(),
+  //     lng: e.latLng.lng(),
+  //     time: new Date()
+  //   }]);
+  // }, []);
+
+  // const onMapClick = useCallback(e => {
+  //   setMarkers(current => [
+  //     ...current,
+  //     {
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //       time: new Date()
+  //     }
+  //   ]);
+  // }, []);
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -123,6 +160,8 @@ export default function Map() {
             setSelected={setSelected}
             locationInfo={locationInfo}
             setLocationInfo={setLocationInfo}
+            circle={circle}
+            setCircle={setCircle}
           />
           {/* {directions && (
             <DirectionsRenderer

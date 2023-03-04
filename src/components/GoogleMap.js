@@ -1,9 +1,9 @@
-import Map from "../features/map/Map"
+import Map from "../features/map/Map";
 
 export default function GoogleMap() {
-    return (
-        <>
-          <Map/>  
-        </>
-    )
+  return (
+    <>
+      <Map />
+    </>
+  );
 }
