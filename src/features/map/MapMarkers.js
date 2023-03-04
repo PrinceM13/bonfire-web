@@ -15,7 +15,7 @@ export default function MapMarkers({
 
   return (
     <div>
-      {Object.keys(markers).length !== 0 && (
+      {/* {Object.keys(markers).length !== 0 && (
         <Marker
           // key={`${marker.lat}-${marker.lng}`}
           position={{ lat: markers.lat, lng: markers.lng }}
@@ -46,9 +46,9 @@ export default function MapMarkers({
             setSelected(markers);
           }}
         />
-      )}
+      )} */}
 
-      {/* {markers.map(marker => (
+      {markers?.map(marker => (
         <Marker
           // key={`${marker.lat}-${marker.lng}`}
           position={{ lat: marker.lat, lng: marker.lng }}
@@ -81,9 +81,9 @@ export default function MapMarkers({
             setSelected(marker);
           }}
         />
-      ))} */}
+      ))}
 
-      {selected ? (
+      {/* {selected ? (
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
           onCloseClick={() => setSelected(null)}
@@ -117,8 +117,9 @@ export default function MapMarkers({
             </button>
           </div>
         </InfoWindow>
-      ) : null}
-      {/* {selected ? (
+      ) : null} */}
+
+      {selected ? (
         <InfoWindow
           position={{ lat: selected.lat, lng: selected.lng }}
           onCloseClick={() => setSelected(null)}
@@ -152,7 +153,7 @@ export default function MapMarkers({
             </button>
           </div>
         </InfoWindow>
-      ) : null} */}
+      ) : null}
     </div>
   );
 }
