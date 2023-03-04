@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 
 import * as authApi from "../api/auth-api";
-import { getAccessToken, setAccessToken } from "../utils/local-storage";
+import { getAccessToken, setAccessToken, removeAccessToken } from "../utils/local-storage";
 
 const authSlice = createSlice({
   name: "auth",
@@ -75,6 +75,11 @@ export const registerWithGoogle = (data) => async (dispatch) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const logout = () => (dispatch) => {
+  removeAccessToken();
+  dispatch(setUser(null));
 };
 
 export default authSlice.reducer;

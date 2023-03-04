@@ -18,7 +18,7 @@ export default function SearchLocation({ panTo, setMarkers, setSelected, setLoca
 
     panTo({ lat, lng });
 
-    setMarkers(current => [...current, { lat, lng, time: new Date() }]);
+    setMarkers((current) => [...current, { lat, lng, time: new Date() }]);
     setSelected({ lat, lng, time: new Date() });
     setLocationInfo({
       name: place.name,
@@ -29,15 +29,18 @@ export default function SearchLocation({ panTo, setMarkers, setSelected, setLoca
   };
 
   return (
-    <div>
+    <div className="w-full">
       <Autocomplete
-        onLoad={autocomplete => (autocompleteRef.current = autocomplete)}
+        onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
         onPlaceChanged={onPlaceChanged}
       >
-        <input type="text" placeholder="Search Location" ref={searchInputRef} />
+        <input
+          className="w-full outline-none"
+          type="text"
+          placeholder="Search Location"
+          ref={searchInputRef}
+        />
       </Autocomplete>
     </div>
   );
 }
-
-

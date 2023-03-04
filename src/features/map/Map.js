@@ -12,10 +12,13 @@ import MapMarkers from "./MapMarkers";
 // import MapMultiMarkers from "./MapMultiMarker";
 import MapDirection from "./MapDirection";
 import mapStyles from "./mapStyles";
+import PinGoogleMapSmall from "../../assets/icons/PinGoogleMapSmall";
+import CurrentPoint from "../../assets/icons/CurrentPoint";
+// import ChooseDestination from "../../assets/icons/ChooseDestination";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-  height: "100vh",
+  height: "92vh",
   width: "100vw"
 };
 
@@ -104,7 +107,7 @@ export default function Map({ isMultiMarker = true }) {
   // }, []);
 
   const mapRef = useRef();
-  const onMapLoad = useCallback(map => {
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
@@ -117,60 +120,78 @@ export default function Map({ isMultiMarker = true }) {
   if (!isLoaded) return "Loading...";
 
   return (
-    <div>
-      <SearchLocation
-        panTo={panTo}
-        setMarkers={setMarkers}
-        setSelected={setSelected}
-        setLocationInfo={setLocationInfo}
-      />
-      <MapDirection
-        setDestination={setDestination}
-        setOrigin={setOrigin}
-        directions={directions}
-        setDirections={setDirections}
-      />
-      <CurrerntLocation
-        panTo={panTo}
-        mapRef={mapRef}
-        markers={markers}
-        setMarkers={setMarkers}
-        circle={circle}
-        setCircle={setCircle}
-      />
-      <GoogleMap
-        id="map"
-        zoom={15}
-        center={center}
-        mapContainerStyle={mapContainerStyle}
-        options={options}
-        onClick={onMapClick}
-        onLoad={onMapLoad}
-      >
-        <MapMarkers
-          markers={markers}
-          setMarkers={setMarkers}
-          selected={selected}
-          setSelected={setSelected}
-          locationInfo={locationInfo}
-          setLocationInfo={setLocationInfo}
-          circle={circle}
-          setCircle={setCircle}
-        />
+    <>
+      <div className="px-8 pt-[5vh] bg-white h-[13vh] pb-[2.7vh] top-0 left-0 fixed w-full shadow-lg flex z-10">
+        <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-full">
+          <div className="flex w-full items-center justify-center bg-white rounded-full px-3 py-1 shadow-md gap-2">
+            <div>
+              <PinGoogleMapSmall />
+            </div>
+            <SearchLocation
+              panTo={panTo}
+              setMarkers={setMarkers}
+              setSelected={setSelected}
+              setLocationInfo={setLocationInfo}
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        {/* <MapDirection
+          setDestination={setDestination}
+          setOrigin={setOrigin}
+          directions={directions}
+          setDirections={setDirections}
+        /> */}
 
-        {directions && (
-          <DirectionsRenderer
-            directions={directions}
-            options={{
-              polylineOptions: {
-                strokeColor: "#0097FF",
-                strokeOpacity: 0.7,
-                strokeWeight: 5
-              }
-            }}
+        <GoogleMap
+          id="map"
+          zoom={15}
+          center={center}
+          mapContainerStyle={mapContainerStyle}
+          options={options}
+          onClick={onMapClick}
+          onLoad={onMapLoad}
+        >
+          <MapMarkers
+            markers={markers}
+            setMarkers={setMarkers}
+            selected={selected}
+            setSelected={setSelected}
+            locationInfo={locationInfo}
+            setLocationInfo={setLocationInfo}
+            circle={circle}
+            setCircle={setCircle}
           />
-        )}
-      </GoogleMap>
-    </div>
+          {/* {directions && (
+            <DirectionsRenderer
+              directions={directions}
+              options={{
+                polylineOptions: {
+                  strokeColor: "#0097FF",
+                  strokeOpacity: 0.7,
+                  strokeWeight: 5
+                }
+              }}
+            />
+          )} */}
+          <div className="fixed left-2 bottom-24">
+            <CurrerntLocation panTo={panTo} />
+          </div>
+          {/* <div className="fixed left-2 bottom-24">
+            <ChooseDestination />
+          </div> */}
+        </GoogleMap>
+      </div>
+      <div className="flex justify-between items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
+        <div className="flex grow justify-center">
+          <div>
+            <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-12 rounded-full font-bold text-white ">
+              SELECT
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
