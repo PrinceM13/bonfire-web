@@ -12,8 +12,23 @@ const eventSlice = createSlice({
     setEvents: (state, action) => {
       state.events = action.payload;
     },
+    updateEvent: (state, action) => {
+      state.events = state.events.filter((event) => event.id !== +action.payload);
+    },
     setEventFromId: (state, action) => {
       state.eventFromId = action.payload.reduce((acc, event) => {
+        acc[event.id] = {
+          title: event.title,
+          userId: event.userId,
+          EventDetail: event.EventDetail,
+          EventUsers: event.EventUsers,
+          User: event.User
+        };
+        return acc;
+      }, {});
+    },
+    updateEventFromId: (state) => {
+      state.eventFromId = state.events.reduce((acc, event) => {
         acc[event.id] = {
           title: event.title,
           userId: event.userId,
@@ -27,7 +42,7 @@ const eventSlice = createSlice({
   }
 });
 
-export const { setEvents, setEventFromId } = eventSlice.actions;
+export const { setEvents, setEventFromId, updateEvent, updateEventFromId } = eventSlice.actions;
 
 export const getAllEvents = () => async (dispatch) => {
   try {
@@ -35,6 +50,16 @@ export const getAllEvents = () => async (dispatch) => {
     const allEvents = res.data.events;
     dispatch(setEvents(allEvents));
     dispatch(setEventFromId(allEvents));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteEvent = (eventId) => async (dispatch) => {
+  try {
+    await eventApi.deleteEvent(eventId);
+    dispatch(updateEvent(eventId));
+    dispatch(updateEventFromId());
   } catch (err) {
     console.log(err);
   }

@@ -62,12 +62,10 @@ const router = createBrowserRouter([
       { path: "profile/:userId/edit", element: <EditProfilePage /> },
       { path: "link", element: <LinksPage /> },
       { path: "profile/:userId", element: <ProfilePage /> },
-      { path: "setting", element: <SettingPage /> },
-      { path: "create-event", element: <CreateEventPage /> }
-      // { path: "event-detail", element: <EventDetailPage /> },
-      // { path: "showprofile", element: <ShowProfilePage /> } // /profile/:userId
+      { path: "setting", element: <SettingPage /> }
     ]
   },
+  { path: "/create-event", element: <CreateEventPage /> },
   { path: "*", element: <Navigate to="/" /> } // wrong path --> redirect to root path
 ]);
 

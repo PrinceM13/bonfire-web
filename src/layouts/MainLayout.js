@@ -17,7 +17,7 @@ export default function MainLayout() {
   let leftLink = "";
   let rightLink = "";
   let needPadding = true;
-  let haveFilter = true;
+  let haveFilter = false;
 
   const navigate = useNavigate();
 
@@ -32,12 +32,8 @@ export default function MainLayout() {
   }
 
   switch (path) {
-    case "create-event":
-      title = "Event";
-      break;
     case "register":
       title = "Create new account";
-
       needFooter = false;
       break;
     case "link":

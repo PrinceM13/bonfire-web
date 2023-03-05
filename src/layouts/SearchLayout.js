@@ -18,12 +18,9 @@ export default function SearchLayout() {
     case "chatroom":
       needFilter = false;
       needPadding = false;
-      haveFilter = true;
       break;
-
     case "notifications":
       needFilter = false;
-      haveFilter = true;
       break;
 
     case "":
@@ -40,7 +37,7 @@ export default function SearchLayout() {
       {needSwitch && <Switch />}
       <Header content="search" leftBtn={<BackIcon />} rightBtn="" />
       {needFilter && <FilterBar />}
-      <ContentLayout needPadding={needPadding} haveFilter={haveFilter}>
+      <ContentLayout needPadding={needPadding} haveFilter={haveFilter} needSwitch={needSwitch}>
         <Outlet />
       </ContentLayout>
       <Footer content="" />
