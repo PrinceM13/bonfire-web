@@ -1,6 +1,6 @@
-export default function Post({ children }) {
+export default function Post({ children, createEvent = "" }) {
   return (
-    <div>
+    <div className={createEvent}>
       <div className=" p-2 w-full bg-white rounded-lg shadow-lg content-center ">
         <div className="border-[1px] p-4 border-[#6A6A6A] rounded-lg">{children}</div>
       </div>

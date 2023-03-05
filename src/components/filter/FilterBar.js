@@ -31,7 +31,7 @@ export default function FilterBar() {
 
   return (
     <>
-      <div className="flex items-start w-full bg-white fixed top-[13vh] left-0 h-[5vh] shadow-lg z-30">
+      <div className="flex items-start w-full bg-white fixed top-[13vh] left-0 h-[5.1vh] shadow-lg z-30">
         <button
           className={`w-1/3 ${
             isDistanceActive ? "active:text-[#EB4E53] focus:text-[#EB4E53]" : ""

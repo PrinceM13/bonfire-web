@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Background from "../components/background/Background";
 
 import Button from "../components/Button";
 import SelectCategories from "../components/categories/SelectCategories";
@@ -7,12 +8,15 @@ import Input from "../components/Input";
 import Modal from "../components/Modal";
 import VerticalSpace from "../components/VerticalSpace";
 import Post from "../features/post/Post";
+import Footer from "../layouts/Footer";
+import Header from "../layouts/Header";
 
 const initialEventDetail = {
   image: "",
   title: "", // Event Name
   latitude: "", // Pin
   longitude: "", // Pin
+  location: "", // Pin
   date: "", // Pick a date
   time: "", // Pick a date
   paticipant: "", // Max 5 People
@@ -38,7 +42,9 @@ export default function CreateEventPage() {
 
   return (
     <>
-      <Post>
+      <Background />
+      <Header title="Create Event" />
+      <Post createEvent="mt-[13vh] mb-[8vh] p-6">
         <CreateEventForm
           eventDetail={eventDetail}
           onClear={() => setEventDetail(initialEventDetail)}
@@ -74,6 +80,11 @@ export default function CreateEventPage() {
           placeholder="longitude"
           value={eventDetail.longitude}
           onChange={(e) => handleChange({ longitude: e.target.value })}
+        />
+        <Input
+          placeholder="location"
+          value={eventDetail.location}
+          onChange={(e) => handleChange({ location: e.target.value })}
         />
         <VerticalSpace />
         <Button onClick={() => setIsMapOpen(false)}>PIN</Button>
@@ -157,6 +168,7 @@ export default function CreateEventPage() {
           ADD
         </Button>
       </Modal>
+      <Footer />
     </>
   );
 }

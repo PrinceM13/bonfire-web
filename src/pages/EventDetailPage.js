@@ -1,19 +1,50 @@
 import { useNavigate, useParams } from "react-router-dom";
+
 import BackIcon from "../assets/icons/BackIcon";
 import Post from "../features/post/Post";
 import PostEventDetail from "../features/post/PostEventDetail";
 import Header from "../layouts/Header";
 import Dot from "../assets/icons/Dot";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useClickOutSide from "../hook/useClickOutSide";
+import { useState } from "react";
+import { deleteEvent } from "../redux/event-slice";
+import Modal from "../components/Modal";
+import ButtonConfirm from "../components/ButtonConfirm";
 
 export default function EventDetailPage() {
+  const dispatch = useDispatch();
   const eventFromId = useSelector((state) => state.event.eventFromId);
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const navigate = useNavigate();
   const { eventId } = useParams();
 
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const dropdownEl = useClickOutSide(() => setOpenDropdown(false));
+  const handleDeleteEvent = async () => {
+    dispatch(deleteEvent(eventId));
+    setIsConfirmDeleteOpen(false);
+    navigate("/");
+  };
   return (
     <>
+      <Modal
+        title="Delete Event !?"
+        isOpen={isConfirmDeleteOpen}
+        onClose={() => setIsConfirmDeleteOpen(false)}
+      >
+        <div className="flex justify-center gap-2">
+          <div onClick={handleDeleteEvent}>
+            <ButtonConfirm needSolid={true}>Yes</ButtonConfirm>
+          </div>
+          <div onClick={() => setIsConfirmDeleteOpen(false)}>
+            <ButtonConfirm theme="danger" needSolid={true}>
+              No
+            </ButtonConfirm>
+          </div>
+        </div>
+      </Modal>
       <Header
         title={eventFromId[eventId]?.title}
         leftBtn={
@@ -22,9 +53,27 @@ export default function EventDetailPage() {
           </button>
         }
         rightBtn={
-          <button>
-            <Dot />
-          </button>
+          <div ref={dropdownEl}>
+            <div onClick={() => setOpenDropdown(!openDropdown)}>
+              <Dot />
+            </div>
+            <div
+              className={`absolute top-[7vh] -right-5 bg-white w-[25vh] rounded-bl-lg ${
+                openDropdown ? "" : "hidden"
+              }`}
+            >
+              <div className="px-4 py-2 text-lg border border-gray-500">Edit event</div>
+              <div
+                className="px-4 py-2 text-lg border border-gray-500 border-t-0 rounded-bl-lg"
+                onClick={() => {
+                  setIsConfirmDeleteOpen(true);
+                  setOpenDropdown(false);
+                }}
+              >
+                Delete Event
+              </div>
+            </div>
+          </div>
         }
       />
       <Post>

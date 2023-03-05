@@ -14,7 +14,7 @@ export default function Modal({
       <div
         className={`${
           isOpen ? "" : "hidden"
-        } fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto bg-[#232323aa] z-10`}
+        } fixed top-0 left-0 w-full h-full overflow-x-hidden overflow-y-auto bg-[#232323aa] z-50`}
         onMouseDown={!alwaysOpen ? onClose : () => {}}
       >
         {/* card */}
