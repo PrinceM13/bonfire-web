@@ -1,18 +1,29 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import PictureIcon from "../../assets/icons/PictureIcon";
 import PinMapIcon from "../../assets/icons/PinMapIcon";
 import UserGroupIcon from "../../assets/icons/UserGroupIcon";
 import MapMarkedIcon from "../../assets/icons/MapMarkedIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
 import Avatar from "../../components/Avatar";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { getEventsById } from "../../redux/event-slice";
 
 export default function PostEventDetail({ size }) {
   const eventFromId = useSelector((state) => state.event.eventFromId);
   const { eventId } = useParams();
 
-  const date = eventFromId[eventId]?.EventDetail.date;
-  const time = eventFromId[eventId]?.EventDetail.time;
+  const thisEvent = eventFromId[eventId];
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    !thisEvent && dispatch(getEventsById(eventId)); // fetch data by id if refesh (refresh === events === no data)
+  }, []);
+  console.log(eventFromId);
+
+  const date = thisEvent?.EventDetail.date;
+  const time = thisEvent?.EventDetail.time;
   const options = {
     day: "numeric",
     month: "short",
@@ -23,18 +34,18 @@ export default function PostEventDetail({ size }) {
 
   const eventDateTime = new Date(date + "T" + time).toLocaleDateString("en-US", options);
 
-  const location = eventFromId[eventId]?.EventDetail.location;
-  const username = eventFromId[eventId]?.User.username;
-  const detail = eventFromId[eventId]?.EventDetail.detail;
-  const numPaticipant = eventFromId[eventId]?.EventDetail.Rule?.paticipant;
-  const numGoing = eventFromId[eventId]?.EventUsers.reduce((acc, el) => {
+  const location = thisEvent?.EventDetail.location;
+  const username = thisEvent?.User.username;
+  const detail = thisEvent?.EventDetail.detail;
+  const numPaticipant = thisEvent?.EventDetail.Rule?.paticipant;
+  const numGoing = thisEvent?.EventUsers.reduce((acc, el) => {
     if (el.status === "JOINED") {
       acc += 1;
     }
     return acc;
   }, 0);
   const numAvailable = numPaticipant - numGoing;
-  const eventUsers = eventFromId[eventId]?.EventUsers;
+  const eventUsers = thisEvent?.EventUsers;
 
   const User = ({ paticipantUsername, paticipantId, hostId, status }) => (
     <div className="flex flex-col justify-center items-center p-2 w-[20%]">
