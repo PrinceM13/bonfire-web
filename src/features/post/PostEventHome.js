@@ -11,6 +11,7 @@ import UserGroupIcon from "../../assets/icons/UserGroupIcon";
 import Avatar from "../../components/Avatar";
 import { getAllEvents } from "../../redux/event-slice";
 import Post from "./Post";
+import * as eventApi from "../../api/event-api";
 
 export default function PostEventHome() {
   const dispatch = useDispatch();
@@ -35,6 +36,12 @@ export default function PostEventHome() {
   const optionsTime = {
     hour: "2-digit",
     minute: "2-digit"
+  };
+
+  const handleJoinUsClick = async (e, eventId) => {
+    e.stopPropagation();
+    await eventApi.createEventUser({ eventId });
+    navigate(`/chat/${eventId}`);
   };
 
   return (
@@ -140,18 +147,30 @@ export default function PostEventHome() {
                           }, 0)} interested`}</div>
                         </div>
                       </div>
-                      {authenticatedUser.id !== el.userId && (
-                        <div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/chat/${el.id}`);
-                          }}
-                        >
-                          <button className="bg-gradient-to-b from-[#006567] w-full to-[#94C1E8] p-1 px-2 rounded-full mt-2 font-bold text-white">
+                      {/* {authenticatedUser.id !== el.userId && ( */}
+                      {/* <div> */}
+                      {authenticatedUser.id !== el.userId &&
+                        (el.EventUsers.filter((el) => el.userId === authenticatedUser.id).length !==
+                        0 ? (
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/chat/${el.id}`);
+                            }}
+                            className="bg-gradient-to-b from-[#EB4E53] w-full to-[#e8d294] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
+                          >
+                            GO TO CHAT
+                          </div>
+                        ) : (
+                          <div
+                            onClick={(e) => handleJoinUsClick(e, el.id)}
+                            className="bg-gradient-to-b from-[#006567] w-full to-[#94C1E8] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
+                          >
                             JOIN US
-                          </button>
-                        </div>
-                      )}
+                          </div>
+                        ))}
+                      {/* </div> */}
+                      {/* )} */}
                     </div>
                   </div>
                   <div className="border-black border-2 p-4 rounded-lg text-sm">
