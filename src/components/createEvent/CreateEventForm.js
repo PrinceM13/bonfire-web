@@ -2,6 +2,8 @@ import PictureIcon from "../../assets/icons/PictureIcon";
 import TagIcon from "../../assets/icons/TagIcon";
 import Input from "../Input";
 import * as eventApi from "../../api/event-api";
+import validateCreateEvent from "../../validators/create-event-validator";
+import { useState } from "react";
 
 export default function CreateEventForm({
   eventDetail,
@@ -13,23 +15,40 @@ export default function CreateEventForm({
   isTagOpen,
   isDetailOpen
 }) {
-  const CreateInputForm = (placeholder, title, value) => (
-    <div className="flex gap-3 w-full my-6">
-      <div className="w-[5vw] flex flex-col justify-center">
-        <TagIcon />
+  const [error, setError] = useState({});
+  const CreateInputForm = (placeholder, title, value, error) => {
+    return (
+      <div className="flex gap-3 w-full my-6">
+        <div className="w-[5vw] flex flex-col justify-center">
+          <TagIcon />
+        </div>
+        <div className="flex flex-col w-full">
+          <Input
+            placeholder={placeholder}
+            onChange={(e) => handleChange({ [title]: e.target.value })}
+            value={value}
+            error={error}
+          />
+        </div>
       </div>
-      <Input
-        placeholder={placeholder}
-        onChange={(e) => handleChange({ [title]: e.target.value })}
-        value={value}
-      />
-    </div>
-  );
+    );
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await eventApi.createEvent(eventDetail);
-    onClear();
+    try {
+      e.preventDefault();
+      // data validation
+      const result = validateCreateEvent(eventDetail);
+      if (result) {
+        setError(result);
+      } else {
+        setError({});
+        await eventApi.createEvent(eventDetail);
+        onClear();
+      }
+    } catch (err) {
+      console.log("error", err?.response?.data?.message);
+    }
   };
 
   return (
@@ -44,7 +63,7 @@ export default function CreateEventForm({
           </button>
         </div>
 
-        {CreateInputForm("Event Name", "title", eventDetail.title)}
+        {CreateInputForm("Event Name", "title", eventDetail.title, error.title)}
 
         {/* Pin */}
 
@@ -54,6 +73,8 @@ export default function CreateEventForm({
           </div>
           <div className="w-full" onClick={isMapOpen}>
             <Input
+              name="location"
+              error={error.latitude || error.longitude || error.location}
               placeholder="Pin your location"
               readOnly={true}
               value={
@@ -74,6 +95,8 @@ export default function CreateEventForm({
           </div>
           <div className="w-full" onClick={isDateTimeOpen}>
             <Input
+              name="dateTime"
+              error={error.date || error.time}
               placeholder="Pick Date & Time"
               readOnly={true}
               value={
@@ -86,8 +109,8 @@ export default function CreateEventForm({
           </div>
         </div>
 
-        {CreateInputForm("Max 5 People", "paticipant", eventDetail.paticipant)}
-        {CreateInputForm("Age", "age", eventDetail.age)}
+        {CreateInputForm("Max 5 People", "paticipant", eventDetail.paticipant, error.paticipant)}
+        {CreateInputForm("Age", "age", eventDetail.age, error.age)}
 
         {/* Category */}
 
@@ -97,6 +120,8 @@ export default function CreateEventForm({
           </div>
           <div className="w-full" onClick={isCategoryOpen}>
             <Input
+              name="category"
+              error={error.category}
               placeholder="Category"
               readOnly={true}
               value={eventDetail.category}
@@ -138,7 +163,13 @@ export default function CreateEventForm({
           </div>
           <div className="w-full" onClick={isDetailOpen}>
             {eventDetail.detail === "" ? (
-              <Input placeholder="Detail" readOnly={true} cursor="cursor-pointer" />
+              <Input
+                placeholder="Detail"
+                readOnly={true}
+                cursor="cursor-pointer"
+                name="detail"
+                error={error.detail}
+              />
             ) : (
               <p
                 className="w-full shadow rounded-3xl my-2 border-2 p-1 px-2 break-words"

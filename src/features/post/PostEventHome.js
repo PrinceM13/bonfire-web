@@ -63,14 +63,14 @@ export default function PostEventHome() {
                         <div>
                           <PinMapIcon size="15px" />
                         </div>
-                        <div className="text-sm">{el.EventDetail.location}</div>
+                        <div className="text-sm">{el.EventDetail?.location}</div>
                       </div>
                       <div className="py-2">
                         <div className="flex gap-2">
                           <div>
                             <FoodSmallIcon size="15px" />
                           </div>
-                          <div className="text-sm">{el.EventDetail.category}</div>
+                          <div className="text-sm">{el.EventDetail?.category}</div>
                         </div>
                       </div>
                       <div className="flex gap-4 pb-4">
@@ -79,7 +79,7 @@ export default function PostEventHome() {
                         </div>
                         <div className="flex flex-wrap gap-1">
                           {el.EventDetail.EventTags.map((item) => (
-                            <Tag key={item.Tag.id} tagTitle={`#${item.Tag.titleTag}`} />
+                            <Tag key={item.Tag.id} tagTitle={`#${item.Tag?.titleTag}`} />
                           ))}
                         </div>
                       </div>
@@ -123,7 +123,7 @@ export default function PostEventHome() {
                         </div>
                         <div className="flex flex-wrap gap-1 text-sm">
                           <div>
-                            {el.EventDetail.Rule?.paticipant
+                            {el.EventDetail?.Rule?.paticipant
                               ? `${el.EventUsers.reduce((acc, el) => {
                                   if (el.status === "JOINED") {
                                     acc += 1;
