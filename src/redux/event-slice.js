@@ -55,6 +55,17 @@ export const getAllEvents = () => async (dispatch) => {
   }
 };
 
+export const getEventsById = (eventId) => async (dispatch) => {
+  try {
+    const res = await eventApi.getEventsById(eventId);
+    const thisEvent = res.data.event;
+    dispatch(setEvents([thisEvent]));
+    dispatch(updateEventFromId());
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const deleteEvent = (eventId) => async (dispatch) => {
   try {
     await eventApi.deleteEvent(eventId);
