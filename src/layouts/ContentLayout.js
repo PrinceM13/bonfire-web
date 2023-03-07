@@ -7,7 +7,7 @@ export default function ContentLayout({
   return (
     <div
       className={`${needPadding ? "p-6" : ""} ${
-        needSwitch ? "mt-[22vh]" : haveFilter ? "mt-[16vh]" : "mt-[13vh]"
+        needSwitch ? "mt-[23vh]" : haveFilter ? "mt-[16vh]" : "mt-[13vh]"
       } mb-[8vh] relative z-0`}
     >
       {children}

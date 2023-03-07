@@ -1,14 +1,14 @@
 import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
-import PostEventHome from "../features/post/PostEventHome";
+import PostEventHome from "../../features/post/PostEventHome";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-export default function SwitchHome() {
+export default function SwitchHome({ leftPage, rightPage }) {
   const [isPostActive, setIsPostActive] = useState(true);
   const [isMapActive, setIsMapActive] = useState(false);
   const swiperRef = useRef(null);
@@ -38,7 +38,7 @@ export default function SwitchHome() {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex justify-center items-center w-full bg-white fixed top-[18vh] left-0 z-40 shadow-lg">
         <button
           className={`py-2 text-center w-[50%] font-bold ${
             isPostActive ? "text-black" : "text-[#B8B7B7]"
@@ -73,11 +73,12 @@ export default function SwitchHome() {
       >
         <SwiperSlide>
           {/* <p className="m-6">Pending</p> */}
-          <PostEventHome />
+          {leftPage}
         </SwiperSlide>
         <SwiperSlide>
           {/* <p className="m-6">History</p> */}
-          <PostEventHome />
+
+          {rightPage}
         </SwiperSlide>
       </Swiper>
     </>

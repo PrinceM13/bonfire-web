@@ -70,7 +70,13 @@ export default function CreateEventPage() {
       {/* Pin */}
 
       <Modal title="PIN LOCATION" isOpen={isMapOpen} onClose={() => setIsMapOpen(false)}>
-        <Map isMultiMarker={false} handleChange={handleChange} />
+        <Map
+          isMultiMarker={false}
+          handleChange={handleChange}
+          isEditAble={true}
+          height="30vh"
+          needSearch={true}
+        />
         <VerticalSpace />
         <Input
           placeholder="latitude"
