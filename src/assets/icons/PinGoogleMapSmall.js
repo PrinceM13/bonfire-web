@@ -7,7 +7,7 @@ export default function PinGoogleMapSmall() {
       />
       <defs>
         <linearGradient
-          id="paint0_linear_470_370"
+          id="paint0_linear_470_370_x"
           x1="11"
           y1="0"
           x2="11"

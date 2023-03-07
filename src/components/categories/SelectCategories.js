@@ -3,16 +3,17 @@ import FoodIcon from "../../assets/icons/FoodIcon";
 import GameIcon from "../../assets/icons/GameIcon";
 import MusicIcon from "../../assets/icons/MusicIcon";
 import TravelIcon from "../../assets/icons/TravelIcon";
+import SportIconTennis from "../../assets/icons/SportIconTennis";
 import { CAFE, FOOD, GAME, PARTY, SPORT, TRAVEL } from "../../config/constant";
 
 export default function SelectCategories({ onClose, setEventDetail }) {
   const categories = [
     { image: <FoodIcon />, title: FOOD },
+    { image: <SportIconTennis />, title: SPORT },
     { image: <CafeIcon />, title: CAFE },
-    { image: <TravelIcon />, title: TRAVEL },
-    { image: <GameIcon />, title: GAME },
     { image: <MusicIcon />, title: PARTY },
-    { image: <TravelIcon />, title: SPORT }
+    { image: <GameIcon />, title: GAME },
+    { image: <TravelIcon />, title: TRAVEL }
   ];
 
   const handleClick = (title) => {

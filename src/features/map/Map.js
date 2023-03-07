@@ -16,7 +16,7 @@ import PinGoogleMapSmall from "../../assets/icons/PinGoogleMapSmall";
 import CurrentPoint from "../../assets/icons/CurrentPoint";
 // import ChooseDestination from "../../assets/icons/ChooseDestination";
 
-const libraries = ["places","geometry"];
+const libraries = ["places", "geometry"];
 const mapContainerStyle = {
   height: "90vh",
   width: "screen"
@@ -49,12 +49,11 @@ export default function Map({ isMultiMarker = true, handleChange }) {
 
   const [circle, setCircle] = useState(null);
 
-
   useEffect(() => {
     localStorage.setItem("markers", JSON.stringify(markers));
   }, [markers]);
 
-  const handleSetMarker = newMarkers => {
+  const handleSetMarker = (newMarkers) => {
     console.log(newMarkers);
     if (!isMultiMarker) {
       setMarkers(newMarkers);
@@ -71,7 +70,7 @@ export default function Map({ isMultiMarker = true, handleChange }) {
         }
       });
     } else {
-      setMarkers(current => [...current, ...newMarkers]);
+      setMarkers((current) => [...current, ...newMarkers]);
     }
   };
   // const handleSetMarker = newMarkers => {
@@ -99,7 +98,7 @@ export default function Map({ isMultiMarker = true, handleChange }) {
   // };
 
   const onMapClick = useCallback(
-    e => {
+    (e) => {
       console.log("fist click pls");
       handleSetMarker([{ lat: e.latLng.lat(), lng: e.latLng.lng() }]);
       // if (!isMultiMarker) {
@@ -168,7 +167,7 @@ export default function Map({ isMultiMarker = true, handleChange }) {
   // }, []);
 
   const mapRef = useRef();
-  const onMapLoad = useCallback(map => {
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 

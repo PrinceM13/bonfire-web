@@ -29,10 +29,10 @@ export default function MapMarkers({
   return (
     <div>
       {/* {filteredMarkers?.map((marker, index) => ( */}
-    {markers?.map(marker => (
+      {markers?.map((marker, idx) => (
         <Marker
           // key={`${marker.lat}-${marker.lng}`}
-          // key={index}
+          key={idx}
           position={{ lat: marker.lat, lng: marker.lng }}
           // visible={marker.visible}
           // draggable={true}
@@ -96,7 +96,7 @@ export default function MapMarkers({
                 handleChange({ latitude: "", longitude: "", location: "" });
                 setMarkers(
                   markers.filter(
-                    marker => marker.lat !== selected.lat || marker.lng !== selected.lng
+                    (marker) => marker.lat !== selected.lat || marker.lng !== selected.lng
                   )
                 );
                 setSelected(null);
