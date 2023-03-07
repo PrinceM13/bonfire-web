@@ -2,28 +2,26 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import socket from "../config/socket";
 import InsertPhotoIcon from "../assets/icons/InsertPhotoIcon";
+import { useSelector } from "react-redux";
 
 export default function ChatPage() {
+  const socketId = useSelector((state) => state.chat.socketId);
   const [input, setInput] = useState("");
-  const [clientId, setClientId] = useState();
   const [messages, setMessages] = useState([
-    { eventId: 999, user: 1, content: "dummy_msg_1" },
-    { eventId: 999, user: 2, content: "dummy_msg_2" },
-    { eventId: 999, user: 2, content: "dummy_msg_3" }
+    { eventId: 999, socketId: 1, message: "dummy_msg_1" },
+    { eventId: 999, socketId: 2, message: "dummy_msg_2" },
+    { eventId: 999, socketId: 2, message: "dummy_msg_3" }
   ]);
 
   const param = useParams();
-  const room = param.eventId;
+  const eventId = param.eventId;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    socket.emit("joinRoom", room);
-    return () => socket.emit("leaveRoom", room);
+    socket.emit("joinRoom", eventId);
+    return () => socket.emit("leaveRoom", eventId);
   }, []);
-
-  // get client id from socket
-  socket.on("connect", () => setClientId(socket?.id));
 
   useEffect(() => {
     if (!socket) return;
@@ -35,7 +33,7 @@ export default function ChatPage() {
 
   const handleSend = (e) => {
     e.preventDefault();
-    socket.emit("message", { eventId: room, user: clientId, content: input });
+    socket.emit("message", { eventId, socketId, message: input });
     setInput("");
   };
   const handleOnInputChange = (e) => {
@@ -60,13 +58,13 @@ export default function ChatPage() {
         {messages.map((msg, idx) => (
           <div
             className={`
-            ${msg.user === clientId ? "text-right" : ""}
-            ${msg.user === "connect" ? "text-center text-green-700" : ""}
-            ${msg.user === "disconnect" ? "text-center text-red-700" : ""}
+            ${msg.socketId === socketId ? "text-right" : ""}
+            ${msg.socketId === "connect" ? "text-center text-green-700" : ""}
+            ${msg.socketId === "disconnect" ? "text-center text-red-700" : ""}
             `}
             key={idx}
           >
-            {msg.content}
+            {msg.message}
           </div>
         ))}
       </div>

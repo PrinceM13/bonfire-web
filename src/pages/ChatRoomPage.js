@@ -1,30 +1,27 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ChatRoom from "../components/chat/ChatRoom";
+import * as userApi from "../api/user-api";
 
 export default function ChatRoomPage() {
+  const [eventUsers, setEventUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchMyEventUsers = async () => {
+      const res = await userApi.getMyEventUsers();
+      setEventUsers(res.data.eventUsers);
+    };
+    fetchMyEventUsers();
+  }, []);
+
   return (
     <>
-      <ChatRoom />
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col items-center gap-2">
-          <Link className="w-[60%]" to="/chat/1">
-            <div className="border-2 cursor-pointer border-blue-400 rounded-lg px-4 py-2">
-              Room 1
-            </div>
-          </Link>
-          <Link className="w-[60%]" to="/chat/2">
-            <div className="border-2 cursor-pointer border-blue-400 rounded-lg px-4 py-2">
-              Room 2
-            </div>
-          </Link>
-          <Link className="w-[60%]" to="/chat/3">
-            <div className="border-2 cursor-pointer border-blue-400 rounded-lg px-4 py-2">
-              Room 3
-            </div>
-          </Link>
-        </div>
-      </div>
+      {eventUsers?.map((event) => (
+        <Link key={event.id} className="w-[60%]" to={`/chat/${event.Event.id}`}>
+          <ChatRoom event={event} />
+        </Link>
+      ))}
     </>
   );
 }
