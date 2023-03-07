@@ -1,6 +1,7 @@
 import Joi from "joi";
 
 const createEventSchema = Joi.object({
+  image: Joi.string().dataUri(),
   title: Joi.string().required().messages({
     "string.empty": "Event Name is required"
   }),

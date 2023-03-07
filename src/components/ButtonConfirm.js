@@ -7,7 +7,8 @@ export default function ButtonConfirm({
   p = "py-2 px-4",
   border = "border",
   needSolid = false,
-  opacity = false
+  opacity = false,
+  type = "button"
 }) {
   const success = "text-green-500 border-green-500 hover:bg-green-500";
   const success_solid = "bg-green-500 hover:bg-green-600";
@@ -34,6 +35,7 @@ export default function ButtonConfirm({
 
   return (
     <button
+      type={type}
       className={` ${width} ${size} ${
         needSolid ? colorThemeSolid : colorTheme
       } ${rounded} ${p} ${border} font-semibold ${opacity && "opacity-20"} `}

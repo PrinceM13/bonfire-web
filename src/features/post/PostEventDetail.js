@@ -2,7 +2,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import PictureIcon from "../../assets/icons/PictureIcon";
 import PinMapIcon from "../../assets/icons/PinMapIcon";
 import UserGroupIcon from "../../assets/icons/UserGroupIcon";
 import MapMarkedIcon from "../../assets/icons/MapMarkedIcon";
@@ -66,8 +65,8 @@ export default function PostEventDetail({ size }) {
   return (
     <div>
       <div className="flex justify-center items-center bg-[#D4D4D4] h-1/2 p-10">
-        <div className="w-[25%]">
-          <PictureIcon size="100%" />
+        <div className="">
+          <img src={thisEvent?.EventDetail.image} className="w-[100%] h-[100%]" alt="Event " />
         </div>
       </div>
       <div className="flex justify-between">
