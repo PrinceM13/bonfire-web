@@ -24,10 +24,9 @@ export default function PostEventHome() {
   }, []);
 
   const navigate = useNavigate();
-  const showEvents = useSelector(state => state.event.events);
-  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
-  const tagSearch = useSelector(state => state.filter.tagSearch);
-
+  const showEvents = useSelector((state) => state.event.events);
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const tagSearch = useSelector((state) => state.filter.tagSearch);
   const optionsDate = {
     day: "numeric",
     month: "short",
@@ -46,10 +45,10 @@ export default function PostEventHome() {
 
   return (
     <>
-      {showEvents?.map(el => {
+      {showEvents?.map((el) => {
         return (
           (tagSearch === "" ||
-            el?.EventDetail.EventTags.some(tag =>
+            el?.EventDetail.EventTags.some((tag) =>
               tag.Tag.titleTag.toLowerCase().includes(tagSearch.toLowerCase())
             )) && (
             <div
@@ -85,7 +84,7 @@ export default function PostEventHome() {
                           <TagIcon size="15px" />
                         </div>
                         <div className="flex flex-wrap gap-1">
-                          {el?.EventDetail.EventTags.map(item => (
+                          {el?.EventDetail.EventTags.map((item) => (
                             <Tag key={item.Tag.id} tagTitle={`#${item.Tag?.titleTag}`} />
                           ))}
                         </div>
@@ -97,9 +96,13 @@ export default function PostEventHome() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-center items-center bg-[#D4D4D4] ">
-                    <div className="w-[25%] py-10">
-                      <PictureIcon size="100%" />
+                  <div className="flex justify-center items-center">
+                    <div className=" bg-[#D4D4D4] h-[300px] w-[300px] rounded-xl">
+                      <img
+                        src={el.EventDetail?.image}
+                        className="h-[300px] w-[300px] rounded-xl"
+                        alt="Event Image"
+                      />
                     </div>
                   </div>
                   <div className="py-4 flex justify-between">
@@ -150,10 +153,10 @@ export default function PostEventHome() {
                       {/* {authenticatedUser.id !== el.userId && ( */}
                       {/* <div> */}
                       {authenticatedUser.id !== el?.userId &&
-                        (el?.EventUsers.filter(el => el?.userId === authenticatedUser.id).length !==
-                        0 ? (
+                        (el?.EventUsers.filter((el) => el?.userId === authenticatedUser.id)
+                          .length !== 0 ? (
                           <div
-                            onClick={e => {
+                            onClick={(e) => {
                               e.stopPropagation();
                               navigate(`/chat/${el?.id}`);
                             }}
@@ -163,7 +166,7 @@ export default function PostEventHome() {
                           </div>
                         ) : (
                           <div
-                            onClick={e => handleJoinUsClick(e, el?.id)}
+                            onClick={(e) => handleJoinUsClick(e, el?.id)}
                             className="bg-gradient-to-b from-[#006567] w-full to-[#94C1E8] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
                           >
                             JOIN US
