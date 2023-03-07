@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import BackIcon from "../assets/icons/BackIcon";
 import SettingBtn from "../assets/icons/SettingBtn";
@@ -27,6 +28,8 @@ export default function MainLayout() {
   const fullPath = useLocation().pathname.split("/");
   const isEditPath = useLocation().pathname.split("/")[fullPath.length - 1];
 
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+
   if (isEditPath === "edit") {
     needHeader = false;
   }
@@ -48,7 +51,7 @@ export default function MainLayout() {
       break;
     case "profile":
       title = "Profile";
-      isAuthProfile = param.userId === "1" ? true : false;
+      isAuthProfile = +param.userId === authenticatedUser.id ? true : false;
       rightBtn = isAuthProfile ? (
         <Link to="/setting">
           <SettingBtn />
