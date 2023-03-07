@@ -54,23 +54,29 @@ export default function CreateEventForm({
     // }
     try {
       e.preventDefault();
-      const formData = new FormData();
-      formData.append("image", image);
-      formData.append("title", eventDetail.title);
-      formData.append("latitude", eventDetail.latitude);
-      formData.append("longitude", eventDetail.longitude);
-      formData.append("location", eventDetail.location);
-      formData.append("date", eventDetail.date);
-      formData.append("time", eventDetail.time);
-      formData.append("paticipant", eventDetail.paticipant);
-      formData.append("age", eventDetail.age);
-      formData.append("category", eventDetail.category);
-      formData.append("tags", eventDetail.tags);
-      formData.append("detail", eventDetail.detail);
-      await eventApi.createEvent(formData);
-      onClear();
+      const result = validateCreateEvent(eventDetail);
+      if (result) {
+        setError(result);
+      } else {
+        setError({});
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("title", eventDetail.title);
+        formData.append("latitude", eventDetail.latitude);
+        formData.append("longitude", eventDetail.longitude);
+        formData.append("location", eventDetail.location);
+        formData.append("date", eventDetail.date);
+        formData.append("time", eventDetail.time);
+        formData.append("paticipant", eventDetail.paticipant);
+        formData.append("age", eventDetail.age);
+        formData.append("category", eventDetail.category);
+        formData.append("tags", eventDetail.tags);
+        formData.append("detail", eventDetail.detail);
+        await eventApi.createEvent(formData);
+        onClear();
+      }
     } catch (err) {
-      console.log(err);
+      console.log("error", err?.response?.data?.message);
     }
     // e.preventDefault();
     // const res = await eventApi.createEvent(eventDetail);
@@ -97,8 +103,10 @@ export default function CreateEventForm({
           </button>
           <input
             type="file"
+            name="image"
             ref={inputEl}
             className="hidden"
+            error={error.image}
             onChange={(e) => {
               setImage(e.target.files[0]);
             }}
@@ -179,7 +187,13 @@ export default function CreateEventForm({
           </div>
           <div className="w-full" onClick={isTagOpen}>
             {eventDetail.tags.length === 0 ? (
-              <Input placeholder="Tag" readOnly={true} cursor="cursor-pointer" />
+              <Input
+                placeholder="Tag"
+                readOnly={true}
+                cursor="cursor-pointer"
+                name="tags"
+                value={eventDetail.tags}
+              />
             ) : (
               <p
                 className="w-full shadow rounded-3xl my-2 border-2 p-1 px-2 break-words"
