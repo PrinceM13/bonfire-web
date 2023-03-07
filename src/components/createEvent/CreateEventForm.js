@@ -80,6 +80,7 @@ export default function CreateEventForm({
         </div>
         <div className="flex justify-center mt-2">
           <button
+            type="button"
             className="font-bold text-[#6A6A6A] text-sm"
             onClick={() => inputEl.current.click()}
           >
