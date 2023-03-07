@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import MagnifyingGlassIcon from "../assets/icons/MagnifyingGlassIcon";
 import Avatar from "../components/Avatar";
@@ -18,6 +18,7 @@ export default function Header({
 }) {
   const [tagsData, setTagsData] = useState([]);
   const [tagsFilter, setTagsFilter] = useState("");
+  const [isSearchResultOpen, setIsSearchResultOpen] = useState(true);
 
   const dispatch = useDispatch();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
@@ -35,8 +36,20 @@ export default function Header({
     return () => clearTimeout(idTimeout);
   }, [tagsFilter]);
 
+  // clear filter when change page
+  const param = useParams();
+  useEffect(() => {
+    setTagsFilter("");
+  }, [param]);
+
   const handleChangeInput = (e) => {
+    setIsSearchResultOpen(true);
     setTagsFilter(e.target.value);
+  };
+
+  const handleSearchResultClick = (e) => {
+    setTagsFilter(e.target.textContent);
+    setIsSearchResultOpen(false);
   };
   return (
     <>
@@ -71,6 +84,7 @@ export default function Header({
                     className="w-full outline-none px-2"
                     placeholder="Search"
                     onChange={handleChangeInput}
+                    value={tagsFilter}
                   />
                 </div>
 
@@ -82,7 +96,7 @@ export default function Header({
                 </div>
               </div>
 
-              {tagsFilter !== "" && tagsData.length !== 0 && (
+              {tagsFilter !== "" && tagsData.length !== 0 && isSearchResultOpen && (
                 <div className="flex items-center gap-4">
                   <div className="px-4 w-full flex justify-between">
                     <div className="invisible">
@@ -91,7 +105,11 @@ export default function Header({
                     {tagsFilter !== "" && (
                       <div className="w-full">
                         {tagsData.map((tags) => (
-                          <div key={tags.id} className="bg-white border border-gray-100 p-1">
+                          <div
+                            key={tags.id}
+                            onClick={handleSearchResultClick}
+                            className="bg-white border border-gray-100 p-1"
+                          >
                             {tags.titleTag}
                           </div>
                         ))}

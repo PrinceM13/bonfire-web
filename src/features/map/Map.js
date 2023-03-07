@@ -63,8 +63,6 @@ export default function Map({
   //   localStorage.setItem("markers", JSON.stringify(markers));
   // }, [markers]);
 
-  console.log("gggg", displayMarkers);
-
   useEffect(() => {
     displayMarkers.length !== 0 && setMarkers(displayMarkers);
   }, [displayMarkers]);

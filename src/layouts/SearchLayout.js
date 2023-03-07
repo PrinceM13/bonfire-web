@@ -16,7 +16,7 @@ export default function SearchLayout() {
   let needSwitch = false;
 
   const events = useSelector((state) => state.event.events);
-  console.log("---> ", events);
+
   const displayMarkers = events.map((el) => {
     return {
       lat: +el?.EventDetail.latitude,
@@ -35,12 +35,10 @@ export default function SearchLayout() {
     case "notifications":
       needFilter = false;
       break;
-
     case "":
       haveFilter = true;
       needSwitch = true;
       break;
-
     default:
       break;
   }
