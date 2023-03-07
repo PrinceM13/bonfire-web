@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { setUser } from "../redux/auth-slice";
 import * as userApi from "../api/user-api";
 import Avatar from "../components/Avatar";
 import Post from "../features/post/Post";
@@ -11,34 +10,52 @@ import PostNoti from "../features/post/PostNoti";
 // import FacebookIcon from "../assets/icons/FacebookIcon";
 
 export default function ProfilePage() {
-  const dispatch = useDispatch();
+  const param = useParams();
+  const navigate = useNavigate();
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+
+  const userId = +param.userId;
+  const [profile, setProfile] = useState({});
+
+  const currentDate = new Date().getFullYear();
+  const birthDate = new Date(profile.birthDate).getFullYear();
+  const age = currentDate - birthDate;
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await userApi.getMyProfile();
-        dispatch(setUser(res.data.myProfile));
+        const res = await userApi.getProfileById(userId);
+        if (res.data.profile) {
+          setProfile(res.data.profile);
+        } else {
+          navigate("/");
+        }
       } catch (err) {
         console.log(err);
       }
     };
     fetchProfile();
   }, []);
-  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+
   return (
     <>
       <div className="flex flex-col gap-4 p-2">
         <div className="flex justify-between">
           <div className="w-[30vw]">
-            <Avatar src={authenticatedUser.profileImage} size="100%" />
+            <Avatar src={profile.profileImage} size="100%" />
           </div>
           <div className="p-4">
-            <div className="font-bold text-2xl">{authenticatedUser?.firstName},24</div>
-            <div className="text-[#333333]">{authenticatedUser?.username}</div>
-            <Link to="/profile/:userId/edit">
-              <button className="mt-2 bg-gradient-to-b from-[#ffffff] to-[#D4D4D4] p-1 px-2 shadow-md rounded-full ">
-                Edit profile
-              </button>
-            </Link>
+            <div className="font-bold text-2xl">
+              {profile?.firstName}, {age}
+            </div>
+            <div className="text-[#333333]">{profile?.username}</div>
+            {authenticatedUser.id === userId && (
+              <Link to="/profile/:userId/edit">
+                <button className="mt-2 bg-gradient-to-b from-[#ffffff] to-[#D4D4D4] p-1 px-2 shadow-md rounded-full ">
+                  Edit profile
+                </button>
+              </Link>
+            )}
           </div>
         </div>
 
