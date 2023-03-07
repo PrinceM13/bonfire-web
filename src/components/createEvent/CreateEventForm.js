@@ -3,7 +3,7 @@ import TagIcon from "../../assets/icons/TagIcon";
 import Input from "../Input";
 import * as eventApi from "../../api/event-api";
 import validateCreateEvent from "../../validators/create-event-validator";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function CreateEventForm({
   eventDetail,
@@ -16,6 +16,9 @@ export default function CreateEventForm({
   isDetailOpen
 }) {
   const [error, setError] = useState({});
+  const [image, setImage] = useState(null);
+  console.log(image);
+  const inputEl = useRef();
   const CreateInputForm = (placeholder, title, value, error) => {
     return (
       <div className="flex gap-3 w-full my-6">
@@ -49,9 +52,29 @@ export default function CreateEventForm({
     // } catch (err) {
     //   console.log("error", err?.response?.data?.message);
     // }
-    e.preventDefault();
-    const res = await eventApi.createEvent(eventDetail);
-    onClear();
+    try {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("title", eventDetail.title);
+      formData.append("latitude", eventDetail.latitude);
+      formData.append("longitude", eventDetail.longitude);
+      formData.append("location", eventDetail.location);
+      formData.append("date", eventDetail.date);
+      formData.append("time", eventDetail.time);
+      formData.append("paticipant", eventDetail.paticipant);
+      formData.append("age", eventDetail.age);
+      formData.append("category", eventDetail.category);
+      formData.append("tags", eventDetail.tags);
+      formData.append("detail", eventDetail.detail);
+      await eventApi.createEvent(formData);
+      onClear();
+    } catch (err) {
+      console.log(err);
+    }
+    // e.preventDefault();
+    // const res = await eventApi.createEvent(eventDetail);
+    // onClear();
   };
 
   return (
@@ -62,10 +85,25 @@ export default function CreateEventForm({
             type="button"
             className="grid justify-center content-center bg-[#D4D4D4] rounded-lg w-[50vw] h-[30vh] py-4 shadow-md"
           >
-            <PictureIcon />
+            <img src={image ? URL.createObjectURL(image) : null} />
           </button>
         </div>
-
+        <div className="flex justify-center mt-2">
+          <button
+            className="font-bold text-[#6A6A6A] text-sm"
+            onClick={() => inputEl.current.click()}
+          >
+            Add Image
+          </button>
+          <input
+            type="file"
+            ref={inputEl}
+            className="hidden"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+          />
+        </div>
         {CreateInputForm("Event Name", "title", eventDetail.title, error.title)}
 
         {/* Pin */}
