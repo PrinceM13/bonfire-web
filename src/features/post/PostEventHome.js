@@ -23,9 +23,9 @@ export default function PostEventHome() {
   }, []);
 
   const navigate = useNavigate();
-  const showEvents = useSelector((state) => state.event.events);
-  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
-  const tagSearch = useSelector((state) => state.filter.tagSearch);
+  const showEvents = useSelector(state => state.event.events);
+  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
+  const tagSearch = useSelector(state => state.filter.tagSearch);
 
   const optionsDate = {
     day: "numeric",
@@ -36,13 +36,13 @@ export default function PostEventHome() {
     hour: "2-digit",
     minute: "2-digit"
   };
-
+  console.log(showEvents);
   return (
     <>
-      {showEvents?.map((el) => {
+      {showEvents?.map(el => {
         return (
           (tagSearch === "" ||
-            el.EventDetail.EventTags.some((tag) =>
+            el.EventDetail.EventTags.some(tag =>
               tag.Tag.titleTag.toLowerCase().includes(tagSearch.toLowerCase())
             )) && (
             <div
@@ -63,7 +63,7 @@ export default function PostEventHome() {
                         <div>
                           <PinMapIcon size="15px" />
                         </div>
-                        <div className="text-sm">{el.EventDetail.location}</div>
+                        <div className="text-sm">{el.EventDetail?.location}</div>
                       </div>
                       <div className="py-2">
                         <div className="flex gap-2">
@@ -78,7 +78,7 @@ export default function PostEventHome() {
                           <TagIcon size="15px" />
                         </div>
                         <div className="flex flex-wrap gap-1">
-                          {el.EventDetail.EventTags.map((item) => (
+                          {el.EventDetail.EventTags.map(item => (
                             <Tag key={item.Tag.id} tagTitle={`#${item.Tag.titleTag}`} />
                           ))}
                         </div>
@@ -142,7 +142,7 @@ export default function PostEventHome() {
                       </div>
                       {authenticatedUser.id !== el.userId && (
                         <div
-                          onClick={(e) => {
+                          onClick={e => {
                             e.stopPropagation();
                             navigate(`/chat/${el.id}`);
                           }}
