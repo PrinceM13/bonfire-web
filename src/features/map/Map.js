@@ -69,7 +69,7 @@ export default function Map({
     displayMarkers.length !== 0 && setMarkers(displayMarkers);
   }, [displayMarkers]);
 
-  const handleSetMarker = newMarkers => {
+  const handleSetMarker = (newMarkers) => {
     console.log(newMarkers);
     if (isEditAble) {
       if (!isMultiMarker) {
@@ -87,7 +87,7 @@ export default function Map({
           }
         });
       } else {
-        setMarkers(current => [...current, ...newMarkers]);
+        setMarkers((current) => [...current, ...newMarkers]);
       }
     }
   };
@@ -116,7 +116,7 @@ export default function Map({
   // };
 
   const onMapClick = useCallback(
-    e => {
+    (e) => {
       console.log("fist click pls");
       handleSetMarker([{ lat: e.latLng.lat(), lng: e.latLng.lng() }]);
       // if (!isMultiMarker) {
@@ -166,7 +166,7 @@ export default function Map({
   // );
 
   const mapRef = useRef();
-  const onMapLoad = useCallback(map => {
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 

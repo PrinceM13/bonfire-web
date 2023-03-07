@@ -11,7 +11,7 @@ import { getEventsById } from "../../redux/event-slice";
 import Map from "../map/Map";
 
 export default function PostEventDetail({ size }) {
-  const eventFromId = useSelector(state => state.event.eventFromId);
+  const eventFromId = useSelector((state) => state.event.eventFromId);
   const { eventId } = useParams();
   const navigate = useNavigate();
 
@@ -127,7 +127,7 @@ export default function PostEventDetail({ size }) {
             <div>Invite</div>
           </div>
         </button> */}
-        {eventUsers?.map(el => (
+        {eventUsers?.map((el) => (
           <User
             key={el.userId}
             userId={el.userId}

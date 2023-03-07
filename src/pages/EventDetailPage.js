@@ -15,8 +15,8 @@ import EditEvent from "../components/edit/EditEvent";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
-  const eventFromId = useSelector(state => state.event.eventFromId);
-  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
+  const eventFromId = useSelector((state) => state.event.eventFromId);
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const navigate = useNavigate();
   const { eventId } = useParams();
 

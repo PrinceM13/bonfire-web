@@ -25,7 +25,7 @@ export default function SwitchHome({ leftPage, rightPage }) {
     swiperRef.current.slideNext();
   };
 
-  const handleSlideChange = swiper => {
+  const handleSlideChange = (swiper) => {
     const activeIndex = swiper.realIndex;
     if (activeIndex === 0) {
       setIsPostActive(true);
@@ -68,8 +68,8 @@ export default function SwitchHome({ leftPage, rightPage }) {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
         slidesPerView={1}
-        onSwiper={swiper => (swiperRef.current = swiper)}
-        onSlideChange={swiper => handleSlideChange(swiper)}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={(swiper) => handleSlideChange(swiper)}
       >
         <SwiperSlide>
           {/* <p className="m-6">Pending</p> */}

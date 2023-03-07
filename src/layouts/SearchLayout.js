@@ -15,15 +15,14 @@ export default function SearchLayout() {
   let haveFilter = false;
   let needSwitch = false;
 
-  const events = useSelector(state => state.event.events);
+  const events = useSelector((state) => state.event.events);
   console.log("---> ", events);
-  const displayMarkers = events.map(el => {
+  const displayMarkers = events.map((el) => {
     return {
       lat: +el?.EventDetail.latitude,
       lng: +el?.EventDetail.longitude,
       markerTitle: el?.title,
       id: el?.id
-      
     };
   });
 

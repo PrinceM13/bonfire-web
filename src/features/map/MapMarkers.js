@@ -92,7 +92,7 @@ export default function MapMarkers({
                   handleChange({ latitude: "", longitude: "", location: "" });
                   setMarkers(
                     markers.filter(
-                      marker => marker.lat !== selected.lat || marker.lng !== selected.lng
+                      (marker) => marker.lat !== selected.lat || marker.lng !== selected.lng
                     )
                   );
                   setSelected(null);
