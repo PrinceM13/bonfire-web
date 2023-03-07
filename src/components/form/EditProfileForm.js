@@ -102,6 +102,7 @@ export default function EditProfileForm() {
               name="bio"
               value={input.bio}
               onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+              rows={3}
             />
           </div>
         </div>

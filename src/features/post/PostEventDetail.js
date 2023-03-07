@@ -64,9 +64,13 @@ export default function PostEventDetail({ size }) {
   );
   return (
     <div>
-      <div className="flex justify-center items-center bg-[#D4D4D4] h-1/2 p-10">
-        <div className="">
-          <img src={thisEvent?.EventDetail.image} className="w-[100%] h-[100%]" alt="Event " />
+      <div className="flex justify-center items-center ">
+        <div className="bg-[#D4D4D4] w-[300px] h-[300px] rounded-xl">
+          <img
+            src={thisEvent?.EventDetail.image}
+            className="w-[300px] h-[300px] rounded-xl"
+            alt="Event Image"
+          />
         </div>
       </div>
       <div className="flex justify-between">

@@ -38,20 +38,6 @@ export default function CreateEventForm({
   };
 
   const handleSubmit = async (e) => {
-    // try {
-    //   e.preventDefault();
-    //   // data validation
-    //   const result = validateCreateEvent(eventDetail);
-    //   if (result) {
-    //     setError(result);
-    //   } else {
-    //     setError({});
-    //     await eventApi.createEvent(eventDetail);
-    //     onClear();
-    //   }
-    // } catch (err) {
-    //   console.log("error", err?.response?.data?.message);
-    // }
     try {
       e.preventDefault();
       const result = validateCreateEvent(eventDetail);
@@ -78,21 +64,19 @@ export default function CreateEventForm({
     } catch (err) {
       console.log("error", err?.response?.data?.message);
     }
-    // e.preventDefault();
-    // const res = await eventApi.createEvent(eventDetail);
-    // onClear();
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <div className="flex justify-center ">
-          <button
-            type="button"
-            className="grid justify-center content-center bg-[#D4D4D4] rounded-lg w-[50vw] h-[30vh] py-4 shadow-md"
-          >
-            <img src={image ? URL.createObjectURL(image) : null} />
-          </button>
+        <div className="h-[100%] w-[100%] flex justify-center rounded-xl">
+          <div className=" bg-[#D4D4D4] rounded-lg shadow-md h-[300px] w-[300px]">
+            <img
+              src={image ? URL.createObjectURL(image) : null}
+              className="h-[300px] w-[300px] rounded-xl"
+              alt="Event Image"
+            />
+          </div>
         </div>
         <div className="flex justify-center mt-2">
           <button

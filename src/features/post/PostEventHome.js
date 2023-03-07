@@ -27,7 +27,6 @@ export default function PostEventHome() {
   const showEvents = useSelector((state) => state.event.events);
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const tagSearch = useSelector((state) => state.filter.tagSearch);
-  console.log(showEvents);
   const optionsDate = {
     day: "numeric",
     month: "short",
@@ -97,10 +96,13 @@ export default function PostEventHome() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-center items-center bg-[#D4D4D4] ">
-                    <div className="w-[100%]">
-                      {/* <PictureIcon size="100%" /> */}
-                      <img src={el.EventDetail?.image} className="h-[100%] w-[100%]" />
+                  <div className="flex justify-center items-center">
+                    <div className=" bg-[#D4D4D4] h-[300px] w-[300px] rounded-xl">
+                      <img
+                        src={el.EventDetail?.image}
+                        className="h-[300px] w-[300px] rounded-xl"
+                        alt="Event Image"
+                      />
                     </div>
                   </div>
                   <div className="py-4 flex justify-between">
