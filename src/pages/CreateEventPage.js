@@ -7,6 +7,7 @@ import CreateEventForm from "../components/createEvent/CreateEventForm";
 import Input from "../components/Input";
 import Modal from "../components/Modal";
 import VerticalSpace from "../components/VerticalSpace";
+import Map from "../features/map/Map";
 import Post from "../features/post/Post";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
@@ -69,7 +70,13 @@ export default function CreateEventPage() {
       {/* Pin */}
 
       <Modal title="PIN LOCATION" isOpen={isMapOpen} onClose={() => setIsMapOpen(false)}>
-        <img src="https://picsum.photos/400" />
+        <Map
+          isMultiMarker={false}
+          handleChange={handleChange}
+          isEditAble={true}
+          height="30vh"
+          needSearch={true}
+        />
         <VerticalSpace />
         <Input
           placeholder="latitude"
