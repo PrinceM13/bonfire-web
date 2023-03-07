@@ -60,8 +60,8 @@ const router = createBrowserRouter([
       { path: "chat/:eventId", element: <ChatPage /> },
       { path: "events/:eventId", element: <EventDetailPage /> },
       { path: "profile/:userId/edit", element: <EditProfilePage /> },
-      { path: "link", element: <LinksPage /> },
       { path: "profile/:userId", element: <ProfilePage /> },
+      { path: "link", element: <LinksPage /> },
       { path: "setting", element: <SettingPage /> }
     ]
   },

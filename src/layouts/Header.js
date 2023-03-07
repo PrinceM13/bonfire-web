@@ -75,7 +75,8 @@ export default function Header({
                 </div>
 
                 <div className="w-[45px]">
-                  <Link to="/profile/:userId/">
+                  {/* <Link to={`/chatroom`}> */}
+                  <Link to={`/profile/${authenticatedUser.id}`}>
                     <Avatar src={authenticatedUser.profileImage} size="100%" />
                   </Link>
                 </div>

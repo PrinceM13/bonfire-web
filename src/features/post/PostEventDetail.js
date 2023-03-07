@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,6 +13,7 @@ import { getEventsById } from "../../redux/event-slice";
 export default function PostEventDetail({ size }) {
   const eventFromId = useSelector((state) => state.event.eventFromId);
   const { eventId } = useParams();
+  const navigate = useNavigate();
 
   const thisEvent = eventFromId[eventId];
 
@@ -20,7 +21,6 @@ export default function PostEventDetail({ size }) {
   useEffect(() => {
     !thisEvent && dispatch(getEventsById(eventId)); // fetch data by id if refesh (refresh === events === no data)
   }, []);
-  console.log(eventFromId);
 
   const date = thisEvent?.EventDetail.date;
   const time = thisEvent?.EventDetail.time;
@@ -47,8 +47,11 @@ export default function PostEventDetail({ size }) {
   const numAvailable = numPaticipant - numGoing;
   const eventUsers = thisEvent?.EventUsers;
 
-  const User = ({ paticipantUsername, paticipantId, hostId, status }) => (
-    <div className="flex flex-col justify-center items-center p-2 w-[20%]">
+  const User = ({ userId, paticipantUsername, paticipantId, hostId, status }) => (
+    <div
+      onClick={() => navigate(`/profile/${userId}`)}
+      className="flex flex-col justify-center items-center p-2 w-[20%]"
+    >
       <div>
         <Avatar size="100%" />
       </div>
@@ -118,17 +121,18 @@ export default function PostEventDetail({ size }) {
         </div>
       </div>
       <div className="flex flex-wrap">
-        <button className="flex flex-col items-center pt-2 px-2 w-[20%]">
+        {/* <button className="flex flex-col items-center pt-2 px-2 w-[20%]">
           <div>
             <PlusIcon size="100%" />
           </div>
           <div className="font-bold text-xs text-[#333333]">
             <div>Invite</div>
           </div>
-        </button>
+        </button> */}
         {eventUsers?.map((el) => (
           <User
-            key={el.id}
+            key={el.userId}
+            userId={el.userId}
             paticipantUsername={el.User.username}
             paticipantId={el.userId}
             hostId={eventFromId[eventId]?.userId}
