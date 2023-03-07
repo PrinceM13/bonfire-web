@@ -38,7 +38,7 @@ export default function SwitchHome({ leftPage, rightPage }) {
 
   return (
     <>
-      <div className="flex justify-center items-center w-full bg-white fixed top-[18vh] left-0 z-40 shadow-lg">
+      <div className="flex justify-center items-center w-full bg-white fixed top-[18vh] left-0 z-30 shadow-lg">
         <button
           className={`py-2 text-center w-[50%] font-bold ${
             isPostActive ? "text-black" : "text-[#B8B7B7]"
@@ -73,11 +73,10 @@ export default function SwitchHome({ leftPage, rightPage }) {
       >
         <SwiperSlide>
           {/* <p className="m-6">Pending</p> */}
-          {leftPage}
+          {!isMapActive && leftPage}
         </SwiperSlide>
         <SwiperSlide>
           {/* <p className="m-6">History</p> */}
-
           {rightPage}
         </SwiperSlide>
       </Swiper>
