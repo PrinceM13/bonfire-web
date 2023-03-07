@@ -8,9 +8,10 @@ import MapMarkedIcon from "../../assets/icons/MapMarkedIcon";
 import PlusIcon from "../../assets/icons/PlusIcon";
 import Avatar from "../../components/Avatar";
 import { getEventsById } from "../../redux/event-slice";
+import Map from "../map/Map";
 
 export default function PostEventDetail({ size }) {
-  const eventFromId = useSelector((state) => state.event.eventFromId);
+  const eventFromId = useSelector(state => state.event.eventFromId);
   const { eventId } = useParams();
   const navigate = useNavigate();
 
@@ -86,12 +87,10 @@ export default function PostEventDetail({ size }) {
         </div>
       </div>
       <div className="flex gap-4 my-2">
-        <div className="w-[20%]">
-          <Avatar size="100%" />
+        <div className="w-[100%]">
+          <Map />
         </div>
-        <div className="flex flex-col justify-center font-bold">
-          <div>{username}</div>
-        </div>
+        <div className="flex flex-col justify-center font-bold"></div>
       </div>
       <div className="border-black border-2 p-4 rounded-lg text-sm">
         <p>{detail}</p>
@@ -128,7 +127,7 @@ export default function PostEventDetail({ size }) {
             <div>Invite</div>
           </div>
         </button> */}
-        {eventUsers?.map((el) => (
+        {eventUsers?.map(el => (
           <User
             key={el.userId}
             userId={el.userId}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { InfoWindow, Marker } from "@react-google-maps/api";
+import { Link } from "react-router-dom";
 
 export default function MapMarkers({
   markers,
@@ -11,28 +12,16 @@ export default function MapMarkers({
   circle,
   setCircle,
   handleChange,
-  radius
+  isEditAble
 }) {
   const geocoder = new window.google.maps.Geocoder();
 
-  // const filteredMarkers = markers.filter(marker => {
-  //   if (!circle) {
-  //     return true;
-  //   }
-  //   const distance = window.google.maps.geometry.spherical.computeDistanceBetween(
-  //     new window.google.maps.LatLng(circle.center),
-  //     new window.google.maps.LatLng(marker)
-  //   );
-  //   return distance <= radius;
-  // });
-
   return (
     <div>
-      {/* {filteredMarkers?.map((marker, index) => ( */}
-    {markers?.map(marker => (
+      {markers?.map((marker, idx) => (
         <Marker
           // key={`${marker.lat}-${marker.lng}`}
-          // key={index}
+          key={idx}
           position={{ lat: marker.lat, lng: marker.lng }}
           // visible={marker.visible}
           // draggable={true}
@@ -58,7 +47,7 @@ export default function MapMarkers({
                 if (status === "OK") {
                   setLocationInfo({
                     name: `${results[0].formatted_address}`,
-                    detail: `Lat: ${marker.lat}, Lng: ${marker.lng}`,
+                    // detail: `Lat: ${marker.lat}, Lng: ${marker.lng}`,
                     googleMapsLink: `https://www.google.com/maps/search/?api=1&query=${marker.lat},${marker.lng}`
                   });
                 }
@@ -75,6 +64,12 @@ export default function MapMarkers({
           onCloseClick={() => setSelected(null)}
         >
           <div>
+            <Link to={`/events/${selected.id}`}>
+              <div className="font-bold text-blue-500 text-lg underline ">
+                {selected.markerTitle}
+                <span className="text-xs"> (click to see event detail)</span>
+              </div>
+            </Link>
             <h2>{locationInfo.name}</h2>
             <p className="font-bold">{locationInfo.detail}</p>
             {locationInfo.googleMapsLink && (
@@ -87,29 +82,31 @@ export default function MapMarkers({
                 View on Google Maps
               </a>
             )}
-            <button
-              className="text-red-500 hover:underline font-bold"
-              onClick={() => {
-                console.log(typeof handleChange);
-                console.log("This is handle change!!!!!!!!!", handleChange);
-                console.log(setSelected);
-                handleChange({ latitude: "", longitude: "", location: "" });
-                setMarkers(
-                  markers.filter(
-                    marker => marker.lat !== selected.lat || marker.lng !== selected.lng
-                  )
-                );
-                setSelected(null);
-                setLocationInfo({ name: "", detail: "", googleMapsLink: "" });
+            {isEditAble && (
+              <button
+                className="text-red-500 hover:underline font-bold"
+                onClick={() => {
+                  console.log(typeof handleChange);
+                  console.log("This is handle change!!!!!!!!!", handleChange);
+                  console.log(setSelected);
+                  handleChange({ latitude: "", longitude: "", location: "" });
+                  setMarkers(
+                    markers.filter(
+                      marker => marker.lat !== selected.lat || marker.lng !== selected.lng
+                    )
+                  );
+                  setSelected(null);
+                  setLocationInfo({ name: "", detail: "", googleMapsLink: "" });
 
-                if (circle) {
-                  circle.setMap(null);
-                  setCircle(null);
-                }
-              }}
-            >
-              Remove pin
-            </button>
+                  if (circle) {
+                    circle.setMap(null);
+                    setCircle(null);
+                  }
+                }}
+              >
+                Remove pin
+              </button>
+            )}
           </div>
         </InfoWindow>
       ) : null}

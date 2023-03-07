@@ -7,7 +7,7 @@ import Header from "../layouts/Header";
 import Dot from "../assets/icons/Dot";
 import { useDispatch, useSelector } from "react-redux";
 import useClickOutSide from "../hook/useClickOutSide";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { deleteEvent } from "../redux/event-slice";
 import Modal from "../components/Modal";
 import ButtonConfirm from "../components/ButtonConfirm";
@@ -15,8 +15,8 @@ import EditEvent from "../components/edit/EditEvent";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
-  const eventFromId = useSelector((state) => state.event.eventFromId);
-  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const eventFromId = useSelector(state => state.event.eventFromId);
+  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
   const navigate = useNavigate();
   const { eventId } = useParams();
 
@@ -30,6 +30,10 @@ export default function EventDetailPage() {
   };
 
   const [isEditEventOpen, setIsEditEventOpen] = useState(false);
+
+  useEffect(() => {
+    !eventFromId[eventId] && navigate("/");
+  }, [eventId]);
 
   return (
     <>

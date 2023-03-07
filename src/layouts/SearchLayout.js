@@ -5,13 +5,27 @@ import FilterBar from "../components/filter/FilterBar";
 import Footer from "./Footer";
 import Header from "./Header";
 import Background from "../components/background/Background";
-import Switch from "../components/switch/Switch";
+import SwitchHome from "../components/switch/SwitchHome";
+import Map from "../features/map/Map";
+import { useSelector } from "react-redux";
 
 export default function SearchLayout() {
   let needFilter = true;
   let needPadding = true;
   let haveFilter = false;
   let needSwitch = false;
+
+  const events = useSelector(state => state.event.events);
+  console.log("---> ", events);
+  const displayMarkers = events.map(el => {
+    return {
+      lat: +el?.EventDetail.latitude,
+      lng: +el?.EventDetail.longitude,
+      markerTitle: el?.title,
+      id: el?.id
+      
+    };
+  });
 
   const path = useLocation().pathname.split("/")[1];
   switch (path) {
@@ -34,12 +48,31 @@ export default function SearchLayout() {
   return (
     <>
       <Background />
-      {needSwitch && <Switch />}
       <Header content="search" leftBtn={<BackIcon />} rightBtn="" />
       {needFilter && <FilterBar />}
-      <ContentLayout needPadding={needPadding} haveFilter={haveFilter} needSwitch={needSwitch}>
-        <Outlet />
-      </ContentLayout>
+      {needSwitch ? (
+        <SwitchHome
+          leftPage={
+            <ContentLayout
+              needPadding={needPadding}
+              haveFilter={haveFilter}
+              needSwitch={needSwitch}
+            >
+              <Outlet />
+            </ContentLayout>
+          }
+          rightPage={
+            <div className="mt-[23vh]">
+              <Map height="69vh" isMultiMarker={true} displayMarkers={displayMarkers} />
+            </div>
+          }
+        />
+      ) : (
+        <ContentLayout needPadding={needPadding} haveFilter={haveFilter} needSwitch={needSwitch}>
+          <Outlet />
+        </ContentLayout>
+      )}
+
       <Footer content="" />
     </>
   );

@@ -24,9 +24,9 @@ export default function PostEventHome() {
   }, []);
 
   const navigate = useNavigate();
-  const showEvents = useSelector((state) => state.event.events);
-  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
-  const tagSearch = useSelector((state) => state.filter.tagSearch);
+  const showEvents = useSelector(state => state.event.events);
+  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
+  const tagSearch = useSelector(state => state.filter.tagSearch);
 
   const optionsDate = {
     day: "numeric",
@@ -46,14 +46,14 @@ export default function PostEventHome() {
 
   return (
     <>
-      {showEvents?.map((el) => {
+      {showEvents?.map(el => {
         return (
           (tagSearch === "" ||
-            el.EventDetail.EventTags.some((tag) =>
+            el?.EventDetail.EventTags.some(tag =>
               tag.Tag.titleTag.toLowerCase().includes(tagSearch.toLowerCase())
             )) && (
             <div
-              key={el.id}
+              key={el?.id}
               className="cursor-pointer"
               onClick={() => {
                 navigate(`/events/${el.id}`);
@@ -62,7 +62,7 @@ export default function PostEventHome() {
               <Post>
                 <div className="bg-[#ffffffaa]">
                   <div className="flex justify-items-start">
-                    <h1 className="font-bold text-2xl">{el.title}</h1>
+                    <h1 className="font-bold text-2xl">{el?.title}</h1>
                   </div>
                   <div className="flex justify-between">
                     <div>
@@ -70,14 +70,14 @@ export default function PostEventHome() {
                         <div>
                           <PinMapIcon size="15px" />
                         </div>
-                        <div className="text-sm">{el.EventDetail?.location}</div>
+                        <div className="text-sm">{el?.EventDetail.location}</div>
                       </div>
                       <div className="py-2">
                         <div className="flex gap-2">
                           <div>
                             <FoodSmallIcon size="15px" />
                           </div>
-                          <div className="text-sm">{el.EventDetail?.category}</div>
+                          <div className="text-sm">{el?.EventDetail.category}</div>
                         </div>
                       </div>
                       <div className="flex gap-4 pb-4">
@@ -85,7 +85,7 @@ export default function PostEventHome() {
                           <TagIcon size="15px" />
                         </div>
                         <div className="flex flex-wrap gap-1">
-                          {el.EventDetail.EventTags.map((item) => (
+                          {el?.EventDetail.EventTags.map(item => (
                             <Tag key={item.Tag.id} tagTitle={`#${item.Tag?.titleTag}`} />
                           ))}
                         </div>
@@ -109,7 +109,7 @@ export default function PostEventHome() {
                           <CalendarIcon size="15px" />
                         </div>
                         <div className="text-xs">
-                          {new Date(el.EventDetail?.date).toLocaleDateString("en-US", optionsDate)}
+                          {new Date(el?.EventDetail?.date).toLocaleDateString("en-US", optionsDate)}
                         </div>
                       </div>
                       <div className="flex gap-2 py-1 flex-wrap">
@@ -118,7 +118,7 @@ export default function PostEventHome() {
                         </div>
                         <div className="text-xs">
                           {new Date(
-                            el.EventDetail?.date + "T" + el.EventDetail?.time
+                            el?.EventDetail?.date + "T" + el?.EventDetail?.time
                           ).toLocaleTimeString("en-US", { timeStyle: "short" })}
                         </div>
                       </div>
@@ -130,17 +130,17 @@ export default function PostEventHome() {
                         </div>
                         <div className="flex flex-wrap gap-1 text-sm">
                           <div>
-                            {el.EventDetail?.Rule?.paticipant
-                              ? `${el.EventUsers.reduce((acc, el) => {
-                                  if (el.status === "JOINED") {
+                            {el?.EventDetail?.Rule?.paticipant
+                              ? `${el?.EventUsers.reduce((acc, el) => {
+                                  if (el?.status === "JOINED") {
                                     acc += 1;
                                   }
                                   return acc;
-                                }, 0)}/${el.EventDetail.Rule?.paticipant} going,`
+                                }, 0)}/${el?.EventDetail.Rule?.paticipant} going,`
                               : "Unlimit"}
                           </div>
-                          <div>{`${el.EventUsers.reduce((acc, el) => {
-                            if (el.status === "INTERESTED") {
+                          <div>{`${el?.EventUsers.reduce((acc, el) => {
+                            if (el?.status === "INTERESTED") {
                               acc += 1;
                             }
                             return acc;
@@ -149,13 +149,13 @@ export default function PostEventHome() {
                       </div>
                       {/* {authenticatedUser.id !== el.userId && ( */}
                       {/* <div> */}
-                      {authenticatedUser.id !== el.userId &&
-                        (el.EventUsers.filter((el) => el.userId === authenticatedUser.id).length !==
+                      {authenticatedUser.id !== el?.userId &&
+                        (el?.EventUsers.filter(el => el?.userId === authenticatedUser.id).length !==
                         0 ? (
                           <div
-                            onClick={(e) => {
+                            onClick={e => {
                               e.stopPropagation();
-                              navigate(`/chat/${el.id}`);
+                              navigate(`/chat/${el?.id}`);
                             }}
                             className="bg-gradient-to-b from-[#EB4E53] w-full to-[#e8d294] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
                           >
@@ -163,7 +163,7 @@ export default function PostEventHome() {
                           </div>
                         ) : (
                           <div
-                            onClick={(e) => handleJoinUsClick(e, el.id)}
+                            onClick={e => handleJoinUsClick(e, el?.id)}
                             className="bg-gradient-to-b from-[#006567] w-full to-[#94C1E8] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
                           >
                             JOIN US
@@ -174,7 +174,7 @@ export default function PostEventHome() {
                     </div>
                   </div>
                   <div className="border-black border-2 p-4 rounded-lg text-sm">
-                    <p>{el.EventDetail?.detail}</p>
+                    <p>{el?.EventDetail?.detail}</p>
                   </div>
                 </div>
               </Post>
