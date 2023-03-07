@@ -11,6 +11,7 @@ import { useState } from "react";
 import { deleteEvent } from "../redux/event-slice";
 import Modal from "../components/Modal";
 import ButtonConfirm from "../components/ButtonConfirm";
+import EditEvent from "../components/edit/EditEvent";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ export default function EventDetailPage() {
     setIsConfirmDeleteOpen(false);
     navigate("/");
   };
+
+  const [isEditEventOpen, setIsEditEventOpen] = useState(false);
+
   return (
     <>
       <Modal
@@ -45,6 +49,15 @@ export default function EventDetailPage() {
           </div>
         </div>
       </Modal>
+
+      <Modal title="Edit Event" isOpen={isEditEventOpen} onClose={() => setIsEditEventOpen(false)}>
+        <EditEvent
+          eventId={eventId}
+          onClose={() => setIsEditEventOpen(false)}
+          eventFromId={eventFromId}
+        />
+      </Modal>
+
       <Header
         title={eventFromId[eventId]?.title}
         leftBtn={
@@ -62,7 +75,15 @@ export default function EventDetailPage() {
                 openDropdown ? "" : "hidden"
               }`}
             >
-              <div className="px-4 py-2 text-lg border border-gray-500">Edit event</div>
+              <div
+                className="px-4 py-2 text-lg border border-gray-500"
+                onClick={() => {
+                  setIsEditEventOpen(true);
+                  setOpenDropdown(false);
+                }}
+              >
+                Edit event
+              </div>
               <div
                 className="px-4 py-2 text-lg border border-gray-500 border-t-0 rounded-bl-lg"
                 onClick={() => {

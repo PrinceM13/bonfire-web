@@ -35,20 +35,23 @@ export default function CreateEventForm({
   };
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      // data validation
-      const result = validateCreateEvent(eventDetail);
-      if (result) {
-        setError(result);
-      } else {
-        setError({});
-        await eventApi.createEvent(eventDetail);
-        onClear();
-      }
-    } catch (err) {
-      console.log("error", err?.response?.data?.message);
-    }
+    // try {
+    //   e.preventDefault();
+    //   // data validation
+    //   const result = validateCreateEvent(eventDetail);
+    //   if (result) {
+    //     setError(result);
+    //   } else {
+    //     setError({});
+    //     await eventApi.createEvent(eventDetail);
+    //     onClear();
+    //   }
+    // } catch (err) {
+    //   console.log("error", err?.response?.data?.message);
+    // }
+    e.preventDefault();
+    const res = await eventApi.createEvent(eventDetail);
+    onClear();
   };
 
   return (

@@ -5,24 +5,33 @@ import * as eventApi from "../api/event-api";
 const eventSlice = createSlice({
   name: "event",
   initialState: {
-    events: [],
+    events: [], // [{}, {}, {}] ---> [[{},{},{}]
     eventFromId: {}
   },
   reducers: {
     setEvents: (state, action) => {
       state.events = action.payload;
     },
-    updateEvent: (state, action) => {
+    deleteEventById: (state, action) => {
       state.events = state.events.filter((event) => event.id !== +action.payload);
     },
+    updateEvents: (state, action) => {
+      console.log(action.payload);
+      state.events[action.payload.idx].EventDetail = {
+        ...state.events[action.payload.idx].EventDetail,
+        ...action.payload.subEvent
+      }; // action.payload = {idx: 1, event: {fg} }
+    },
+    // -------------------------------------------------------------
     setEventFromId: (state, action) => {
-      state.eventFromId = action.payload.reduce((acc, event) => {
+      state.eventFromId = action.payload.reduce((acc, event, idx) => {
         acc[event.id] = {
           title: event.title,
           userId: event.userId,
           EventDetail: event.EventDetail,
           EventUsers: event.EventUsers,
-          User: event.User
+          User: event.User,
+          idx
         };
         return acc;
       }, {});
@@ -34,7 +43,8 @@ const eventSlice = createSlice({
           userId: event.userId,
           EventDetail: event.EventDetail,
           EventUsers: event.EventUsers,
-          User: event.User
+          User: event.User,
+          idx: event.idx
         };
         return acc;
       }, {});
@@ -42,7 +52,8 @@ const eventSlice = createSlice({
   }
 });
 
-export const { setEvents, setEventFromId, updateEvent, updateEventFromId } = eventSlice.actions;
+export const { setEvents, deleteEventById, updateEvents, setEventFromId, updateEventFromId } =
+  eventSlice.actions;
 
 export const getAllEvents = () => async (dispatch) => {
   try {
@@ -69,7 +80,7 @@ export const getEventsById = (eventId) => async (dispatch) => {
 export const deleteEvent = (eventId) => async (dispatch) => {
   try {
     await eventApi.deleteEvent(eventId);
-    dispatch(updateEvent(eventId));
+    dispatch(deleteEventById(eventId));
     dispatch(updateEventFromId());
   } catch (err) {
     console.log(err);
