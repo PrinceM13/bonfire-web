@@ -108,7 +108,7 @@ export default function CreateEventForm({
           <div className="w-full" onClick={isMapOpen}>
             <Input
               name="location"
-              error={error.latitude || error.longitude || error.location}
+              error={error.location || error.latitude || error.longitude}
               placeholder="Pin your location"
               readOnly={true}
               value={

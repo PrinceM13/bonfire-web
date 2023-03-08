@@ -5,11 +5,11 @@ const createEventSchema = Joi.object({
   title: Joi.string().required().messages({
     "string.empty": "Event Name is required"
   }),
-  latitude: Joi.string().required().messages({
-    "string.empty": "Latitude is required"
+  latitude: Joi.number().required().messages({
+    "number.base": "Latitude is required"
   }),
-  longitude: Joi.string().required().messages({
-    "string.empty": "Longitude is required"
+  longitude: Joi.number().required().messages({
+    "number.base": "Longitude is required"
   }),
   location: Joi.string().required().messages({
     "string.empty": "Location is required"
