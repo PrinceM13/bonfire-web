@@ -56,7 +56,7 @@ export default function EditProfileForm() {
         <div className="flex flex-col items-center justify-center">
           <Avatar
             src={file ? URL.createObjectURL(file) : authenticatedUser.profileImage}
-            size="150"
+            size="100%"
           />
           <div className="text-center p-2">
             <input

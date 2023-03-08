@@ -97,8 +97,8 @@ export default function PostEventHome() {
                         </div>
                       </div>
                       <div className="w-[25%]">
-                        <div className="py-2">
-                          <Avatar size="100%" />
+                        <div className="">
+                          <Avatar src={el.User.profileImage} size="100%" />
                         </div>
                       </div>
                     </div>
