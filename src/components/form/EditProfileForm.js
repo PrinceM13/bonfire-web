@@ -38,7 +38,7 @@ export default function EditProfileForm() {
       formData.append("links", input.links);
       formData.append("bio", input.bio);
       const responseUpdate = await userApi.editMyProfile(formData);
-      dispatch(setUser(responseUpdate));
+      navigate(`/profile/${authenticatedUser?.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -65,6 +65,7 @@ export default function EditProfileForm() {
               }}
             />
             <button
+              type="button"
               className="font-bold text-[#6A6A6A] text-sm"
               onClick={() => inputEl.current.click()}
             >
@@ -101,7 +102,7 @@ export default function EditProfileForm() {
           <button
             type="submit"
             className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 rounded-full font-bold text-white w-[50%]"
-            onClick={() => navigate(-1)}
+            // onClick={() => navigate(`/profile/${authenticatedUser?.id}`)}
           >
             Save
           </button>
