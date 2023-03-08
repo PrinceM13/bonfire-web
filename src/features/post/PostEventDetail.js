@@ -11,7 +11,7 @@ import { getEventsById } from "../../redux/event-slice";
 import Map from "../map/Map";
 import { timeSince } from "../../utils/date-format";
 
-export default function PostEventDetail({ size }) {
+export default function PostEventDetail({ size, timeAgo }) {
   const eventFromId = useSelector(state => state.event.eventFromId);
   const { eventId } = useParams();
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ export default function PostEventDetail({ size }) {
           </div>
         </div>
         <div className="text-sm my-2">
-          <div>{timeSince(createdAt)}</div>
+          <div>{timeAgo}</div>
         </div>
       </div>
       <div className="flex gap-4 my-2">

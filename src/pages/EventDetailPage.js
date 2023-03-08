@@ -13,11 +13,12 @@ import Modal from "../components/Modal";
 import ButtonConfirm from "../components/ButtonConfirm";
 import EditEvent from "../components/edit/EditEvent";
 import * as eventApi from "../api/event-api";
+import { timeSince } from "../utils/date-format";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
-  const eventFromId = useSelector((state) => state.event.eventFromId);
-  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const eventFromId = useSelector(state => state.event.eventFromId);
+  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
   const navigate = useNavigate();
   const { eventId } = useParams();
 
@@ -31,13 +32,23 @@ export default function EventDetailPage() {
   };
 
   const [isEditEventOpen, setIsEditEventOpen] = useState(false);
+  const [timePassed, setTimepassed] = useState();
 
   useEffect(() => {
     // !eventFromId[eventId] && navigate("/");
   }, [eventId]);
 
+  useEffect(() => {
+    setTimepassed(eventFromId[eventId]);
+  }, [timePassed]);
+
+  console.log(eventFromId[eventId]);
+
+  const timeAgo = () => timeSince(timePassed?.createdAt);
+  console.log(timeAgo);
+
   const isUserInterested = eventFromId[eventId]?.EventUsers.filter(
-    (el) => el.userId === authenticatedUser.id
+    el => el.userId === authenticatedUser.id
   ).length;
 
   const handleJoinUsClick = async () => {
@@ -113,7 +124,7 @@ export default function EventDetailPage() {
         }
       />
       <Post>
-        <PostEventDetail />
+        <PostEventDetail timeAgo={timeAgo} />
       </Post>
       <div className="flex justify-center items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
         {authenticatedUser.id !== eventFromId[eventId]?.userId ? (
