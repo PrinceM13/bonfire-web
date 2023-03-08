@@ -25,6 +25,7 @@ export default function PostEventHome() {
 
   const navigate = useNavigate();
   const showEvents = useSelector((state) => state.event.events);
+  console.log(showEvents);
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const tagSearch = useSelector((state) => state.filter.tagSearch);
 
@@ -104,8 +105,9 @@ export default function PostEventHome() {
                   </div>
 
                   <div className="bg-[#E5E5E5] flex justify-center items-center rounded-lg drop-shadow-lg">
-                    <div className="w-[25%] py-10">
-                      <PictureIcon size="100%" />
+                    <div className="">
+                      {/* <PictureIcon size="100%" /> */}
+                      <img src={el.EventDetail?.image} alt="" className="rounded-lg" />
                     </div>
                   </div>
 
