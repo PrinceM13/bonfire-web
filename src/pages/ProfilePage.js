@@ -13,6 +13,7 @@ export default function ProfilePage() {
   const param = useParams();
   const navigate = useNavigate();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  console.log(authenticatedUser);
 
   const userId = +param.userId;
   const [profile, setProfile] = useState({});
@@ -60,8 +61,18 @@ export default function ProfilePage() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <div className="font-bold">Bio</div>
-          <div className="font-bold">Links</div>
+          <div className="flex">
+            <div className="font-bold">Bio&nbsp;:&nbsp;&nbsp;</div>
+            <div className="w-full">
+              <span>{authenticatedUser.bio}</span>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="font-bold">Links&nbsp;:&nbsp;&nbsp;</div>
+            <div className="w-full">
+              <span>{authenticatedUser.bio}</span>
+            </div>
+          </div>
           {/* <div className="font-bold">Interest</div> */}
         </div>
         <div className="flex ">

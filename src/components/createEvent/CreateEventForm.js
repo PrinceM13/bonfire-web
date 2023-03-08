@@ -56,7 +56,7 @@ export default function CreateEventForm({
         formData.append("paticipant", eventDetail.paticipant);
         formData.append("age", eventDetail.age);
         formData.append("category", eventDetail.category);
-        formData.append("tags", eventDetail.tags);
+        formData.append("tags", eventDetail.tags.join("#"));
         formData.append("detail", eventDetail.detail);
         await eventApi.createEvent(formData);
         onClear();
@@ -108,7 +108,7 @@ export default function CreateEventForm({
           <div className="w-full" onClick={isMapOpen}>
             <Input
               name="location"
-              error={error.latitude || error.longitude || error.location}
+              error={error.location || error.latitude || error.longitude}
               placeholder="Pin your location"
               readOnly={true}
               value={

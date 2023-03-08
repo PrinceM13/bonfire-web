@@ -9,21 +9,31 @@ import PlusIcon from "../../assets/icons/PlusIcon";
 import Avatar from "../../components/Avatar";
 import { getEventsById } from "../../redux/event-slice";
 import Map from "../map/Map";
+import { timeSince } from "../../utils/date-format";
 
 export default function PostEventDetail({ size }) {
-  const eventFromId = useSelector((state) => state.event.eventFromId);
+  const eventFromId = useSelector(state => state.event.eventFromId);
   const { eventId } = useParams();
   const navigate = useNavigate();
 
   const thisEvent = eventFromId[eventId];
+  console.log(thisEvent);
 
   const dispatch = useDispatch();
   useEffect(() => {
     !thisEvent && dispatch(getEventsById(eventId)); // fetch data by id if refesh (refresh === events === no data)
   }, []);
 
+  console.log("this event here", thisEvent?.EventDetail);
+
+  const markerByRoomId = {
+    lat: +thisEvent?.EventDetail.latitude,
+    lng: +thisEvent?.EventDetail.longitude
+  };
+
   const date = thisEvent?.EventDetail.date;
   const time = thisEvent?.EventDetail.time;
+  const createdAt = thisEvent?.createdAt;
   const options = {
     day: "numeric",
     month: "short",
@@ -87,12 +97,18 @@ export default function PostEventDetail({ size }) {
           </div>
         </div>
         <div className="text-sm my-2">
-          <div>38 mins</div>
+          <div>{timeSince(createdAt)}</div>
         </div>
       </div>
       <div className="flex gap-4 my-2">
         <div className="w-[100%]">
-          <Map />
+          <Map
+            height="30vh"
+            displayMarkers={[markerByRoomId]}
+            lat={markerByRoomId.lat}
+            lng={markerByRoomId.lng}
+            isLink={false}
+          />
         </div>
         <div className="flex flex-col justify-center font-bold"></div>
       </div>
@@ -131,7 +147,7 @@ export default function PostEventDetail({ size }) {
             <div>Invite</div>
           </div>
         </button> */}
-        {eventUsers?.map((el) => (
+        {eventUsers?.map(el => (
           <User
             key={el.userId}
             userId={el.userId}
