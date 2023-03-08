@@ -60,11 +60,7 @@ export default function CreateEventPage() {
 
       {/* Categories */}
 
-      <Modal
-        title="What do you want to do ?"
-        isOpen={isCategoryOpen}
-        onClose={() => setIsCategoryOpen(false)}
-      >
+      <Modal title="CATEGORIES" isOpen={isCategoryOpen} onClose={() => setIsCategoryOpen(false)}>
         <SelectCategories
           onClose={() => setIsCategoryOpen(false)}
           setEventDetail={setEventDetail}
