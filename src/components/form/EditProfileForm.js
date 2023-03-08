@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 import { setUser } from "../../redux/auth-slice";
 import * as userApi from "../../api/user-api.js";
@@ -10,11 +11,10 @@ export default function EditProfileForm() {
   // console.log(authenticatedUser);
   const dispatch = useDispatch();
   const inputEl = useRef();
+  const navigate = useNavigate();
   const initialInput = {
     username: authenticatedUser?.username,
     links: authenticatedUser?.links,
-    education: authenticatedUser?.education,
-    company: authenticatedUser?.company,
     bio: authenticatedUser?.bio
   };
   const [input, setInput] = useState(initialInput);
@@ -36,11 +36,8 @@ export default function EditProfileForm() {
       formData.append("profileImage", file);
       formData.append("username", input.username);
       formData.append("links", input.links);
-      // formData.append("education", input.education);
-      // formData.append("company", input.company);
       formData.append("bio", input.bio);
       const responseUpdate = await userApi.editMyProfile(formData);
-      // console.log(responseUpdate);
       dispatch(setUser(responseUpdate));
     } catch (err) {
       console.log(err);
@@ -56,7 +53,7 @@ export default function EditProfileForm() {
         <div className="flex flex-col items-center justify-center">
           <Avatar
             src={file ? URL.createObjectURL(file) : authenticatedUser.profileImage}
-            size="150"
+            size="100%"
           />
           <div className="text-center p-2">
             <input
@@ -80,17 +77,11 @@ export default function EditProfileForm() {
           <div className="flex flex-col gap-8 text-sm">
             {TitleEditProfile("Username")}
             {TitleEditProfile("Links")}
-            {/* {TitleEditProfile("Education")} */}
-            {/* {TitleEditProfile("Company")} */}
-            {/* {TitleEditProfile("Bio")} */}
           </div>
           <div className=" w-[75%]">
             <div className="flex flex-col gap-8">
               {InputEditProfile("username", input.username)}
               {InputEditProfile("links", input.links)}
-              {/* {InputEditProfile("education", input.education)} */}
-              {/* {InputEditProfile("company", input.company)} */}
-              {/* {InputEditProfile("bio", input.bio)} */}
             </div>
           </div>
         </div>
@@ -110,6 +101,7 @@ export default function EditProfileForm() {
           <button
             type="submit"
             className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 rounded-full font-bold text-white w-[50%]"
+            onClick={() => navigate(-1)}
           >
             Save
           </button>
