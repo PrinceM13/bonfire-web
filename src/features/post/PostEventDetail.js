@@ -9,6 +9,7 @@ import PlusIcon from "../../assets/icons/PlusIcon";
 import Avatar from "../../components/Avatar";
 import { getEventsById } from "../../redux/event-slice";
 import Map from "../map/Map";
+import { timeSince } from "../../utils/date-format";
 
 export default function PostEventDetail({ size }) {
   const eventFromId = useSelector(state => state.event.eventFromId);
@@ -16,6 +17,7 @@ export default function PostEventDetail({ size }) {
   const navigate = useNavigate();
 
   const thisEvent = eventFromId[eventId];
+  console.log(thisEvent);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function PostEventDetail({ size }) {
 
   const date = thisEvent?.EventDetail.date;
   const time = thisEvent?.EventDetail.time;
+  const createdAt = thisEvent?.createdAt;
   const options = {
     day: "numeric",
     month: "short",
@@ -72,9 +75,13 @@ export default function PostEventDetail({ size }) {
   );
   return (
     <div>
-      <div className="flex justify-center items-center bg-[#D4D4D4] h-1/2 p-10">
-        <div className="">
-          <img src={thisEvent?.EventDetail.image} className="w-[100%] h-[100%]" alt="Event " />
+      <div className="flex justify-center items-center ">
+        <div className="bg-[#D4D4D4] w-[300px] h-[300px] rounded-xl">
+          <img
+            src={thisEvent?.EventDetail.image}
+            className="w-[300px] h-[300px] rounded-xl"
+            alt="Event Image"
+          />
         </div>
       </div>
       <div className="flex justify-between">
@@ -90,7 +97,7 @@ export default function PostEventDetail({ size }) {
           </div>
         </div>
         <div className="text-sm my-2">
-          <div>38 mins</div>
+          <div>{timeSince(createdAt)}</div>
         </div>
       </div>
       <div className="flex gap-4 my-2">

@@ -1,15 +1,15 @@
 import Joi from "joi";
 
 const createEventSchema = Joi.object({
-  image: Joi.string().dataUri(),
+  image: Joi.options({ allowUnknown: true }),
   title: Joi.string().required().messages({
     "string.empty": "Event Name is required"
   }),
-  latitude: Joi.string().required().messages({
-    "string.empty": "Latitude is required"
+  latitude: Joi.number().required().messages({
+    "number.base": "Latitude is required"
   }),
-  longitude: Joi.string().required().messages({
-    "string.empty": "Longitude is required"
+  longitude: Joi.number().required().messages({
+    "number.base": "Longitude is required"
   }),
   location: Joi.string().required().messages({
     "string.empty": "Location is required"
@@ -29,6 +29,7 @@ const createEventSchema = Joi.object({
   category: Joi.string().required().messages({
     "string.empty": "Category is required"
   }),
+  tags: Joi.options({ allowUnknown: true }),
   detail: Joi.string().required().messages({
     "string.empty": "If without any detail, please - in the blank space"
   })

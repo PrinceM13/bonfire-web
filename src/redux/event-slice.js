@@ -24,6 +24,7 @@ const eventSlice = createSlice({
     },
     // -------------------------------------------------------------
     setEventFromId: (state, action) => {
+      console.log(action.payload);
       state.eventFromId = action.payload.reduce((acc, event, idx) => {
         acc[event.id] = {
           title: event.title,
@@ -31,7 +32,9 @@ const eventSlice = createSlice({
           EventDetail: event.EventDetail,
           EventUsers: event.EventUsers,
           User: event.User,
-          idx
+          idx,
+          createdAt: event.createdAt,
+          updatedAt: event.updatedAt
         };
         return acc;
       }, {});
@@ -44,7 +47,9 @@ const eventSlice = createSlice({
           EventDetail: event.EventDetail,
           EventUsers: event.EventUsers,
           User: event.User,
-          idx: event.idx
+          idx: event.idx,
+          createdAt: event.createdAt,
+          updatedAt: event.updatedAt
         };
         return acc;
       }, {});
