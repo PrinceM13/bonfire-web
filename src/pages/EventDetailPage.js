@@ -42,10 +42,8 @@ export default function EventDetailPage() {
     setTimepassed(eventFromId[eventId]);
   }, [timePassed]);
 
-  console.log(eventFromId[eventId]);
-
   const timeAgo = () => timeSince(timePassed?.createdAt);
-  console.log(timeAgo);
+
 
   const isUserInterested = eventFromId[eventId]?.EventUsers.filter(
     el => el.userId === authenticatedUser.id
