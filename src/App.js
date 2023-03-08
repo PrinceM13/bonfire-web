@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "../src/App.css";
@@ -7,10 +7,14 @@ import { setUser } from "./redux/auth-slice";
 import { setSocketId } from "./redux/chat-slice";
 import Router from "./routes/Router";
 import * as userApi from "./api/user-api";
+import Notification from "./components/Notification";
+import NotificationBox from "./components/NotificationBox";
 
 function App() {
   const dispatch = useDispatch();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+
+  const [isNotification, setIsNotification] = useState(false);
 
   useEffect(() => {
     if (authenticatedUser) {
@@ -34,7 +38,36 @@ function App() {
     return () => socket.disconnect(); // disconnect connection when leave chat room
   }, []);
 
-  return <Router />;
+  // connect to subscribe room (joined events)
+  useEffect(() => {
+    authenticatedUser?.EventUsers.forEach((event) => socket.emit("joinRoom", `${event.eventId}`));
+    return () => {
+      authenticatedUser?.EventUsers.forEach((event) =>
+        socket.emit("leaveRoom", `${event.eventId}`)
+      );
+    };
+  }, [authenticatedUser]);
+
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("notification", (data) => {
+      console.log("from noti ---> ", data);
+      setIsNotification(true);
+      setTimeout(() => {
+        setIsNotification(false);
+      }, 2000);
+    });
+    return () => {
+      socket.off("notification");
+    };
+  }, [socket]);
+
+  return (
+    <>
+      <Router />
+      {isNotification && <NotificationBox />}
+    </>
+  );
 }
 
 export default App;

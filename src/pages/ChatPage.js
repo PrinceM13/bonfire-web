@@ -19,11 +19,6 @@ export default function ChatPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    socket.emit("joinRoom", eventId);
-    return () => socket.emit("leaveRoom", eventId);
-  }, []);
-
-  useEffect(() => {
     if (!socket) return;
     socket.on("message", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
