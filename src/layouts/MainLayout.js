@@ -1,8 +1,10 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import BackIcon from "../assets/icons/BackIcon";
 import SettingBtn from "../assets/icons/SettingBtn";
 import Background from "../components/background/Background";
+import { getEventsById } from "../redux/event-slice";
 import ContentLayout from "./ContentLayout";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -29,6 +31,14 @@ export default function MainLayout() {
   const isEditPath = useLocation().pathname.split("/")[fullPath.length - 1];
 
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const eventFromId = useSelector((state) => state.event.eventFromId);
+
+  const { eventId } = param;
+  const thisEvent = eventFromId[eventId];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    path === "chat" && !thisEvent && dispatch(getEventsById(eventId)); // fetch data by id if refesh (refresh === events === no data)
+  }, []);
 
   if (isEditPath === "edit") {
     needHeader = false;
@@ -45,8 +55,8 @@ export default function MainLayout() {
       needPadding = false;
       break;
     case "chat":
-      title = "Group chat name";
-      subTitle = "Tap here for event info";
+      title = thisEvent?.title;
+      subTitle = <Link to={`/events/${eventId}`}>Tap here for event info</Link>;
       footerContent = "chat";
       break;
     case "profile":
