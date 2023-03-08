@@ -38,7 +38,10 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col items-center gap-4">
       <div>{socket?.id}</div>
-      <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white">
+      <button
+        onClick={() => socket.emit("joinEvent", { eventId })}
+        className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white"
+      >
         Yes, I will go
       </button>
       <button

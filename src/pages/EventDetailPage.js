@@ -32,7 +32,7 @@ export default function EventDetailPage() {
   const [isEditEventOpen, setIsEditEventOpen] = useState(false);
 
   useEffect(() => {
-    !eventFromId[eventId] && navigate("/");
+    // !eventFromId[eventId] && navigate("/");
   }, [eventId]);
 
   return (
