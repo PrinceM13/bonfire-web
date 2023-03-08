@@ -18,13 +18,15 @@ export default function SearchLayout() {
   const events = useSelector((state) => state.event.events);
 
   const displayMarkers = events.map((el) => {
+    // console.log("el here",el)
     return {
       lat: +el?.EventDetail.latitude,
       lng: +el?.EventDetail.longitude,
       markerTitle: el?.title,
-      id: el?.id
+      id: el?.id,
     };
   });
+  // console.log("hhhhhh",displayMarkers)
 
   const path = useLocation().pathname.split("/")[1];
   switch (path) {
