@@ -8,10 +8,11 @@ import Dot from "../assets/icons/Dot";
 import { useDispatch, useSelector } from "react-redux";
 import useClickOutSide from "../hook/useClickOutSide";
 import { useEffect, useState } from "react";
-import { deleteEvent } from "../redux/event-slice";
+import { deleteEvent, getAllEvents } from "../redux/event-slice";
 import Modal from "../components/Modal";
 import ButtonConfirm from "../components/ButtonConfirm";
 import EditEvent from "../components/edit/EditEvent";
+import * as eventApi from "../api/event-api";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
@@ -32,8 +33,18 @@ export default function EventDetailPage() {
   const [isEditEventOpen, setIsEditEventOpen] = useState(false);
 
   useEffect(() => {
-    !eventFromId[eventId] && navigate("/");
+    // !eventFromId[eventId] && navigate("/");
   }, [eventId]);
+
+  const isUserInterested = eventFromId[eventId]?.EventUsers.filter(
+    (el) => el.userId === authenticatedUser.id
+  ).length;
+
+  const handleJoinUsClick = async () => {
+    await eventApi.createEventUser({ eventId });
+    dispatch(getAllEvents());
+    navigate(`/chat/${eventId}`);
+  };
 
   return (
     <>
@@ -105,9 +116,30 @@ export default function EventDetailPage() {
         <PostEventDetail />
       </Post>
       <div className="flex justify-center items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
-        <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-12 rounded-full font-bold text-white">
-          {authenticatedUser.id !== eventFromId[eventId]?.userId ? "JOIN US" : "GO TO CHAT"}
-        </button>
+        {authenticatedUser.id !== eventFromId[eventId]?.userId ? (
+          !isUserInterested ? (
+            <button
+              onClick={handleJoinUsClick}
+              className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-12 rounded-full font-bold text-white"
+            >
+              {"JOIN US"}
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate(`/chat/${eventId}`)}
+              className="bg-gradient-to-b from-[#EB4E53] to-[#e8d294] p-1 px-12 rounded-full font-bold text-white"
+            >
+              {"GO TO CHAT"}
+            </button>
+          )
+        ) : (
+          <button
+            onClick={() => navigate(`/chat/${eventId}`)}
+            className="bg-gradient-to-b from-[#EB4E53] to-[#e8d294] p-1 px-12 rounded-full font-bold text-white"
+          >
+            {"GO TO CHAT"}
+          </button>
+        )}
       </div>
     </>
   );
