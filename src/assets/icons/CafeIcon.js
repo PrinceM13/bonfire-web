@@ -1,8 +1,8 @@
 export default function CafeIcon() {
   return (
     <svg
-      width="90"
-      height="90"
+      width="60"
+      height="60"
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

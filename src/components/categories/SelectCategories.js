@@ -28,7 +28,7 @@ export default function SelectCategories({ onClose, setEventDetail }) {
       name={CategoryName}
       className="flex flex-col cursor-pointer rounded-lg hover:border-2 hover:border-gray-400"
     >
-      <div className="font-bold p-4 text-lg">
+      <div className="font-bold p-4 text-md">
         <div className="flex justify-center">{CategoryIcon}</div>
         <p className="text-center">{CategoryName}</p>
       </div>
@@ -37,8 +37,8 @@ export default function SelectCategories({ onClose, setEventDetail }) {
   return (
     /** ที่ div แรก ใส่ shadow-md หลัง bg-[] */
     <>
-      <div className="bg-[#ffffffaa] ">
-        <div className="grid grid-cols-2 gap-2 justify-center">
+      <div className="">
+        <div className="grid grid-cols-2 justify-center">
           {categories.map((category, idx) => CategoryTab(idx, category.image, category.title))}
         </div>
       </div>

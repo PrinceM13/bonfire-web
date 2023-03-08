@@ -37,8 +37,8 @@ export default function CreateEventPage() {
 
   const [tag, setTag] = useState("#");
 
-  const handleChange = updateObj => {
-    setEventDetail(state => ({ ...state, ...updateObj }));
+  const handleChange = (updateObj) => {
+    setEventDetail((state) => ({ ...state, ...updateObj }));
   };
 
   return (
@@ -60,7 +60,11 @@ export default function CreateEventPage() {
 
       {/* Categories */}
 
-      <Modal title="CATEGORIES" isOpen={isCategoryOpen} onClose={() => setIsCategoryOpen(false)}>
+      <Modal
+        title="What do you want to do ?"
+        isOpen={isCategoryOpen}
+        onClose={() => setIsCategoryOpen(false)}
+      >
         <SelectCategories
           onClose={() => setIsCategoryOpen(false)}
           setEventDetail={setEventDetail}
@@ -75,23 +79,23 @@ export default function CreateEventPage() {
           handleChange={handleChange}
           isEditAble={true}
           height="30vh"
-          needSearch={true} 
+          needSearch={true}
         />
         <VerticalSpace />
         <Input
           placeholder="latitude"
           value={eventDetail.latitude}
-          onChange={e => handleChange({ latitude: e.target.value })}
+          onChange={(e) => handleChange({ latitude: e.target.value })}
         />
         <Input
           placeholder="longitude"
           value={eventDetail.longitude}
-          onChange={e => handleChange({ longitude: e.target.value })}
+          onChange={(e) => handleChange({ longitude: e.target.value })}
         />
         <Input
           placeholder="location"
           value={eventDetail.location}
-          onChange={e => handleChange({ location: e.target.value })}
+          onChange={(e) => handleChange({ location: e.target.value })}
         />
         <VerticalSpace />
         <Button onClick={() => setIsMapOpen(false)}>PIN</Button>
@@ -108,13 +112,13 @@ export default function CreateEventPage() {
           type="date"
           placeholder="Date"
           value={eventDetail.date}
-          onChange={e => handleChange({ date: e.target.value })}
+          onChange={(e) => handleChange({ date: e.target.value })}
         />
         <Input
           type="time"
           placeholder="Time"
           value={eventDetail.time}
-          onChange={e => handleChange({ time: e.target.value })}
+          onChange={(e) => handleChange({ time: e.target.value })}
         />
         <VerticalSpace />
         <Button onClick={() => setIsDateTimeOpen(false)}>PICK</Button>
@@ -126,7 +130,7 @@ export default function CreateEventPage() {
         <Input
           placeholder="Tag"
           value={tag}
-          onChange={e =>
+          onChange={(e) =>
             setTag(
               e.target.value === ""
                 ? "#"
@@ -147,7 +151,7 @@ export default function CreateEventPage() {
           onClick={() => {
             handleChange({
               tags: [...eventDetail.tags, ...tag.replace(/#/g, "").split(" ")].filter(
-                tag => tag.trim() !== ""
+                (tag) => tag.trim() !== ""
               )
             });
             setTag("#");
@@ -164,7 +168,7 @@ export default function CreateEventPage() {
         <Input
           placeholder="Detail"
           value={eventDetail.detail}
-          onChange={e => handleChange({ detail: e.target.value })}
+          onChange={(e) => handleChange({ detail: e.target.value })}
         />
         <VerticalSpace />
         <Button
