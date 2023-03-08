@@ -12,7 +12,8 @@ export default function MapMarkers({
   circle,
   setCircle,
   handleChange,
-  isEditAble
+  isEditAble,
+  isLink
 }) {
   const geocoder = new window.google.maps.Geocoder();
 
@@ -64,12 +65,14 @@ export default function MapMarkers({
           onCloseClick={() => setSelected(null)}
         >
           <div>
-            <Link to={`/events/${selected.id}`}>
-              <div className="font-bold text-blue-500 text-lg underline ">
-                {selected.markerTitle}
-                <span className="text-xs"> (click to see event detail)</span>
-              </div>
-            </Link>
+            {isLink && (
+              <Link to={`/events/${selected.id}`}>
+                <div className="font-bold text-blue-500 text-lg underline ">
+                  {selected.markerTitle}
+                  <span className="text-xs"> (click to see event detail)</span>
+                </div>
+              </Link>
+            )}
             <h2>{locationInfo.name}</h2>
             <p className="font-bold">{locationInfo.detail}</p>
             {locationInfo.googleMapsLink && (
@@ -92,7 +95,7 @@ export default function MapMarkers({
                   handleChange({ latitude: "", longitude: "", location: "" });
                   setMarkers(
                     markers.filter(
-                      (marker) => marker.lat !== selected.lat || marker.lng !== selected.lng
+                      marker => marker.lat !== selected.lat || marker.lng !== selected.lng
                     )
                   );
                   setSelected(null);

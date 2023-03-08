@@ -24,11 +24,6 @@ const options = {
   zoomControl: true
 };
 
-const center = {
-  lat: 13.7450211,
-  lng: 100.5235765
-};
-
 export default function Map({
   isMultiMarker = true,
   isDebug = false,
@@ -36,7 +31,10 @@ export default function Map({
   height = "100vh",
   displayMarkers = [],
   isEditAble = false,
-  handleChange
+  handleChange,
+  lat = 13.7450211,
+  lng = 100.5235765,
+  isLink = true
 }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -46,6 +44,11 @@ export default function Map({
   const mapContainerStyle = {
     height,
     width: "screen"
+  };
+
+  const center = {
+    lat,
+    lng
   };
 
   // const [markers, setMarkers] = useState([{ lat: 0, lng: 0, location: "" }]);
@@ -69,7 +72,7 @@ export default function Map({
     displayMarkers.length !== 0 && setMarkers(displayMarkers);
   }, [displayMarkers]);
 
-  const handleSetMarker = (newMarkers) => {
+  const handleSetMarker = newMarkers => {
     console.log(newMarkers);
     if (isEditAble) {
       if (!isMultiMarker) {
@@ -87,7 +90,7 @@ export default function Map({
           }
         });
       } else {
-        setMarkers((current) => [...current, ...newMarkers]);
+        setMarkers(current => [...current, ...newMarkers]);
       }
     }
   };
@@ -116,7 +119,7 @@ export default function Map({
   // };
 
   const onMapClick = useCallback(
-    (e) => {
+    e => {
       console.log("fist click pls");
       handleSetMarker([{ lat: e.latLng.lat(), lng: e.latLng.lng() }]);
       // if (!isMultiMarker) {
@@ -166,7 +169,7 @@ export default function Map({
   // );
 
   const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
+  const onMapLoad = useCallback(map => {
     mapRef.current = map;
   }, []);
 
@@ -226,6 +229,7 @@ export default function Map({
             setCircle={setCircle}
             handleChange={handleChange}
             isEditAble={isEditAble}
+            isLink={isLink}
           />
           {/* {directions && (
             <DirectionsRenderer
