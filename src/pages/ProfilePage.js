@@ -13,7 +13,6 @@ export default function ProfilePage() {
   const param = useParams();
   const navigate = useNavigate();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
-  console.log(authenticatedUser);
 
   const userId = +param.userId;
   const [profile, setProfile] = useState({});
@@ -51,7 +50,7 @@ export default function ProfilePage() {
             </div>
             <div className="text-[#333333]">{profile?.username}</div>
             {authenticatedUser.id === userId && (
-              <Link to="/profile/:userId/edit">
+              <Link to={`/profile/${authenticatedUser.id}/edit`}>
                 <button className="mt-2 bg-gradient-to-b from-[#ffffff] to-[#D4D4D4] p-1 px-2 shadow-md rounded-full ">
                   Edit profile
                 </button>
