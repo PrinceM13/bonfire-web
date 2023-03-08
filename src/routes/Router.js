@@ -20,7 +20,8 @@ import Background from "../components/background/Background";
 import GoogleMap from "../components/GoogleMap";
 
 const router = createBrowserRouter([
-  { path: "/background", element: <Background /> },
+  // { path: "/background", element: <Background /> },
+  // { path: "/map", element: <GoogleMap /> },
   {
     path: "/register",
     element: <MainLayout />,
@@ -34,7 +35,6 @@ const router = createBrowserRouter([
       </RedirectIfAuthenticate>
     )
   },
-  { path: "/map", element: <GoogleMap /> },
   {
     path: "/",
     element: (
@@ -65,8 +65,22 @@ const router = createBrowserRouter([
       { path: "setting", element: <SettingPage /> }
     ]
   },
-  { path: "/create-event", element: <CreateEventPage /> },
-  { path: "*", element: <Navigate to="/" /> } // wrong path --> redirect to root path
+  {
+    path: "/create-event",
+    element: (
+      <ProtectRoute>
+        <CreateEventPage />
+      </ProtectRoute>
+    )
+  },
+  {
+    path: "*",
+    element: (
+      <ProtectRoute>
+        <Navigate to="/" />
+      </ProtectRoute>
+    )
+  } // wrong path --> redirect to root path
 ]);
 
 export default function Router() {

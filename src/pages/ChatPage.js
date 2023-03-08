@@ -1,34 +1,38 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import socket from "../config/socket";
 import InsertPhotoIcon from "../assets/icons/InsertPhotoIcon";
 import { useSelector } from "react-redux";
 
 export default function ChatPage() {
-  const socketId = useSelector((state) => state.chat.socketId);
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const eventFromId = useSelector((state) => state.event.eventFromId);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
-    { eventId: 999, socketId: 1, message: "dummy_msg_1" },
-    { eventId: 999, socketId: 2, message: "dummy_msg_2" },
-    { eventId: 999, socketId: 2, message: "dummy_msg_3" }
+    { eventId: 999, userId: 1111, message: "dummy_msg_1" },
+    { eventId: 999, userId: 2222, message: "dummy_msg_2" },
+    { eventId: 999, userId: 2222, message: "dummy_msg_3" }
   ]);
 
   const param = useParams();
   const eventId = param.eventId;
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!socket) return;
     socket.on("message", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+      data.eventId === eventId && setMessages((prevMessages) => [...prevMessages, data]);
     });
     return () => socket.off("message");
   }, [socket]);
 
   const handleSend = (e) => {
     e.preventDefault();
-    socket.emit("message", { eventId, socketId, message: input });
+    socket.emit("message", {
+      eventId,
+      userId: authenticatedUser.id,
+      username: authenticatedUser.username,
+      message: input
+    });
     setInput("");
   };
   const handleOnInputChange = (e) => {
@@ -37,31 +41,32 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div>{socket?.id}</div>
-      <button
-        onClick={() => socket.emit("joinEvent", { eventId })}
-        className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white"
-      >
-        Yes, I will go
-      </button>
-      <button
+      {/* <div>{socket?.id}</div> */}
+      {authenticatedUser?.id !== eventFromId[eventId]?.userId && (
+        <button
+          onClick={() =>
+            socket.emit("joinEvent", {
+              eventId,
+              userId: authenticatedUser.id,
+              username: authenticatedUser.username
+            })
+          }
+          className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white"
+        >
+          Yes, I will go
+        </button>
+      )}
+      {/* <button
         onClick={() => {
           navigate("/chatroom");
         }}
         className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white"
       >
         bye
-      </button>
+      </button> */}
       <div className="w-full bg-blue-200 p-4 rounded-lg">
         {messages.map((msg, idx) => (
-          <div
-            className={`
-            ${msg.socketId === socketId ? "text-right" : ""}
-            ${msg.socketId === "connect" ? "text-center text-green-700" : ""}
-            ${msg.socketId === "disconnect" ? "text-center text-red-700" : ""}
-            `}
-            key={idx}
-          >
+          <div className={`${msg.userId === authenticatedUser.id ? "text-right" : ""}`} key={idx}>
             {msg.message}
           </div>
         ))}

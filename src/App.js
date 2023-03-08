@@ -48,7 +48,7 @@ function App() {
   return (
     <>
       <Router />
-      <NotificationBox />
+      {/* <NotificationBox /> */}
     </>
   );
 }
