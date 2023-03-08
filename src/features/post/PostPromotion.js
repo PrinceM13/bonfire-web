@@ -4,6 +4,7 @@ import TimeIcon from "../../assets/icons/TimeIcon";
 import imageOne from "../../assets/icons/imageOne.jpg";
 import imageTwo from "../../assets/icons/imageTwo.jpg";
 import SportSmallIconTennis from "../../assets/icons/SportSmallIconTennis";
+import Spinner from "../../components/Spinner";
 
 export default function PostPromotion() {
   return (
@@ -60,6 +61,7 @@ export default function PostPromotion() {
           Create event
         </button>
       </div>
+      <Spinner />
     </div>
   );
 }

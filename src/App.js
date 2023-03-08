@@ -8,8 +8,11 @@ import { setSocketId } from "./redux/chat-slice";
 import Router from "./routes/Router";
 import * as userApi from "./api/user-api";
 import NotificationBox from "./components/NotificationBox";
+import useLoading from "./hook/useLoading";
+import Spinner from "./components/Spinner";
 
 function App() {
+  const { loading } = useLoading();
   const dispatch = useDispatch();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
 
@@ -47,6 +50,7 @@ function App() {
 
   return (
     <>
+      {loading && <Spinner />}
       <Router />
       {/* <NotificationBox /> */}
     </>

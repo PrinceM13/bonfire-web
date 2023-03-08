@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import * as authApi from "../../api/auth-api";
 import Input from "../../components/Input";
+import useLoading from "../../hook/useLoading";
 import validateRegister from "../../validators/register-validator";
 
 const initialInput = {
@@ -17,6 +18,7 @@ export default function RegisterForm() {
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
   const [checkEmailArray, setCheckEmailArray] = useState([]);
+  const { startLoading, stopLoading } = useLoading();
   useEffect(() => {
     const fetchEmail = async () => {
       const res = await authApi.checkEmail();
@@ -46,6 +48,7 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e) => {
     try {
+      startLoading();
       e.preventDefault();
       // might need data validation
       const result = validateRegister(input);
@@ -64,6 +67,8 @@ export default function RegisterForm() {
       }
     } catch (err) {
       console.log("error", err?.response?.data?.message);
+    } finally {
+      stopLoading();
     }
   };
 
