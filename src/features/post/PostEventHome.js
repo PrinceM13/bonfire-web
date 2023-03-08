@@ -24,9 +24,10 @@ export default function PostEventHome() {
   }, []);
 
   const navigate = useNavigate();
-  const showEvents = useSelector(state => state.event.events);
-  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
-  const tagSearch = useSelector(state => state.filter.tagSearch);
+  const showEvents = useSelector((state) => state.event.events);
+
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
+  const tagSearch = useSelector((state) => state.filter.tagSearch);
 
   const optionsDate = {
     day: "numeric",
@@ -46,135 +47,155 @@ export default function PostEventHome() {
 
   return (
     <>
-      {showEvents?.map(el => {
+      {showEvents?.map((el) => {
         return (
           (tagSearch === "" ||
-            el?.EventDetail.EventTags.some(tag =>
+            el.EventDetail.EventTags.some((tag) =>
               tag.Tag.titleTag.toLowerCase().includes(tagSearch.toLowerCase())
             )) && (
             <div
-              key={el?.id}
+              key={el.id}
               className="cursor-pointer"
               onClick={() => {
                 navigate(`/events/${el.id}`);
               }}
             >
               <Post>
-                <div className="bg-[#ffffffaa]">
-                  <div className="flex justify-items-start">
-                    <h1 className="font-bold text-2xl">{el?.title}</h1>
-                  </div>
-                  <div className="flex justify-between">
-                    <div>
-                      <div className="flex gap-4 pt-4 ">
-                        <div>
-                          <PinMapIcon size="15px" />
-                        </div>
-                        <div className="text-sm">{el?.EventDetail.location}</div>
-                      </div>
-                      <div className="py-2">
+                <div>
+                  <div className="pt-4 px-4">
+                    <div className="flex justify-items-start">
+                      <h1 className="font-bold text-2xl">{el.title}</h1>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <div className="py-2 w-[80%]">
                         <div className="flex gap-2">
-                          <div>
-                            <FoodSmallIcon size="15px" />
+                          <div className="flex flex-col">
+                            <div className="flex items-center justify-center h-6">
+                              <PinMapIcon size="20px" />
+                            </div>
+                            <div className="flex items-center justify-center h-6">
+                              <FoodSmallIcon size="20px" />
+                            </div>
+                            <div className="flex items-center justify-center h-6">
+                              <TagIcon size="20px" />
+                            </div>
                           </div>
-                          <div className="text-sm">{el?.EventDetail.category}</div>
+                          <div className="flex flex-col">
+                            <div className="text-sm h-6 flex items-center">
+                              <p className="whitespace-nowrap truncate w-[25%]">
+                                {el.EventDetail?.location}
+                              </p>
+                            </div>
+                            <div className="text-sm h-6 flex items-center w-full">
+                              <p className="">{el.EventDetail?.category}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-1 pt-1 drop-shadow-md">
+                              {el.EventDetail.EventTags.map((item) => (
+                                <Tag key={item.Tag.id} tagTitle={`#${item.Tag?.titleTag}`} />
+                              ))}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex gap-4 pb-4">
-                        <div className="flex items-center">
-                          <TagIcon size="15px" />
+                      <div className="w-[25%]">
+                        <div className="">
+                          <Avatar src={el.User.profileImage} size="100%" />
                         </div>
-                        <div className="flex flex-wrap gap-1">
-                          {el?.EventDetail.EventTags.map(item => (
-                            <Tag key={item.Tag.id} tagTitle={`#${item.Tag?.titleTag}`} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#E5E5E5] flex justify-center items-center rounded-lg drop-shadow-lg">
+                    <div className="">
+                      {/* <PictureIcon size="100%" /> */}
+                      <img src={el.EventDetail?.image} alt="" className="rounded-lg" />
+                    </div>
+                  </div>
+
+                  <div className="px-4">
+                    <div className="py-4 flex justify-between">
+                      <div className="flex gap-2 w-[45%]">
+                        <div className="flex flex-col">
+                          <div className="h-6 flex items-center justify-center">
+                            <CalendarIcon size="20px" />
+                          </div>
+                          <div className="h-6 flex items-center justify-center">
+                            <TimeIcon size="20px" />
+                          </div>
+                        </div>
+                        <div className="flex flex-col">
+                          <div className="text-xs h-6 flex items-center">
+                            {new Date(el.EventDetail?.date).toLocaleDateString(
+                              "en-US",
+                              optionsDate
+                            )}
+                          </div>
+                          <div className="flex flex-wrap">
+                            <div className="text-xs h-6 flex items-center">
+                              {new Date(
+                                el.EventDetail?.date + "T" + el.EventDetail?.time
+                              ).toLocaleTimeString("en-US", { timeStyle: "short" })}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-[50%]">
+                        <div className="flex gap-2">
+                          <div className="flex items-center">
+                            <UserGroupIcon size="20px" />
+                          </div>
+                          <div className="flex flex-wrap text-xs">
+                            <div className="h-6 flex items-center">
+                              {el.EventDetail?.Rule?.paticipant
+                                ? `${el.EventUsers.reduce((acc, el) => {
+                                    if (el.status === "JOINED") {
+                                      acc += 1;
+                                    }
+                                    return acc;
+                                  }, 0)}/${el.EventDetail.Rule?.paticipant} going,`
+                                : "Unlimit"}
+                            </div>
+                            <div className="h-6 flex items-center">{`${el.EventUsers.reduce(
+                              (acc, el) => {
+                                if (el.status === "INTERESTED") {
+                                  acc += 1;
+                                }
+                                return acc;
+                              },
+                              0
+                            )} interested`}</div>
+                          </div>
+                        </div>
+                        {/* {authenticatedUser.id !== el.userId && ( */}
+                        {/* <div> */}
+                        {authenticatedUser.id !== el.userId &&
+                          (el.EventUsers.filter((el) => el.userId === authenticatedUser.id)
+                            .length !== 0 ? (
+                            <div
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(`/chat/${el.id}`);
+                              }}
+                              className="bg-gradient-to-b from-[#EB4E53] w-[90%] to-[#e8d294] p-[2px] mt-1 rounded-full font-bold text-white text-center text-sm drop-shadow-md"
+                            >
+                              GO TO CHAT
+                            </div>
+                          ) : (
+                            <div
+                              onClick={(e) => handleJoinUsClick(e, el.id)}
+                              className="bg-gradient-to-b from-[#006567] w-[90%] to-[#94C1E8] p-[2px] mt-1 rounded-full font-bold text-white text-center text-sm drop-shadow-md"
+                            >
+                              JOIN US
+                            </div>
                           ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-[25%]">
-                      <div className="py-4">
-                        <Avatar size="100%" />
+                        {/* </div> */}
+                        {/* )} */}
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-center items-center bg-[#D4D4D4] ">
-                    <div className="w-[25%] py-10">
-                      <PictureIcon size="100%" />
-                    </div>
-                  </div>
-                  <div className="py-4 flex justify-between">
-                    <div className="w-[40%]">
-                      <div className="flex gap-2 py-1">
-                        <div>
-                          <CalendarIcon size="15px" />
-                        </div>
-                        <div className="text-xs">
-                          {new Date(el?.EventDetail?.date).toLocaleDateString("en-US", optionsDate)}
-                        </div>
-                      </div>
-                      <div className="flex gap-2 py-1 flex-wrap">
-                        <div className="flex items-center">
-                          <TimeIcon size="15px" />
-                        </div>
-                        <div className="text-xs">
-                          {new Date(
-                            el?.EventDetail?.date + "T" + el?.EventDetail?.time
-                          ).toLocaleTimeString("en-US", { timeStyle: "short" })}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-[50%]">
-                      <div className="flex gap-2">
-                        <div className="flex items-center">
-                          <UserGroupIcon size="15px" />
-                        </div>
-                        <div className="flex flex-wrap gap-1 text-sm">
-                          <div>
-                            {el?.EventDetail?.Rule?.paticipant
-                              ? `${el?.EventUsers.reduce((acc, el) => {
-                                  if (el?.status === "JOINED") {
-                                    acc += 1;
-                                  }
-                                  return acc;
-                                }, 0)}/${el?.EventDetail.Rule?.paticipant} going,`
-                              : "Unlimit"}
-                          </div>
-                          <div>{`${el?.EventUsers.reduce((acc, el) => {
-                            if (el?.status === "INTERESTED") {
-                              acc += 1;
-                            }
-                            return acc;
-                          }, 0)} interested`}</div>
-                        </div>
-                      </div>
-                      {/* {authenticatedUser.id !== el.userId && ( */}
-                      {/* <div> */}
-                      {authenticatedUser.id !== el?.userId &&
-                        (el?.EventUsers.filter(el => el?.userId === authenticatedUser.id).length !==
-                        0 ? (
-                          <div
-                            onClick={e => {
-                              e.stopPropagation();
-                              navigate(`/chat/${el?.id}`);
-                            }}
-                            className="bg-gradient-to-b from-[#EB4E53] w-full to-[#e8d294] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
-                          >
-                            GO TO CHAT
-                          </div>
-                        ) : (
-                          <div
-                            onClick={e => handleJoinUsClick(e, el?.id)}
-                            className="bg-gradient-to-b from-[#006567] w-full to-[#94C1E8] p-1 px-2 rounded-full mt-2 font-bold text-white text-center"
-                          >
-                            JOIN US
-                          </div>
-                        ))}
-                      {/* </div> */}
-                      {/* )} */}
-                    </div>
-                  </div>
-                  <div className="border-black border-2 p-4 rounded-lg text-sm">
-                    <p>{el?.EventDetail?.detail}</p>
+                  <div className="bg-[#E5E5E5] rounded-lg drop-shadow-lg p-4 text-sm">
+                    <p>{el.EventDetail?.detail}</p>
                   </div>
                 </div>
               </Post>

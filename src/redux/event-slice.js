@@ -16,7 +16,6 @@ const eventSlice = createSlice({
       state.events = state.events.filter((event) => event.id !== +action.payload);
     },
     updateEvents: (state, action) => {
-      console.log(action.payload);
       state.events[action.payload.idx].EventDetail = {
         ...state.events[action.payload.idx].EventDetail,
         ...action.payload.subEvent
@@ -31,7 +30,9 @@ const eventSlice = createSlice({
           EventDetail: event.EventDetail,
           EventUsers: event.EventUsers,
           User: event.User,
-          idx
+          idx,
+          createdAt: event.createdAt,
+          updatedAt: event.updatedAt
         };
         return acc;
       }, {});
@@ -44,7 +45,9 @@ const eventSlice = createSlice({
           EventDetail: event.EventDetail,
           EventUsers: event.EventUsers,
           User: event.User,
-          idx: event.idx
+          idx: event.idx,
+          createdAt: event.createdAt,
+          updatedAt: event.updatedAt
         };
         return acc;
       }, {});

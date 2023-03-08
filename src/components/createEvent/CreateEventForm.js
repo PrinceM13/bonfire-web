@@ -3,7 +3,7 @@ import TagIcon from "../../assets/icons/TagIcon";
 import Input from "../Input";
 import * as eventApi from "../../api/event-api";
 import validateCreateEvent from "../../validators/create-event-validator";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function CreateEventForm({
   eventDetail,
@@ -16,6 +16,9 @@ export default function CreateEventForm({
   isDetailOpen
 }) {
   const [error, setError] = useState({});
+  const [image, setImage] = useState(null);
+  console.log(image);
+  const inputEl = useRef();
   const CreateInputForm = (placeholder, title, value, error) => {
     return (
       <div className="flex gap-3 w-full my-6">
@@ -35,37 +38,65 @@ export default function CreateEventForm({
   };
 
   const handleSubmit = async (e) => {
-    // try {
-    //   e.preventDefault();
-    //   // data validation
-    //   const result = validateCreateEvent(eventDetail);
-    //   if (result) {
-    //     setError(result);
-    //   } else {
-    //     setError({});
-    //     await eventApi.createEvent(eventDetail);
-    //     onClear();
-    //   }
-    // } catch (err) {
-    //   console.log("error", err?.response?.data?.message);
-    // }
-    e.preventDefault();
-    const res = await eventApi.createEvent(eventDetail);
-    onClear();
+    try {
+      e.preventDefault();
+      const result = validateCreateEvent(eventDetail);
+      if (result) {
+        setError(result);
+      } else {
+        setError({});
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("title", eventDetail.title);
+        formData.append("latitude", eventDetail.latitude);
+        formData.append("longitude", eventDetail.longitude);
+        formData.append("location", eventDetail.location);
+        formData.append("date", eventDetail.date);
+        formData.append("time", eventDetail.time);
+        formData.append("paticipant", eventDetail.paticipant);
+        formData.append("age", eventDetail.age);
+        formData.append("category", eventDetail.category);
+        formData.append("tags", eventDetail.tags.join("#"));
+        formData.append("detail", eventDetail.detail);
+        await eventApi.createEvent(formData);
+        onClear();
+      }
+    } catch (err) {
+      console.log("error", err?.response?.data?.message);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <div className="flex justify-center ">
+        <div className="h-[100%] w-[100%] flex justify-center rounded-xl">
+          <div className=" bg-[#D4D4D4] rounded-lg shadow-md h-[300px] w-[300px]">
+            <img
+              src={image ? URL.createObjectURL(image) : null}
+              className="h-[300px] w-[300px] rounded-xl"
+              alt="Event Image"
+            />
+          </div>
+        </div>
+        <div className="flex justify-center mt-2">
           <button
             type="button"
-            className="grid justify-center content-center bg-[#D4D4D4] rounded-lg w-[50vw] h-[30vh] py-4 shadow-md"
+            className="font-bold text-[#6A6A6A] text-sm"
+            onClick={() => inputEl.current.click()}
           >
-            <PictureIcon />
+            Add Image
           </button>
+          <input
+            type="file"
+            name="image"
+            ref={inputEl}
+            className="hidden"
+            error={error.image}
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+          />
         </div>
-
         {CreateInputForm("Event Name", "title", eventDetail.title, error.title)}
 
         {/* Pin */}
@@ -77,7 +108,7 @@ export default function CreateEventForm({
           <div className="w-full" onClick={isMapOpen}>
             <Input
               name="location"
-              error={error.latitude || error.longitude || error.location}
+              error={error.location || error.latitude || error.longitude}
               placeholder="Pin your location"
               readOnly={true}
               value={
@@ -141,7 +172,13 @@ export default function CreateEventForm({
           </div>
           <div className="w-full" onClick={isTagOpen}>
             {eventDetail.tags.length === 0 ? (
-              <Input placeholder="Tag" readOnly={true} cursor="cursor-pointer" />
+              <Input
+                placeholder="Tag"
+                readOnly={true}
+                cursor="cursor-pointer"
+                name="tags"
+                value={eventDetail.tags}
+              />
             ) : (
               <p
                 className="w-full shadow rounded-3xl my-2 border-2 p-1 px-2 break-words"
