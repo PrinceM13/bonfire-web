@@ -83,10 +83,12 @@ export default function PostEventHome() {
                           </div>
                           <div className="flex flex-col">
                             <div className="text-sm h-6 flex items-center">
-                              {el.EventDetail?.location}
+                              <p className="whitespace-nowrap truncate w-[25%]">
+                                {el.EventDetail?.location}
+                              </p>
                             </div>
-                            <div className="text-sm h-6 flex items-center">
-                              {el.EventDetail?.category}
+                            <div className="text-sm h-6 flex items-center w-full">
+                              <p className="">{el.EventDetail?.category}</p>
                             </div>
                             <div className="flex flex-wrap gap-1 pt-1 drop-shadow-md">
                               {el.EventDetail.EventTags.map((item) => (
