@@ -50,7 +50,7 @@ export default function ProfilePage() {
             </div>
             <div className="text-[#333333]">{profile?.username}</div>
             {authenticatedUser.id === userId && (
-              <Link to="/profile/:userId/edit">
+              <Link to={`/profile/${authenticatedUser.id}/edit`}>
                 <button className="mt-2 bg-gradient-to-b from-[#ffffff] to-[#D4D4D4] p-1 px-2 shadow-md rounded-full ">
                   Edit profile
                 </button>
@@ -60,8 +60,18 @@ export default function ProfilePage() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <div className="font-bold">Bio</div>
-          <div className="font-bold">Links</div>
+          <div className="flex">
+            <div className="font-bold">Bio&nbsp;:&nbsp;&nbsp;</div>
+            <div className="w-full">
+              <span>{authenticatedUser.bio}</span>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="font-bold">Links&nbsp;:&nbsp;&nbsp;</div>
+            <div className="w-full">
+              <span>{authenticatedUser.bio}</span>
+            </div>
+          </div>
           {/* <div className="font-bold">Interest</div> */}
         </div>
         <div className="flex ">

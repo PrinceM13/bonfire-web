@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import MagnifyingGlassIcon from "../assets/icons/MagnifyingGlassIcon";
 import Avatar from "../components/Avatar";
@@ -18,7 +18,6 @@ export default function Header({
 }) {
   const [tagsData, setTagsData] = useState([]);
   const [tagsFilter, setTagsFilter] = useState("");
-  const [isSearchResultOpen, setIsSearchResultOpen] = useState(true);
 
   const dispatch = useDispatch();
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
@@ -36,25 +35,13 @@ export default function Header({
     return () => clearTimeout(idTimeout);
   }, [tagsFilter]);
 
-  // clear filter when change page
-  const param = useParams();
-  useEffect(() => {
-    setTagsFilter("");
-  }, [param]);
-
   const handleChangeInput = (e) => {
-    setIsSearchResultOpen(true);
     setTagsFilter(e.target.value);
-  };
-
-  const handleSearchResultClick = (e) => {
-    setTagsFilter(e.target.textContent);
-    setIsSearchResultOpen(false);
   };
   return (
     <>
       {content === "" && (
-        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full shadow-lg z-40">
+        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full shadow-xl z-40">
           <div className="flex relative justify-between items-center gap-4">
             <div className={`px-2 ${leftBtn === "" ? "invisible" : ""}`}>
               {leftBtn === "" ? rightBtn : leftBtn}
@@ -71,32 +58,32 @@ export default function Header({
       )}
 
       {content === "search" && (
-        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full z-40">
+        <div className="px-4 pt-[6vh] bg-white h-[13vh] top-0 left-0 fixed w-full  z-40">
           <div className=""></div>
           <div className="px-8 pt-[5vh] bg-white h-[13vh] top-0 left-0 fixed w-full flex">
             <div className="w-full flex flex-col">
               <div className="flex items-center gap-4">
-                <div className="border-[1px] border-gray-500 bg-white px-3 py-1.5 w-full rounded-full flex justify-between">
-                  <div className="flex items-center">
-                    <MagnifyingGlassIcon />
+                <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-full flex justify-between">
+                  <div className="flex w-full items-center justify-center bg-white rounded-full px-3 py-1 shadow-md gap-2">
+                    <div className="flex items-center">
+                      <MagnifyingGlassIcon />
+                    </div>
+                    <input
+                      className="w-full outline-none"
+                      placeholder="Search"
+                      onChange={handleChangeInput}
+                    />
                   </div>
-                  <input
-                    className="w-full outline-none px-2"
-                    placeholder="Search"
-                    onChange={handleChangeInput}
-                    value={tagsFilter}
-                  />
                 </div>
 
                 <div className="w-[45px]">
-                  {/* <Link to={`/chatroom`}> */}
-                  <Link to={`/profile/${authenticatedUser.id}`}>
+                  <Link to="/profile/:userId/">
                     <Avatar src={authenticatedUser.profileImage} size="100%" />
                   </Link>
                 </div>
               </div>
 
-              {tagsFilter !== "" && tagsData.length !== 0 && isSearchResultOpen && (
+              {tagsFilter !== "" && tagsData.length !== 0 && (
                 <div className="flex items-center gap-4">
                   <div className="px-4 w-full flex justify-between">
                     <div className="invisible">
@@ -105,11 +92,7 @@ export default function Header({
                     {tagsFilter !== "" && (
                       <div className="w-full">
                         {tagsData.map((tags) => (
-                          <div
-                            key={tags.id}
-                            onClick={handleSearchResultClick}
-                            className="bg-white border border-gray-100 p-1"
-                          >
+                          <div key={tags.id} className="bg-white border border-gray-100 p-1">
                             {tags.titleTag}
                           </div>
                         ))}

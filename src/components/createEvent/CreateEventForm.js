@@ -32,23 +32,32 @@ export default function CreateEventForm({
   };
 
   const handleSubmit = async (e) => {
-    // try {
-    //   e.preventDefault();
-    //   // data validation
-    //   const result = validateCreateEvent(eventDetail);
-    //   if (result) {
-    //     setError(result);
-    //   } else {
-    //     setError({});
-    //     await eventApi.createEvent(eventDetail);
-    //     onClear();
-    //   }
-    // } catch (err) {
-    //   console.log("error", err?.response?.data?.message);
-    // }
-    e.preventDefault();
-    const res = await eventApi.createEvent(eventDetail);
-    onClear();
+    try {
+      e.preventDefault();
+      const result = validateCreateEvent(eventDetail);
+      if (result) {
+        setError(result);
+      } else {
+        setError({});
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("title", eventDetail.title);
+        formData.append("latitude", eventDetail.latitude);
+        formData.append("longitude", eventDetail.longitude);
+        formData.append("location", eventDetail.location);
+        formData.append("date", eventDetail.date);
+        formData.append("time", eventDetail.time);
+        formData.append("paticipant", eventDetail.paticipant);
+        formData.append("age", eventDetail.age);
+        formData.append("category", eventDetail.category);
+        formData.append("tags", eventDetail.tags.join("#"));
+        formData.append("detail", eventDetail.detail);
+        await eventApi.createEvent(formData);
+        onClear();
+      }
+    } catch (err) {
+      console.log("error", err?.response?.data?.message);
+    }
   };
 
   return (
