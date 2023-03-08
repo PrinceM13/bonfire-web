@@ -16,7 +16,6 @@ const eventSlice = createSlice({
       state.events = state.events.filter((event) => event.id !== +action.payload);
     },
     updateEvents: (state, action) => {
-      console.log(action.payload);
       state.events[action.payload.idx].EventDetail = {
         ...state.events[action.payload.idx].EventDetail,
         ...action.payload.subEvent
@@ -24,7 +23,6 @@ const eventSlice = createSlice({
     },
     // -------------------------------------------------------------
     setEventFromId: (state, action) => {
-      console.log(action.payload);
       state.eventFromId = action.payload.reduce((acc, event, idx) => {
         acc[event.id] = {
           title: event.title,

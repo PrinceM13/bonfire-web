@@ -25,7 +25,7 @@ export default function PostEventHome() {
 
   const navigate = useNavigate();
   const showEvents = useSelector((state) => state.event.events);
-  console.log(showEvents);
+
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const tagSearch = useSelector((state) => state.filter.tagSearch);
 
