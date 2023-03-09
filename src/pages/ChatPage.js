@@ -77,10 +77,12 @@ export default function ChatPage() {
             <div className="flex items-center">
               <InsertPhotoIcon />
             </div>
-            <div className="flex border-[2px] items-center grow py-2 px-4 relative bg-white  border-gray-500 rounded-full">
-              <input className="w-full" onChange={handleOnInputChange} value={input} />
-              <div className=" right-2 top-2">
-                <button className="font-bold">Send</button>
+            <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-full flex justify-between">
+              <div className="flex w-full h-full items-center justify-center bg-white rounded-full p-1 px-2 ">
+                <input className="w-full" onChange={handleOnInputChange} value={input} />
+                <div className=" right-2 top-2">
+                  <button className="font-bold">Send</button>
+                </div>
               </div>
             </div>
           </div>
