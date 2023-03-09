@@ -76,16 +76,18 @@ export default function Header({
           <div className="px-8 pt-[5vh] bg-white h-[13vh] top-0 left-0 fixed w-full flex">
             <div className="w-full flex flex-col">
               <div className="flex items-center gap-4">
-                <div className="border-[1px] border-gray-500 bg-white px-3 py-1.5 w-full rounded-full flex justify-between">
-                  <div className="flex items-center">
-                    <MagnifyingGlassIcon />
+                <div className="bg-gradient-to-b from-[#6A6A6A] to-[#D4D4D4] p-[1.5px] w-full rounded-full flex justify-between">
+                  <div className="flex w-full h-full items-center justify-center bg-white rounded-full p-1 px-2">
+                    <div className="flex items-center">
+                      <MagnifyingGlassIcon />
+                    </div>
+                    <input
+                      className="w-full outline-none px-2"
+                      placeholder="Search"
+                      onChange={handleChangeInput}
+                      value={tagsFilter}
+                    />
                   </div>
-                  <input
-                    className="w-full outline-none px-2"
-                    placeholder="Search"
-                    onChange={handleChangeInput}
-                    value={tagsFilter}
-                  />
                 </div>
 
                 <div className="w-[45px]">
