@@ -14,11 +14,12 @@ import ButtonConfirm from "../components/ButtonConfirm";
 import EditEvent from "../components/edit/EditEvent";
 import * as eventApi from "../api/event-api";
 import { timeSince } from "../utils/date-format";
+import socket from "../config/socket";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
-  const eventFromId = useSelector(state => state.event.eventFromId);
-  const authenticatedUser = useSelector(state => state.auth.authenticatedUser);
+  const eventFromId = useSelector((state) => state.event.eventFromId);
+  const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
   const navigate = useNavigate();
   const { eventId } = useParams();
 
@@ -42,16 +43,21 @@ export default function EventDetailPage() {
     setTimepassed(eventFromId[eventId]);
   }, [timePassed]);
 
-  const timeAgo = () => timeSince(timePassed?.createdAt);
-
+  const TimeAgo = () => {
+    if (timePassed && timePassed?.createdAt) {
+      return <div>{timeSince(timePassed?.createdAt)}</div>;
+    }
+    return <div></div>;
+  };
 
   const isUserInterested = eventFromId[eventId]?.EventUsers.filter(
-    el => el.userId === authenticatedUser.id
+    (el) => el.userId === authenticatedUser.id
   ).length;
 
   const handleJoinUsClick = async () => {
     await eventApi.createEventUser({ eventId });
     dispatch(getAllEvents());
+    socket.emit("joinRoom", `${eventId}`);
     navigate(`/chat/${eventId}`);
   };
 
@@ -122,7 +128,7 @@ export default function EventDetailPage() {
         }
       />
       <Post>
-        <PostEventDetail timeAgo={timeAgo} />
+        <PostEventDetail timeAgo={<TimeAgo />} />
       </Post>
       <div className="flex justify-center items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
         {authenticatedUser.id !== eventFromId[eventId]?.userId ? (

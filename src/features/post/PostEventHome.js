@@ -12,6 +12,7 @@ import Avatar from "../../components/Avatar";
 import { getAllEvents } from "../../redux/event-slice";
 import Post from "./Post";
 import * as eventApi from "../../api/event-api";
+import socket from "../../config/socket";
 
 export default function PostEventHome() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ export default function PostEventHome() {
   const handleJoinUsClick = async (e, eventId) => {
     e.stopPropagation();
     await eventApi.createEventUser({ eventId });
+    socket.emit("joinRoom", `${eventId}`);
     navigate(`/chat/${eventId}`);
   };
 
