@@ -13,6 +13,8 @@ import Modal from "../components/Modal";
 import ButtonConfirm from "../components/ButtonConfirm";
 import EditEvent from "../components/edit/EditEvent";
 import * as eventApi from "../api/event-api";
+import { timeSince } from "../utils/date-format";
+import socket from "../config/socket";
 
 export default function EventDetailPage() {
   const dispatch = useDispatch();
@@ -31,10 +33,22 @@ export default function EventDetailPage() {
   };
 
   const [isEditEventOpen, setIsEditEventOpen] = useState(false);
+  const [timePassed, setTimepassed] = useState();
 
   useEffect(() => {
     // !eventFromId[eventId] && navigate("/");
   }, [eventId]);
+
+  useEffect(() => {
+    setTimepassed(eventFromId[eventId]);
+  }, [timePassed]);
+
+  const TimeAgo = () => {
+    if (timePassed && timePassed?.createdAt) {
+      return <div>{timeSince(timePassed?.createdAt)}</div>;
+    }
+    return <div></div>;
+  };
 
   const isUserInterested = eventFromId[eventId]?.EventUsers.filter(
     (el) => el.userId === authenticatedUser.id
@@ -43,6 +57,7 @@ export default function EventDetailPage() {
   const handleJoinUsClick = async () => {
     await eventApi.createEventUser({ eventId });
     dispatch(getAllEvents());
+    socket.emit("joinRoom", `${eventId}`);
     navigate(`/chat/${eventId}`);
   };
 
@@ -113,7 +128,7 @@ export default function EventDetailPage() {
         }
       />
       <Post>
-        <PostEventDetail />
+        <PostEventDetail timeAgo={<TimeAgo />} />
       </Post>
       <div className="flex justify-center items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
         {authenticatedUser.id !== eventFromId[eventId]?.userId ? (

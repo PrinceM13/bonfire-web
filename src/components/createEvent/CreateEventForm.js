@@ -3,7 +3,9 @@ import TagIcon from "../../assets/icons/TagIcon";
 import Input from "../Input";
 import * as eventApi from "../../api/event-api";
 import validateCreateEvent from "../../validators/create-event-validator";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useLoading from "../../hook/useLoading";
+import { useNavigate } from "react-router";
 
 export default function CreateEventForm({
   eventDetail,
@@ -16,6 +18,10 @@ export default function CreateEventForm({
   isDetailOpen
 }) {
   const [error, setError] = useState({});
+  const [image, setImage] = useState(null);
+  const { startLoading, stopLoading } = useLoading();
+  const navigate = useNavigate();
+  const inputEl = useRef();
   const CreateInputForm = (placeholder, title, value, error) => {
     return (
       <div className="w-full ">
@@ -30,7 +36,6 @@ export default function CreateEventForm({
       </div>
     );
   };
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -39,6 +44,7 @@ export default function CreateEventForm({
         setError(result);
       } else {
         setError({});
+        startLoading();
         const formData = new FormData();
         formData.append("image", image);
         formData.append("title", eventDetail.title);
@@ -57,6 +63,9 @@ export default function CreateEventForm({
       }
     } catch (err) {
       console.log("error", err?.response?.data?.message);
+    } finally {
+      stopLoading();
+      navigate("/");
     }
   };
 
@@ -109,8 +118,8 @@ export default function CreateEventForm({
             </div>
           </div>
 
-          {CreateInputForm("Max People", "paticipant", eventDetail.paticipant, error.paticipant)}
-          {CreateInputForm("Age", "age", eventDetail.age, error.age)}
+          {CreateInputForm("Max Joiners", "paticipant", eventDetail.paticipant, error.paticipant)}
+          {CreateInputForm("Min Joiner's Age", "age", eventDetail.age, error.age)}
 
           {/* Category */}
 

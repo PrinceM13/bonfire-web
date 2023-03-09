@@ -76,6 +76,7 @@ export default function CreateEventPage() {
           isEditAble={true}
           height="30vh"
           needSearch={true}
+          isLink={false}
         />
         <VerticalSpace />
         <Input

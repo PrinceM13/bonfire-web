@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { setUser } from "../../redux/auth-slice";
 import * as userApi from "../../api/user-api.js";
 import Avatar from "../Avatar";
+import useLoading from "../../hook/useLoading";
 
 export default function EditProfileForm() {
   const authenticatedUser = useSelector((state) => state.auth.authenticatedUser);
@@ -19,6 +20,7 @@ export default function EditProfileForm() {
   };
   const [input, setInput] = useState(initialInput);
   const [file, setFile] = useState(null);
+  const { startLoading, stopLoading } = useLoading();
 
   // console.log(file);
   const InputEditProfile = (inputName, inputValue) => (
@@ -30,6 +32,7 @@ export default function EditProfileForm() {
     />
   );
   const handleEditForm = async (e) => {
+    startLoading();
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -41,6 +44,8 @@ export default function EditProfileForm() {
       navigate(`/profile/${authenticatedUser?.id}`);
     } catch (err) {
       console.log(err);
+    } finally {
+      stopLoading();
     }
   };
   const TitleEditProfile = (Title) => (
