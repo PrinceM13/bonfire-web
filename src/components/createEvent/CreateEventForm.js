@@ -1,5 +1,3 @@
-import PictureIcon from "../../assets/icons/PictureIcon";
-import TagIcon from "../../assets/icons/TagIcon";
 import Input from "../Input";
 import * as eventApi from "../../api/event-api";
 import validateCreateEvent from "../../validators/create-event-validator";
@@ -24,11 +22,8 @@ export default function CreateEventForm({
   const inputEl = useRef();
   const CreateInputForm = (placeholder, title, value, error) => {
     return (
-      <div className="flex gap-3 w-full my-6">
-        <div className="w-[5vw] flex flex-col justify-center">
-          <TagIcon />
-        </div>
-        <div className="flex flex-col w-full">
+      <div className="w-full ">
+        <div className="flex flex-col w-full my-2">
           <Input
             placeholder={placeholder}
             onChange={(e) => handleChange({ [title]: e.target.value })}
@@ -74,43 +69,40 @@ export default function CreateEventForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <div className="h-[100%] w-[100%] flex justify-center rounded-xl">
-          <div className=" bg-[#D4D4D4] rounded-lg shadow-md h-[300px] w-[300px]">
-            <img
-              src={image ? URL.createObjectURL(image) : null}
-              className="h-[300px] w-[300px] rounded-xl"
-              alt="Event Image"
-            />
-          </div>
-        </div>
-        <div className="flex justify-center mt-2">
-          <button
-            type="button"
-            className="font-bold text-[#6A6A6A] text-sm"
-            onClick={() => inputEl.current.click()}
-          >
-            Add Image
-          </button>
-          <input
-            type="file"
-            name="image"
-            ref={inputEl}
-            className="hidden"
-            error={error.image}
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
+      <div className="h-[100%] w-[100%] flex justify-center rounded-xl">
+        <div className=" bg-[#D4D4D4] rounded-lg shadow-md h-[300px] w-[300px]">
+          <img
+            src={image ? URL.createObjectURL(image) : null}
+            className="h-[300px] w-[300px] rounded-xl"
+            alt="Event Image"
           />
         </div>
+      </div>
+      <div className="flex justify-center mt-2">
+        <button
+          type="button"
+          className="font-bold text-[#6A6A6A] text-sm"
+          onClick={() => inputEl.current.click()}
+        >
+          Add Image
+        </button>
+        <input
+          type="file"
+          name="image"
+          ref={inputEl}
+          className="hidden"
+          error={error.image}
+          onChange={(e) => {
+            setImage(e.target.files[0]);
+          }}
+        />
+      </div>
+      <div className="px-4">
         {CreateInputForm("Event Name", "title", eventDetail.title, error.title)}
 
         {/* Pin */}
 
-        <div className="flex gap-3 w-full my-6">
-          <div className="w-[5vw] flex flex-col justify-center">
-            <TagIcon />
-          </div>
+        <div className="w-full my-2">
           <div className="w-full" onClick={isMapOpen}>
             <Input
               name="location"
@@ -129,10 +121,7 @@ export default function CreateEventForm({
 
         {/* Date & Time */}
 
-        <div className="flex gap-3 w-full my-6">
-          <div className="w-[5vw] flex flex-col justify-center">
-            <TagIcon />
-          </div>
+        <div className="w-full my-2">
           <div className="w-full" onClick={isDateTimeOpen}>
             <Input
               name="dateTime"
@@ -154,10 +143,7 @@ export default function CreateEventForm({
 
         {/* Category */}
 
-        <div className="flex gap-3 w-full my-6">
-          <div className="w-[5vw] flex flex-col justify-center">
-            <TagIcon />
-          </div>
+        <div className="w-full my-2">
           <div className="w-full" onClick={isCategoryOpen}>
             <Input
               name="category"
@@ -172,10 +158,7 @@ export default function CreateEventForm({
 
         {/* Tag */}
 
-        <div className="flex gap-3 w-full my-6">
-          <div className="w-[5vw] flex flex-col justify-center">
-            <TagIcon />
-          </div>
+        <div className="w-full my-2">
           <div className="w-full" onClick={isTagOpen}>
             {eventDetail.tags.length === 0 ? (
               <Input
@@ -203,10 +186,7 @@ export default function CreateEventForm({
 
         {/* Detail */}
 
-        <div className="flex gap-3 w-full my-6">
-          <div className="w-[5vw] flex flex-col justify-center">
-            <TagIcon />
-          </div>
+        <div className="w-full my-2">
           <div className="w-full" onClick={isDetailOpen}>
             {eventDetail.detail === "" ? (
               <Input
@@ -228,11 +208,11 @@ export default function CreateEventForm({
             )}
           </div>
         </div>
-      </div>
-      <div className="flex justify-center w-full py-4">
-        <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white w-[80vw]">
-          Create Event
-        </button>
+        <div className="flex justify-center w-full py-4">
+          <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full font-bold text-white w-[80vw]">
+            Create Event
+          </button>
+        </div>
       </div>
     </form>
   );
