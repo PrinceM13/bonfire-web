@@ -12,19 +12,16 @@ import Map from "../map/Map";
 import { timeSince } from "../../utils/date-format";
 
 export default function PostEventDetail({ size, timeAgo }) {
-  const eventFromId = useSelector(state => state.event.eventFromId);
+  const eventFromId = useSelector((state) => state.event.eventFromId);
   const { eventId } = useParams();
   const navigate = useNavigate();
 
   const thisEvent = eventFromId[eventId];
-  console.log(thisEvent);
 
   const dispatch = useDispatch();
   useEffect(() => {
     !thisEvent && dispatch(getEventsById(eventId)); // fetch data by id if refesh (refresh === events === no data)
   }, []);
-
-  console.log("this event here", thisEvent?.EventDetail);
 
   const markerByRoomId = {
     lat: +thisEvent?.EventDetail.latitude,
@@ -57,16 +54,17 @@ export default function PostEventDetail({ size, timeAgo }) {
   const numAvailable = numPaticipant - numGoing;
   const eventUsers = thisEvent?.EventUsers;
 
-  const User = ({ userId, paticipantUsername, paticipantId, hostId, status }) => (
+  console.log("whatttttttttt", eventUsers);
+  const User = ({ userId, paticipantUsername, paticipantId, hostId, status, profileImage }) => (
     <div
       onClick={() => navigate(`/profile/${userId}`)}
       className="flex flex-col justify-center items-center p-2 w-[20%]"
     >
       <div>
-        <Avatar size="100%" />
+        <Avatar src={profileImage} size="100%" />
       </div>
-      <div className="font-bold text-sm text-[#000000]">
-        <div>{paticipantUsername}</div>
+      <div className="font-bold text-sm text-[#000000] w-[85%]">
+        <div className="whitespace-nowrap truncate w-full">{paticipantUsername}</div>
       </div>
       <div className=" text-xs text-[#000000]">
         <div>{paticipantId !== hostId ? status.slice(0, 5) + "..." : "Host"}</div>
@@ -96,9 +94,7 @@ export default function PostEventDetail({ size, timeAgo }) {
             <div className="text-[15px]">{location}</div>
           </div>
         </div>
-        <div className="text-sm my-2">
-          <div>{timeAgo}</div>
-        </div>
+        <div className="text-sm my-2">{timeAgo}</div>
       </div>
       <div className="flex gap-4 my-2">
         <div className="w-[100%]">
@@ -115,14 +111,14 @@ export default function PostEventDetail({ size, timeAgo }) {
       <div className="border-black border-2 p-4 rounded-lg text-sm">
         <p>{detail}</p>
       </div>
-      <div className="flex gap-4 py-2">
+      {/* <div className="flex gap-4 py-2">
         <div className="flex items-center w-[25%]">
           <MapMarkedIcon size="100%" />
         </div>
         <div className="border-black border-2 p-4 rounded-lg text-sm">
           <p>719 อาคารมิ้นท์ ทาวเวอร์ แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330</p>
         </div>
-      </div>
+      </div> */}
       <div className="flex gap-4 py-1">
         <div className="flex items-center w-[5%]">
           <UserGroupIcon size="100%" />
@@ -147,7 +143,7 @@ export default function PostEventDetail({ size, timeAgo }) {
             <div>Invite</div>
           </div>
         </button> */}
-        {eventUsers?.map(el => (
+        {eventUsers?.map((el) => (
           <User
             key={el.userId}
             userId={el.userId}
@@ -155,6 +151,7 @@ export default function PostEventDetail({ size, timeAgo }) {
             paticipantId={el.userId}
             hostId={eventFromId[eventId]?.userId}
             status={el.status}
+            profileImage={el.User.profileImage}
           />
         ))}
       </div>

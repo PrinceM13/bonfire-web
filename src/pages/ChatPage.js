@@ -9,9 +9,9 @@ export default function ChatPage() {
   const eventFromId = useSelector((state) => state.event.eventFromId);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
-    { eventId: 999, userId: 1111, message: "dummy_msg_1" },
-    { eventId: 999, userId: 2222, message: "dummy_msg_2" },
-    { eventId: 999, userId: 2222, message: "dummy_msg_3" }
+    { eventId: 999, userId: 1111, message: "let's go !!!" }
+    // { eventId: 999, userId: 2222, message: "dummy_msg_2" },
+    // { eventId: 999, userId: 2222, message: "dummy_msg_3" }
   ]);
 
   const param = useParams();
