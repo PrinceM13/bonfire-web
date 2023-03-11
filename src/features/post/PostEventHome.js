@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CalendarIcon from "../../assets/icons/CalendarIcon";
 import FoodSmallIcon from "../../assets/icons/FoodSmallIcon";
-import PictureIcon from "../../assets/icons/PictureIcon";
 import PinMapIcon from "../../assets/icons/PinMapIcon";
 import TagIcon from "../../assets/icons/TagIcon";
 import TimeIcon from "../../assets/icons/TimeIcon";
@@ -43,6 +42,7 @@ export default function PostEventHome() {
   const handleJoinUsClick = async (e, eventId) => {
     e.stopPropagation();
     await eventApi.createEventUser({ eventId });
+    dispatch(getAllEvents());
     socket.emit("joinRoom", `${eventId}`);
     navigate(`/chat/${eventId}`);
   };
