@@ -58,6 +58,7 @@ export default function MainLayout() {
       title = thisEvent?.title;
       subTitle = <Link to={`/events/${eventId}`}>Tap here for event info</Link>;
       footerContent = "chat";
+      needPadding = false;
       break;
     case "profile":
       title = "Profile";

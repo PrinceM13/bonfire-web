@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "../src/App.css";
@@ -7,7 +7,6 @@ import { setUser } from "./redux/auth-slice";
 import { setSocketId } from "./redux/chat-slice";
 import Router from "./routes/Router";
 import * as userApi from "./api/user-api";
-import NotificationBox from "./components/NotificationBox";
 import useLoading from "./hook/useLoading";
 import Spinner from "./components/Spinner";
 
@@ -52,7 +51,6 @@ function App() {
     <>
       {loading && <Spinner />}
       <Router />
-      {/* <NotificationBox /> */}
     </>
   );
 }
