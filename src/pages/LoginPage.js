@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Logo from "../assets/icons/bonfireLogo.svg";
+import BonfireLogo from "../assets/icons/BonfireLogo";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import Background from "../components/background/Background";
 import Modal from "../components/Modal";
@@ -59,16 +59,19 @@ export default function LoginPage() {
 
   return (
     <>
-      <Background bgColor="bg-[#F4EEE0]" />
+      <Background bgColor="bg-[#Ffffff]" />
       <div className="flex flex-col justify-center items-center mt-[13vh] gap-4">
-        <div className="flex items-center">
-          <img src={Logo} className="mx-auto" alt="logo" />
+        <div className="flex flex-col gap-1 m-2 justify-center">
+          <div className="flex justify-center mb-2">
+            <div className="bg-white rounded-full w-[110px] h-[110px] flex justify-center pt-[1px]">
+              <BonfireLogo />
+            </div>
+          </div>
+          <h1 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#006567] to-[#94C1E8] text-xl">
+            Welcome to Bonfire
+          </h1>
+          <h2 className="text-black text-center text-sm">Log in to continue</h2>
         </div>
-        <h1 className="font-extrabold text-transparent  bg-clip-text bg-gradient-to-r from-[#006567] to-[#94C1E8] p-2 ">
-          Welcome to Bonfire
-        </h1>
-        <h2 className="text-black text-center">Log in to continue</h2>
-
         <LoginForm />
 
         {/* Modal to get more info for 1st time google login */}
@@ -84,7 +87,7 @@ export default function LoginPage() {
 
         <div
           onClick={googleLogin}
-          className="bg-white mt-2 px-4 py-1.5 w-[90vw] shadow-md rounded-full flex justify-between cursor-pointer"
+          className="bg-white  px-4 py-1.5 w-[80vw] shadow-md rounded-full flex justify-between cursor-pointer"
         >
           <div>
             <GoogleIcon />
@@ -94,10 +97,10 @@ export default function LoginPage() {
             <GoogleIcon />
           </div>
         </div>
-        <hr className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-[1.5px] rounded-full w-[90vw]  shadow-md" />
+        <hr className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-[1.5px] rounded-full w-[80vw]  shadow-md" />
         <Link to="/register">
-          <div className="mt-2 flex justify-center">
-            <button className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-2 rounded-full w-[90vw] text-white font-bold shadow-md">
+          <div className=" flex justify-center">
+            <button className=" bg-gradient-to-r from-[#006567] to-[#94C1E8] p-2 rounded-full w-[80vw] text-white font-bold shadow-md">
               Sign Up
             </button>
           </div>

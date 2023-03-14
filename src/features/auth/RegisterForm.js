@@ -74,7 +74,7 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         <div>
           <Input
             placeholder="First Name"
@@ -143,9 +143,11 @@ export default function RegisterForm() {
           />
         </div>
         <div className="flex justify-center">
-          <div className="flex gap-4">
+          <div className="flex gap-2 mt-4">
             <input type="checkbox" className="default:ring-2" />
-            <span>please read the condition before create account</span>
+            <span className="text-xs font-bold">
+              please read the condition before create account
+            </span>
           </div>
         </div>
         <div className="mt-2 flex justify-center">

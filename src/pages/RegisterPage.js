@@ -4,8 +4,10 @@ import RegisterForm from "../features/auth/RegisterForm";
 export default function LoginPage() {
   return (
     <>
-      <Background bgColor="bg-[#F4EEE0]" />
-      <RegisterForm />;
+      <Background bgColor="bg-[#FFFFFF]" />
+      <div className="px-2">
+        <RegisterForm />;
+      </div>
     </>
   );
 }
