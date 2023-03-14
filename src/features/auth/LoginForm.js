@@ -21,23 +21,25 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col text-center">
-        <Input
-          type="email"
-          placeholder="Your Email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="text-center">
-        <Input
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col text-center">
+          <Input
+            type="email"
+            placeholder="Your Email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="text-center">
+          <Input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
       </div>
       <div className="mt-2 flex justify-center">
         <button
