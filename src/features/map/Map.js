@@ -258,17 +258,6 @@ export default function Map({
           </div> */}
         </GoogleMap>
       </div>
-      {isDebug && (
-        <div className="flex justify-between items-center bg-white h-[8vh] px-4 bottom-[-1px] right-0 fixed w-full shadow-lg">
-          <div className="flex grow justify-center">
-            <div>
-              <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-12 rounded-full font-bold text-white ">
-                SELECT
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

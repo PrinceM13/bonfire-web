@@ -15,9 +15,9 @@ export default function SearchLayout() {
   let haveFilter = false;
   let needSwitch = false;
 
-  const events = useSelector((state) => state.event.events);
+  const events = useSelector(state => state.event.events);
 
-  const displayMarkers = events.map((el) => {
+  const displayMarkers = events.map(el => {
     return {
       lat: +el?.EventDetail.latitude,
       lng: +el?.EventDetail.longitude,
@@ -61,7 +61,12 @@ export default function SearchLayout() {
           }
           rightPage={
             <div className="mt-[23vh]">
-              <Map height="69vh" isMultiMarker={true} displayMarkers={displayMarkers} />
+              <Map
+                height="69vh"
+                isMultiMarker={true}
+                displayMarkers={displayMarkers}
+                isDebug={true}
+              />
             </div>
           }
         />
