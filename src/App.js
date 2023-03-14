@@ -39,11 +39,13 @@ function App() {
 
   // connect to subscribe room (joined events)
   useEffect(() => {
-    authenticatedUser?.EventUsers && authenticatedUser?.EventUsers.forEach((event) => socket.emit("joinRoom", `${event.eventId}`));
+    authenticatedUser?.EventUsers &&
+      authenticatedUser?.EventUsers.forEach((event) => socket.emit("joinRoom", `${event.eventId}`));
     return () => {
-      authenticatedUser?.EventUsers && authenticatedUser?.EventUsers.forEach((event) =>
-        socket.emit("leaveRoom", `${event.eventId}`)
-      );
+      authenticatedUser?.EventUsers &&
+        authenticatedUser?.EventUsers.forEach((event) =>
+          socket.emit("leaveRoom", `${event.eventId}`)
+        );
     };
   }, [authenticatedUser]);
 

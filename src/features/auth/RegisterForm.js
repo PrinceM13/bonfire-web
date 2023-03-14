@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import * as authApi from "../../api/auth-api";
 import Input from "../../components/Input";
@@ -19,6 +20,7 @@ export default function RegisterForm() {
   const [error, setError] = useState({});
   const [checkEmailArray, setCheckEmailArray] = useState([]);
   const { startLoading, stopLoading } = useLoading();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchEmail = async () => {
       const res = await authApi.checkEmail();
@@ -64,6 +66,7 @@ export default function RegisterForm() {
         await authApi.register(input);
         // clean up
         setInput(initialInput);
+        navigate("/login");
       }
     } catch (err) {
       console.log("error", err?.response?.data?.message);
