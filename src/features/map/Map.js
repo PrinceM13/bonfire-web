@@ -214,7 +214,7 @@ export default function Map({
           mapContainerStyle={mapContainerStyle}
           options={options}
           onClick={onMapClick}
-          onLoad={onMapLoad}
+          onLoad={onMapLoad}        
         >
           <MapMarkers
             markers={markers}
@@ -227,7 +227,7 @@ export default function Map({
             setCircle={setCircle}
             handleChange={handleChange}
             isEditAble={isEditAble}
-            isLink={isLink}
+            isLink={isLink}    
           />
           {/* {directions && (
             <DirectionsRenderer
