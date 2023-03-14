@@ -16,13 +16,15 @@ export default function ChatRoom({ event }) {
   const eventDateTime = new Date(date + "T" + time).toLocaleDateString("en-US", options);
 
   return (
-    <div className="flex justify-between bg-white py-2 border-b-2 border-black px-4">
-      <div className="flex items-center bg-[#ffffff] w-[15%]">
-        <InsertPhotoIcon />
-      </div>
-      <div>
-        <div className="font-bold text-[12px] text-[#333333]">{eventDateTime}</div>
-        <div className="text-xl font-bold">{title}</div>
+    <div className="flex justify-between bg-[#ffffffbb] py-4  px-[4vh] shadow-lg">
+      <div className="flex justify-between gap-[8vh] ">
+        <div className="flex items-center ">
+          <InsertPhotoIcon />
+        </div>
+        <div>
+          <div className="font-bold text-xs text-[#333333]">{eventDateTime}</div>
+          <div className="text-xl font-normal">{title}</div>
+        </div>
       </div>
       <div className="flex flex-col justify-between w-[8%]">
         <div className="font-bold text-xs">4m</div>

@@ -17,6 +17,7 @@ export default function ChatRoomPage() {
 
   return (
     <>
+      <div className="flex bg-[#ffffffbb] py-4  px-[4vh]  text-xl font-bold">Chat room</div>
       {eventUsers?.map((event) => (
         <Link key={event.id} className="w-[60%]" to={`/chat/${event.Event.id}`}>
           <ChatRoom event={event} />
