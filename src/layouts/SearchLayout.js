@@ -34,6 +34,7 @@ export default function SearchLayout() {
       break;
     case "notifications":
       needFilter = false;
+      needPadding = false;
       break;
     case "":
       haveFilter = true;
