@@ -5,8 +5,11 @@ import imageOne from "../../assets/icons/imageOne.jpg";
 import imageTwo from "../../assets/icons/imageTwo.jpg";
 import SportSmallIconTennis from "../../assets/icons/SportSmallIconTennis";
 import Spinner from "../../components/Spinner";
+import { useNavigate } from "react-router-dom";
 
 export default function PostPromotion() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col">
       <div className="px-2 pt-2">
@@ -57,11 +60,17 @@ export default function PostPromotion() {
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full my-2 font-bold text-white w-[95%] min-w-min drop-shadow-lg">
+        <button
+          onClick={() => {
+            navigate("/create-event", {
+              state: { category: "sport", location: "Winner sports avenue" }
+            });
+          }}
+          className="bg-gradient-to-b from-[#006567] to-[#94C1E8] p-1 px-2 rounded-full my-2 font-bold text-white w-[95%] min-w-min drop-shadow-lg"
+        >
           Create event
         </button>
       </div>
-      <Spinner />
     </div>
   );
 }
