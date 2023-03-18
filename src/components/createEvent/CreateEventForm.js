@@ -4,6 +4,13 @@ import validateCreateEvent from "../../validators/create-event-validator";
 import { useRef, useState } from "react";
 import useLoading from "../../hook/useLoading";
 import { useNavigate } from "react-router";
+import CafeIcon from "../../assets/icons/CafeIcon";
+import FoodIcon from "../../assets/icons/FoodIcon";
+import GameIcon from "../../assets/icons/GameIcon";
+import MusicIcon from "../../assets/icons/MusicIcon";
+import TravelIcon from "../../assets/icons/TravelIcon";
+import SportIconTennis from "../../assets/icons/SportIconTennis";
+import { CAFE, FOOD, GAME, PARTY, SPORT, TRAVEL } from "../../config/constant";
 
 export default function CreateEventForm({
   eventDetail,
@@ -34,6 +41,29 @@ export default function CreateEventForm({
       </div>
     );
   };
+
+  let categoryPicture;
+  switch (eventDetail.category) {
+    case FOOD:
+      categoryPicture = <FoodIcon size={220} />;
+      break;
+    case SPORT:
+      categoryPicture = <SportIconTennis size={220} />;
+      break;
+    case CAFE:
+      categoryPicture = <CafeIcon size={220} />;
+      break;
+    case PARTY:
+      categoryPicture = <MusicIcon size={220} />;
+      break;
+    case GAME:
+      categoryPicture = <GameIcon size={220} />;
+      break;
+    case TRAVEL:
+      categoryPicture = <TravelIcon size={220} />;
+      break;
+  }
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -71,11 +101,17 @@ export default function CreateEventForm({
     <form onSubmit={handleSubmit}>
       <div className="h-[100%] w-[100%] flex justify-center rounded-xl">
         <div className=" bg-[#D4D4D4] rounded-lg shadow-md h-[300px] w-[300px]">
-          <img
-            src={image ? URL.createObjectURL(image) : null}
-            className="h-[300px] w-[300px] rounded-xl"
-            alt="Event Image"
-          />
+          {!image ? (
+            <div className="flex justify-center items-center h-[300px] w-[300px] rounded-xl bg-white">
+              {categoryPicture}
+            </div>
+          ) : (
+            <img
+              src={image ? URL.createObjectURL(image) : null}
+              className="h-[300px] w-[300px] rounded-xl"
+              alt="Event Image"
+            />
+          )}
         </div>
       </div>
       <div className="flex justify-center mt-2">
@@ -112,7 +148,7 @@ export default function CreateEventForm({
               value={
                 eventDetail.latitude === "" && eventDetail.longitude === ""
                   ? ""
-                  : `latitude: [${eventDetail.latitude}], longitude: [${eventDetail.longitude}]`
+                  : eventDetail.location
               }
               cursor="cursor-pointer"
             />
@@ -131,7 +167,7 @@ export default function CreateEventForm({
               value={
                 eventDetail.date === "" && eventDetail.time === ""
                   ? ""
-                  : `date: [${eventDetail.date}], time: [${eventDetail.time}]`
+                  : `${eventDetail.date}, ${eventDetail.time}`
               }
               cursor="cursor-pointer"
             />
